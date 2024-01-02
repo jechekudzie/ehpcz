@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\EmploymentLocation;
+use App\Models\EmploymentStatus;
 use App\Models\Profession;
+use App\Models\QualificationCategory;
 use App\Models\Requirement;
 use Illuminate\Database\Seeder;
 
@@ -24,15 +26,18 @@ class DatabaseSeeder extends Seeder
             GenderSeeder::class,
             ProfessionSeeder::class,
             QualificationSeeder::class,
-            InstitutionSeeder::class,
+            QualificationCategorySeeder::class,
             RequirementCategorySeeder::class,
             RequirementSeeder::class,
             RegisterSeeder::class,
             PaymentCategorySeeder::class,
             AddressTypeSeeder::class,
             ContactTypeSeeder::class,
-            CountriesSeeder::class
-
+            CountriesSeeder::class,
+            IdentificationTypeSeeder::class,
+            EmploymentSectorSeeder::class,
+            EmploymentStatusSeeder::class,
+            MaritalStatusSeeder::class,
         ]);
     }
 }

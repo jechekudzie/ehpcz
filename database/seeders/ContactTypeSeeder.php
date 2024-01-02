@@ -17,11 +17,13 @@ class ContactTypeSeeder extends Seeder
     {
         //
         $contactTypes = [
-            ["name" => "Mobile", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Email", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Business", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Mobile"],
+            ["name" => "Email"],
+            ["name" => "Business"],
         ];
 
-        ContactType::insert($contactTypes);
+        foreach ($contactTypes as $type) {
+            ContactType::create($type);
+        }
     }
 }

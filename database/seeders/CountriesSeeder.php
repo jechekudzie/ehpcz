@@ -252,6 +252,8 @@ class CountriesSeeder extends Seeder
 
             ];
 
-            Country::insert($countries);
+        foreach ($countries as $country) {
+            Country::create($country);
+        }
     }
 }

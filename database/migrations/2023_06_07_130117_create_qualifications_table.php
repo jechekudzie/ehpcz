@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('qualifications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('profession_id');
+            $table->unsignedBigInteger('profession_id')->nullable();
             $table->string('name');
             $table->longText('description')->nullable();
-            // Add your qualification fields here
+            $table->string('slug')->nullable();
             $table->timestamps();
 
             $table->foreign('profession_id')->references('id')->on('professions');

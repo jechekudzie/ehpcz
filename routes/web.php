@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Http\Controllers\IdentificationTypeController;
+use App\Http\Controllers\RequirementCategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -46,59 +48,187 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
+// Landing page
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
 // TitleController
-Route::resource('titles', TitleController::class);
+Route::resource('titles', TitleController::class)->names([
+    'index' => 'titles.index',
+    'create' => 'titles.create',
+    'store' => 'titles.store',
+    'show' => 'titles.show',
+    'edit' => 'titles.edit',
+    'update' => 'titles.update',
+    'destroy' => 'titles.destroy',
+]);
 
 // GenderController
-Route::resource('genders', GenderController::class);
+Route::resource('genders', GenderController::class)->names([
+    'index' => 'genders.index',
+    'create' => 'genders.create',
+    'store' => 'genders.store',
+    'show' => 'genders.show',
+    'edit' => 'genders.edit',
+    'update' => 'genders.update',
+    'destroy' => 'genders.destroy',
+]);
+
+// IdentificationTypeController
+Route::resource('identification-types', IdentificationTypeController::class)->names([
+    'index' => 'identification-types.index',
+    'create' => 'identification-types.create',
+    'store' => 'identification-types.store',
+    'show' => 'identification-types.show',
+    'edit' => 'identification-types.edit',
+    'update' => 'identification-types.update',
+    'destroy' => 'identification-types.destroy',
+]);
 
 // ContactTypeController
-Route::resource('contact-types', ContactTypeController::class);
+Route::resource('contact-types', ContactTypeController::class)->names([
+    'index' => 'contact-types.index',
+    'create' => 'contact-types.create',
+    'store' => 'contact-types.store',
+    'show' => 'contact-types.show',
+    'edit' => 'contact-types.edit',
+    'update' => 'contact-types.update',
+    'destroy' => 'contact-types.destroy',
+]);
 
 // AddressTypeController
-Route::resource('address-types', AddressTypeController::class);
+Route::resource('address-types', AddressTypeController::class)->names([
+    'index' => 'address-types.index',
+    'create' => 'address-types.create',
+    'store' => 'address-types.store',
+    'show' => 'address-types.show',
+    'edit' => 'address-types.edit',
+    'update' => 'address-types.update',
+    'destroy' => 'address-types.destroy',
+]);
 
 // ProfessionController
-Route::resource('professions', ProfessionController::class);
+Route::resource('professions', ProfessionController::class)->names([
+    'index' => 'professions.index',
+    'create' => 'professions.create',
+    'store' => 'professions.store',
+    'show' => 'professions.show',
+    'edit' => 'professions.edit',
+    'update' => 'professions.update',
+    'destroy' => 'professions.destroy',
+]);
 
 // QualificationController
-Route::resource('qualifications', QualificationController::class);
+Route::resource('qualifications', QualificationController::class)->names([
+    'index' => 'qualifications.index',
+    'create' => 'qualifications.create',
+    'store' => 'qualifications.store',
+    'show' => 'qualifications.show',
+    'edit' => 'qualifications.edit',
+    'update' => 'qualifications.update',
+    'destroy' => 'qualifications.destroy',
+]);
 
 // QualificationCategoryController
-Route::resource('qualification-categories', QualificationCategoryController::class);
+Route::resource('qualification-categories', QualificationCategoryController::class)->names([
+    'index' => 'qualification-categories.index',
+    'create' => 'qualification-categories.create',
+    'store' => 'qualification-categories.store',
+    'show' => 'qualification-categories.show',
+    'edit' => 'qualification-categories.edit',
+    'update' => 'qualification-categories.update',
+    'destroy' => 'qualification-categories.destroy',
+]);
 
 // QualificationLevelController
-Route::resource('qualification-levels', QualificationLevelController::class);
+Route::resource('qualification-levels', QualificationLevelController::class)->names([
+    'index' => 'qualification-levels.index',
+    'create' => 'qualification-levels.create',
+    'store' => 'qualification-levels.store',
+    'show' => 'qualification-levels.show',
+    'edit' => 'qualification-levels.edit',
+    'update' => 'qualification-levels.update',
+    'destroy' => 'qualification-levels.destroy',
+]);
 
 // RequirementsCategoryController
-Route::resource('requirements-categories', RequirementsCategoryController::class);
+Route::resource('requirement-categories', RequirementCategoryController::class)->names([
+    'index' => 'requirement-categories.index',
+    'create' => 'requirement-categories.create',
+    'store' => 'requirement-categories.store',
+    'show' => 'requirement-categories.show',
+    'edit' => 'requirement-categories.edit',
+    'update' => 'requirement-categories.update',
+    'destroy' => 'requirement-categories.destroy',
+]);
 
 // RequirementController
-Route::resource('requirements', RequirementController::class);
+Route::resource('requirements', RequirementController::class)->names([
+    'index' => 'requirements.index',
+    'create' => 'requirements.create',
+    'store' => 'requirements.store',
+    'show' => 'requirements.show',
+    'edit' => 'requirements.edit',
+    'update' => 'requirements.update',
+    'destroy' => 'requirements.destroy',
+]);
 
 // RegisterController
-Route::resource('registers', RegisterController::class);
+Route::resource('registers', RegisterController::class)->names([
+    'index' => 'registers.index',
+    'create' => 'registers.create',
+    'store' => 'registers.store',
+    'show' => 'registers.show',
+    'edit' => 'registers.edit',
+    'update' => 'registers.update',
+    'destroy' => 'registers.destroy',
+]);
 
 // InstitutionController
-Route::resource('institutions', InstitutionController::class);
+Route::resource('institutions', InstitutionController::class)->names([
+    'index' => 'institutions.index',
+    'create' => 'institutions.create',
+    'store' => 'institutions.store',
+    'show' => 'institutions.show',
+    'edit' => 'institutions.edit',
+    'update' => 'institutions.update',
+    'destroy' => 'institutions.destroy',
+]);
 
 // AccreditedInstitutionController
-Route::resource('accredited-institutions', AccreditedInstitutionController::class);
+Route::resource('accredited-institutions', AccreditedInstitutionController::class)->names([
+    'index' => 'accredited-institutions.index',
+    'create' => 'accredited-institutions.create',
+    'store' => 'accredited-institutions.store',
+    'show' => 'accredited-institutions.show',
+    'edit' => 'accredited-institutions.edit',
+    'update' => 'accredited-institutions.update',
+    'destroy' => 'accredited-institutions.destroy',
+]);
 
 // PaymentCategoryController
-Route::resource('payment-categories', PaymentCategoryController::class);
+Route::resource('payment-categories', PaymentCategoryController::class)->names([
+    'index' => 'payment-categories.index',
+    'create' => 'payment-categories.create',
+    'store' => 'payment-categories.store',
+    'show' => 'payment-categories.show',
+    'edit' => 'payment-categories.edit',
+    'update' => 'payment-categories.update',
+    'destroy' => 'payment-categories.destroy',
+]);
 
-Route::resource('contacts', ContactController::class);
 
+/*
+|--------------------------------------------------------------------------
+| Practitioners Dashboard Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('practitioner-contacts', ContactController::class);
 
-
-
-Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/admin/table', [AdminController::class, 'table']);
-Route::get('/admin/form', [AdminController::class, 'form']);
-Route::get('/admin/pickers', [AdminController::class, 'pickers']);
-Route::get('/admin/profile', [AdminController::class, 'profile']);
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+/*
+|--------------------------------------------------------------------------
+| Practitioners Dashboard Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/dashboard', function () {
     return view('dashboard');

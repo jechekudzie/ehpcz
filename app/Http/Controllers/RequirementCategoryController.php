@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RequirementsCategory;
+use App\Models\RequirementCategory;
 use Illuminate\Http\Request;
 
-class RequirementsCategoryController extends Controller
+class RequirementCategoryController extends Controller
 {
     public function index()
     {
-        $categories = RequirementsCategory::all();
+        $categories = RequirementCategory::all();
         return view('requirements_categories.index', compact('categories'));
     }
 
@@ -24,23 +24,23 @@ class RequirementsCategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        RequirementsCategory::create($request->all());
+        RequirementCategory::create($request->all());
 
         return redirect()->route('categories.index')
             ->with('success', 'Requirements category created successfully.');
     }
 
-    public function show(RequirementsCategory $category)
+    public function show(RequirementCategory $category)
     {
         return view('requirements_categories.show', compact('category'));
     }
 
-    public function edit(RequirementsCategory $category)
+    public function edit(RequirementCategory $category)
     {
         return view('requirements_categories.edit', compact('category'));
     }
 
-    public function update(Request $request, RequirementsCategory $category)
+    public function update(Request $request, RequirementCategory $category)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -52,7 +52,7 @@ class RequirementsCategoryController extends Controller
             ->with('success', 'Requirements category updated successfully.');
     }
 
-    public function destroy(RequirementsCategory $category)
+    public function destroy(RequirementCategory $category)
     {
         $category->delete();
 

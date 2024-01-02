@@ -1,5 +1,14 @@
 @extends('layouts.admin')
 
+@push('head')
+
+    <!--datatable css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/>
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+@endpush
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
@@ -7,188 +16,122 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Companies</h4>
-
+                        <h4 class="mb-sm-0">Practitioners</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li>
-                                <li class="breadcrumb-item active">Companies</li>
+                                <li class="breadcrumb-item active">Practitioners</li>
                             </ol>
                         </div>
-
                     </div>
                 </div>
-            </div>
-            <!-- end page title -->
+                <!-- end page title -->
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center flex-wrap gap-2">
-                                <div class="flex-grow-1">
-                                    <button class="btn btn-info add-btn" data-bs-toggle="modal"
-                                            data-bs-target="#showModal"><i
-                                            class="ri-add-fill me-1 align-bottom"></i> Add Service
-                                    </button>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <div class="hstack text-nowrap gap-2">
-                                        <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown"
-                                                aria-expanded="false" class="btn btn-soft-info"><i
-                                                class="ri-more-2-fill"></i></button>
-                                       {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                            <li><a class="dropdown-item" href="#">All</a></li>
-                                            <li><a class="dropdown-item" href="#">Last Week</a></li>
-                                            <li><a class="dropdown-item" href="#">Last Month</a></li>
-                                            <li><a class="dropdown-item" href="#">Last Year</a></li>
-                                        </ul>--}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center flex-wrap gap-2">
+                                    <div class="flex-grow-1">
+
+                                        <a href="" class="btn btn-info add-btn">
+                                            <i class="fa fa-arrow-left"></i> Back
+                                        </a>
+
+                                        <a href="" class="btn btn-info add-btn">
+                                            <i class="fa fa-plus"></i> Add Direct
+                                        </a>
+
+                                        <button class="btn btn-info add-btn" data-bs-toggle="modal" data-bs-target="#showModal">
+                                            <i class="fa fa-plus"></i> Add Modal
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--end col-->
-                <div class="col-xxl-9">
-                    <div class="card" id="companyList">
-                        <div class="card-header">
-                            <div class="row g-2">
-                                <div class="col-md-3">
-                                    <div class="search-box">
-                                        <input type="text" class="form-control search"
-                                               placeholder="Search for company...">
-                                        <i class="ri-search-line search-icon"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-auto ms-auto">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span class="text-muted">Sort by: </span>
-                                        <select class="form-control mb-0" data-choices data-choices-search-false
-                                                id="choices-single-default">
-                                            <option value="Owner">Owner</option>
-                                            <option value="Company">Company</option>
-                                            <option value="location">Location</option>
-                                        </select>
-                                    </div>
-                                </div>
+                    <!--end col-->
+                    <div class="col-xxl-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <!--start table-->
+                                <table id="buttons-datatables"
+                                       class="display table table-bordered dataTable no-footer"
+                                       aria-describedby="buttons-datatables_info">
+                                    <thead>
+                                    <tr>
+                                        <th class="sorting sorting_asc" tabindex="0"
+                                            aria-controls="buttons-datatables" rowspan="1" colspan="1"
+                                            aria-sort="ascending"
+                                            aria-label="Name: activate to sort column descending"
+                                            style="width: 224.4px;">Name
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Position: activate to sort column ascending"
+                                            style="width: 336.4px;">Position
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Office: activate to sort column ascending"
+                                            style="width: 164.4px;">Office
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Age: activate to sort column ascending"
+                                            style="width: 83.4px;">Age
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Start date: activate to sort column ascending"
+                                            style="width: 156.4px;">Start date
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Salary: activate to sort column ascending"
+                                            style="width: 112.4px;">Salary
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="even">
+                                        <td class="sorting_1">Brielle Williamson</td>
+                                        <td>Integration Specialist</td>
+                                        <td>New York</td>
+                                        <td>61</td>
+                                        <td>2012/12/02</td>
+                                        <td>$372,000</td>
+                                    </tr>
+                                    <tr class="odd">
+                                        <td class="sorting_1">Caesar Vance</td>
+                                        <td>Pre-Sales Support</td>
+                                        <td>New York</td>
+                                        <td>21</td>
+                                        <td>2011/12/12</td>
+                                        <td>$106,450</td>
+                                    </tr>
+                                    <tr class="even">
+                                        <td class="sorting_1">Cedric Kelly</td>
+                                        <td>Senior Javascript Developer</td>
+                                        <td>Edinburgh</td>
+                                        <td>22</td>
+                                        <td>2012/03/29</td>
+                                        <td>$433,060</td>
+                                    </tr>
+                                    <tr class="odd">
+                                        <td class="sorting_1">Charde Marshall</td>
+                                        <td>Regional Director</td>
+                                        <td>San Francisco</td>
+                                        <td>36</td>
+                                        <td>2008/10/16</td>
+                                        <td>$470,600</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <!--end table-->
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <div>
-                                <div class="table-responsive table-card mb-3">
-                                    <table class="table align-middle table-nowrap mb-0" id="customerTable">
-                                        <thead class="table-light">
-                                        <tr>
-                                            <th scope="col" style="width: 50px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="checkAll"
-                                                           value="option">
-                                                </div>
-                                            </th>
-                                            <th class="sort" data-sort="name" scope="col">Company Name</th>
-                                            <th class="sort" data-sort="owner" scope="col">Owner</th>
-                                            <th class="sort" data-sort="industry_type" scope="col">Industry Type
-                                            </th>
-                                            <th class="sort" data-sort="star_value" scope="col">Rating</th>
-                                            <th class="sort" data-sort="location" scope="col">Location</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="list form-check-all">
-                                        <tr>
-                                            <th scope="row">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="chk_child"
-                                                           value="option1">
-                                                </div>
-                                            </th>
-                                            <td class="id" style="display:none;"><a href="javascript:void(0);"
-                                                                                    class="fw-medium link-primary">#VZ001</a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0">
-                                                        <img src="administration/assets/images/brands/dribbble.png" alt=""
-                                                             class="avatar-xxs rounded-circle image_src object-cover">
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-2 name">Nesta Technologies
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="owner">Tonya Noble</td>
-                                            <td class="industry_type">Computer Industry</td>
-                                            <td><span class="star_value">4.5</span> <i
-                                                    class="ri-star-fill text-warning align-bottom"></i></td>
-                                            <td class="location">Los Angeles, USA</td>
-                                            <td>
-                                                <ul class="list-inline hstack gap-2 mb-0">
-                                                    <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top"
-                                                        title="Call">
-                                                        <a href="javascript:void(0);"
-                                                           class="text-muted d-inline-block">
-                                                            <i class="ri-phone-line fs-16"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top"
-                                                        title="Message">
-                                                        <a href="javascript:void(0);"
-                                                           class="text-muted d-inline-block">
-                                                            <i class="ri-question-answer-line fs-16"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top"
-                                                        title="View">
-                                                        <a href="javascript:void(0);" class="view-item-btn"><i
-                                                                class="ri-eye-fill align-bottom text-muted"></i></a>
-                                                    </li>
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top"
-                                                        title="Edit">
-                                                        <a class="edit-item-btn" href="#showModal"
-                                                           data-bs-toggle="modal"><i
-                                                                class="ri-pencil-fill align-bottom text-muted"></i></a>
-                                                    </li>
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top"
-                                                        title="Delete">
-                                                        <a class="remove-item-btn" data-bs-toggle="modal"
-                                                           href="#deleteRecordModal">
-                                                            <i class="ri-delete-bin-fill align-bottom text-muted"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
 
-                                        </tbody>
-                                    </table>
-                                    <div class="noresult" style="display: none">
-                                        <div class="text-center">
-                                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                                       colors="primary:#121331,secondary:#08a88a"
-                                                       style="width:75px;height:75px"></lord-icon>
-                                            <h5 class="mt-2">Sorry! No Result Found</h5>
-                                            <p class="text-muted mb-0">We've searched more than 150+ companies We
-                                                did not find any companies for you search.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end mt-3">
-                                    <div class="pagination-wrap hstack gap-2">
-                                        <a class="page-item pagination-prev disabled" href="#">
-                                            Previous
-                                        </a>
-                                        <ul class="pagination listjs-pagination mb-0"></ul>
-                                        <a class="page-item pagination-next" href="#">
-                                            Next
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            <!--start modal-->
                             <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -345,127 +288,53 @@
                                 </div>
                             </div>
                             <!--end add modal-->
+                        </div>
+                    </div>
 
-                            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1"
-                                 aria-labelledby="deleteRecordLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close" id="btn-close"></button>
-                                        </div>
-                                        <div class="modal-body p-5 text-center">
-                                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
-                                                       colors="primary:#405189,secondary:#f06548"
-                                                       style="width:90px;height:90px"></lord-icon>
-                                            <div class="mt-4 text-center">
-                                                <h4 class="fs-semibold">You are about to delete a company ?</h4>
-                                                <p class="text-muted fs-14 mb-4 pt-1">Deleting your company will
-                                                    remove all of your information from our database.</p>
-                                                <div class="hstack gap-2 justify-content-center remove">
-                                                    <button
-                                                        class="btn btn-link link-success fw-medium text-decoration-none"
-                                                        data-bs-dismiss="modal">
-                                                        <i class="ri-close-line me-1 align-middle"></i> Close
-                                                    </button>
-                                                    <button class="btn btn-danger" id="delete-record">Yes, Delete
-                                                        It!!
-                                                    </button>
-                                                </div>
-                                            </div>
+                    <!--end col-->
+                    <div class="col-xxl-3">
+                        <div class="card" id="company-view-detail">
+                            <div class="card-body text-center">
+                                <div class="position-relative d-inline-block">
+                                    <div class="avatar-md">
+                                        <div class="avatar-title bg-light rounded-circle">
+                                            <img src="administration/assets/images/brands/mail_chimp.png" alt=""
+                                                 class="avatar-sm rounded-circle object-cover">
                                         </div>
                                     </div>
                                 </div>
+                                <h5 class="mt-3 mb-1">Syntyce Solution</h5>
+                                <p class="text-muted">Michael Morris</p>
+
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item avatar-xs">
+                                        <a href="javascript:void(0);"
+                                           class="avatar-title bg-soft-success text-success fs-15 rounded">
+                                            <i class="ri-global-line"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item avatar-xs">
+                                        <a href="javascript:void(0);"
+                                           class="avatar-title bg-soft-danger text-danger fs-15 rounded">
+                                            <i class="ri-mail-line"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item avatar-xs">
+                                        <a href="javascript:void(0);"
+                                           class="avatar-title bg-soft-warning text-warning fs-15 rounded">
+                                            <i class="ri-question-answer-line"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                            <!--end delete modal -->
 
                         </div>
+                        <!--end card-->
                     </div>
+                    <!--end col-->
                     <!--end card-->
                 </div>
-                <!--end col-->
-                <div class="col-xxl-3">
-                    <div class="card" id="company-view-detail">
-                        <div class="card-body text-center">
-                            <div class="position-relative d-inline-block">
-                                <div class="avatar-md">
-                                    <div class="avatar-title bg-light rounded-circle">
-                                        <img src="administration/assets/images/brands/mail_chimp.png" alt=""
-                                             class="avatar-sm rounded-circle object-cover">
-                                    </div>
-                                </div>
-                            </div>
-                            <h5 class="mt-3 mb-1">Syntyce Solution</h5>
-                            <p class="text-muted">Michael Morris</p>
 
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
-                                       class="avatar-title bg-soft-success text-success fs-15 rounded">
-                                        <i class="ri-global-line"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
-                                       class="avatar-title bg-soft-danger text-danger fs-15 rounded">
-                                        <i class="ri-mail-line"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
-                                       class="avatar-title bg-soft-warning text-warning fs-15 rounded">
-                                        <i class="ri-question-answer-line"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-muted text-uppercase fw-semibold mb-3">Information</h6>
-                            <p class="text-muted mb-4">A company incurs fixed and variable costs such as the
-                                purchase of raw materials, salaries and overhead, as explained by AccountingTools,
-                                Inc. Business owners have the discretion to determine the actions.</p>
-                            <div class="table-responsive table-card">
-                                <table class="table table-borderless mb-0">
-                                    <tbody>
-                                    <tr>
-                                        <td class="fw-medium" scope="row">Industry Type</td>
-                                        <td>Chemical Industries</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium" scope="row">Location</td>
-                                        <td>Damascus, Syria</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium" scope="row">Employee</td>
-                                        <td>10-50</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium" scope="row">Rating</td>
-                                        <td>4.0 <i class="ri-star-fill text-warning align-bottom"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium" scope="row">Website</td>
-                                        <td>
-                                            <a href="javascript:void(0);"
-                                               class="link-primary text-decoration-underline">www.syntycesolution.com</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium" scope="row">Contact Email</td>
-                                        <td>info@syntycesolution.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium" scope="row">Since</td>
-                                        <td>1995</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end card-->
-                </div>
-                <!--end col-->
             </div>
             <!--end row-->
 
@@ -473,3 +342,27 @@
         <!-- container-fluid -->
     </div>
 @stop
+@push('scripts')
+    <!--datatable js-->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script>
+        <!-- datatable js -->
+        document.addEventListener("DOMContentLoaded", function () {
+            $('#buttons-datatables').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['copy', 'csv', 'excel', 'print', 'pdf']
+            });
+        });
+
+    </script>
+
+@endpush

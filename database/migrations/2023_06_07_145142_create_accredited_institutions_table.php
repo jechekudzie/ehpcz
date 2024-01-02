@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('institution_id');
             $table->unsignedBigInteger('qualification_id');
-            // Add your accredited institution fields here
+            $table->string('slug')->nullable();
             $table->timestamps();
 
             $table->foreign('institution_id')->references('id')->on('institutions');

@@ -17,10 +17,12 @@ class QualificationCategorySeeder extends Seeder
     {
         //
         $categories = [
-            ["name" => "Local", "description" => "Locally trained", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Foreign", "description" => "Foreign trained", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Local", "description" => "Locally trained"],
+            ["name" => "Foreign", "description" => "Foreign trained"],
         ];
 
-        QualificationCategory::insert($categories);
+        foreach ($categories as $category) {
+            QualificationCategory::create($category);
+        }
     }
 }

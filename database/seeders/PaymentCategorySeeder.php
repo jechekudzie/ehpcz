@@ -17,13 +17,15 @@ class PaymentCategorySeeder extends Seeder
     {
         //
         $paymentCategories = [
-            ["name" => "Registration fees", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Annual fees", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Application for foreign registrants", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Registration of Extra Qualification", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Miscellaneous fees", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Registration fees"],
+            ["name" => "Annual fees"],
+            ["name" => "Application for foreign registrants"],
+            ["name" => "Registration of Extra Qualification"],
+            ["name" => "Miscellaneous fees"],
         ];
 
-        PaymentCategory::insert($paymentCategories);
+        foreach ($paymentCategories as $category) {
+            PaymentCategory::create($category);
+        }
     }
 }

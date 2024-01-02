@@ -17,12 +17,14 @@ class ProfessionSeeder extends Seeder
     {
         //
         $professions = [
-            ["name" => "Environmental Health Officers", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Environmental Health Technicians", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Meat Inspectors", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Meat Examiners", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Environmental Health Officer"],
+            ["name" => "Environmental Health Technician"],
+            ["name" => "Meat Inspector"],
+            ["name" => "Meat Examiners"],
         ];
 
-        Profession::insert($professions);
+        foreach ($professions as $profession) {
+            Profession::create($profession);
+        }
     }
 }

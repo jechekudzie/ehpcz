@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('identificaction_type_id');
             $table->string('identification')->nullable();
             $table->string('identification_file')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

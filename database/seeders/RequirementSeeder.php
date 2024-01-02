@@ -17,17 +17,19 @@ class RequirementSeeder extends Seeder
     {
         //
         $requirements = [
-            ["name" => "National ID Card or Passport", "requirements_category_id" => 1, "created_at" => now(), "updated_at" => now()],
-            ["name" => "Birth Certificate", "requirements_category_id" => 1, "created_at" => now(), "updated_at" => now()],
-            ["name" => "Passport Sized Photos", "requirements_category_id" => 1, "created_at" => now(), "updated_at" => now()],
-            ["name" => "Ordinary Level certificates", "requirements_category_id" => 2, "created_at" => now(), "updated_at" => now()],
-            ["name" => "Advanced Level certificates", "requirements_category_id" => 2, "created_at" => now(), "updated_at" => now()],
-            ["name" => "National or Diploma or Degree Certificate", "requirements_category_id" => 2, "created_at" => now(), "updated_at" => now()],
-            ["name" => "National or Diploma or Degree transcript", "requirements_category_id" => 2, "created_at" => now(), "updated_at" => now()],
-            ["name" => "Certificate of knowledge of English/Affirmation", "requirements_category_id" => 3, "created_at" => now(), "updated_at" => now()],
-            ["name" => "Certificate of completion of Internship", "requirements_category_id" => 3, "created_at" => now(), "updated_at" => now()],
+            ["name" => "National ID Card or Passport", "requirements_category_id" => 1],
+            ["name" => "Birth Certificate", "requirements_category_id" => 1],
+            ["name" => "Passport Sized Photos", "requirements_category_id" => 1],
+            ["name" => "Ordinary Level certificates", "requirements_category_id" => 2],
+            ["name" => "Advanced Level certificates", "requirements_category_id" => 2],
+            ["name" => "National or Diploma or Degree Certificate", "requirements_category_id" => 2],
+            ["name" => "National or Diploma or Degree transcript", "requirements_category_id" => 2],
+            ["name" => "Certificate of knowledge of English/Affirmation", "requirements_category_id" => 3],
+            ["name" => "Certificate of completion of Internship", "requirements_category_id" => 3],
         ];
 
-        Requirement::insert($requirements);
+        foreach ($requirements as $requirement) {
+            Requirement::create($requirement);
+        }
     }
 }

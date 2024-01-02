@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Contact extends Model
 {
+
+    use HasSlug;
     protected $guarded = [];
 
     public function practitioner()
@@ -16,5 +20,17 @@ class Contact extends Model
     public function contactType()
     {
         return $this->belongsTo(ContactType::class);
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

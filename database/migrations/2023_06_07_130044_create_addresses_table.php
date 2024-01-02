@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address_number')->nullable();
             $table->string('street')->nullable();
             $table->string('zip_code')->nullable();
-            // Add your address fields here
+            $table->string('slug')->nullable();
             $table->timestamps();
 
            /* $table->foreign('practitioner_id')->references('id')->on('practitioners');

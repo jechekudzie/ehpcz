@@ -17,13 +17,15 @@ class QualificationLevelSeeder extends Seeder
     {
         //
         $levels = [
-            ["name" => "Certificate", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Diploma", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Degree", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Masters", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Doctorate", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Certificate"],
+            ["name" => "Diploma"],
+            ["name" => "Degree"],
+            ["name" => "Masters"],
+            ["name" => "Doctorate"],
         ];
 
-        QualificationLevel::insert($levels);
+        foreach ($levels as $level) {
+            QualificationLevel::create($level);
+        }
     }
 }

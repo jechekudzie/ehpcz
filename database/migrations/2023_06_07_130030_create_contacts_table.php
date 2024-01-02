@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('practitioner_id');
             $table->unsignedBigInteger('contact_type_id');
             $table->string('contact');
-            // Add your contact fields here
+            $table->string('slug')->nullable();
             $table->timestamps();
 
         });

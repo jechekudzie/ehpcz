@@ -17,13 +17,15 @@ class RegisterSeeder extends Seeder
     {
         //
         $registers = [
-            ["name" => "Student", "description" => "Students in training institution", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Intern", "description" => "Internship", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Provisional", "description" => "Foreign applications", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Provisional", "description" => "Foreign trained Zimbabweans", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Main", "description" => "Permanent Register", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Student", "description" => "Students in training institution"],
+            ["name" => "Intern", "description" => "Internship"],
+            ["name" => "Provisional", "description" => "Foreign applications"],
+            ["name" => "Provisional", "description" => "Foreign trained Zimbabweans"],
+            ["name" => "Main", "description" => "Permanent Register"],
         ];
 
-        Register::insert($registers);
+        foreach ($registers as $register) {
+            Register::create($register);
+        }
     }
 }

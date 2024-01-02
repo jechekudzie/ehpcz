@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('requirements', function (Blueprint $table) {
+        Schema::create('marital_statuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('requirements_category_id');
             $table->string('name');
             $table->string('slug')->nullable();
             $table->timestamps();
-
-           /* $table->foreign('requirements_category_id')->references('id')->on('requirements_categories');*/
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requirements');
+        Schema::dropIfExists('marital_statuses');
     }
 };

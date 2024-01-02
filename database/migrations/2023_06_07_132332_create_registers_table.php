@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            // Add your register fields here
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

@@ -17,19 +17,21 @@ class InstitutionSeeder extends Seeder
     {
         //
         $institutions = [
-            ["name" => "Chinhoyi University", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Solusi University", "created_at" => now(), "updated_at" => now()],
-            ["name" => "National University of Science and Technology", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Bulawayo Polytechnic", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Kwekwe Polytechnic", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Gweru Polytechnic", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Mutare Polytechnic", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Joshua Mqabuko Nkomo Polytechnic", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Kushinga Phikelela Polytechnic", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Masvingo Polytechnic", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Kwekwe Polytechnic College", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Chinhoyi University"],
+            ["name" => "Solusi University"],
+            ["name" => "National University of Science and Technology"],
+            ["name" => "Bulawayo Polytechnic"],
+            ["name" => "Kwekwe Polytechnic"],
+            ["name" => "Gweru Polytechnic"],
+            ["name" => "Mutare Polytechnic"],
+            ["name" => "Joshua Mqabuko Nkomo Polytechnic"],
+            ["name" => "Kushinga Phikelela Polytechnic"],
+            ["name" => "Masvingo Polytechnic"],
+            ["name" => "Kwekwe Polytechnic College"],
         ];
 
-        Institution::insert($institutions);
+        foreach ($institutions as $institution) {
+            Institution::create($institution);
+        }
     }
 }

@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Practitioner extends Model
 {
+
+    use HasSlug;
     protected $guarded = [];
 
     public function title()
@@ -41,6 +45,18 @@ class Practitioner extends Model
     public function professions()
     {
         return $this->belongsToMany(Profession::class);
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
 }

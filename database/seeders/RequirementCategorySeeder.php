@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\RequirementsCategory;
+use App\Models\RequirementCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,11 +17,12 @@ class RequirementCategorySeeder extends Seeder
     {
         //
         $categories = [
-            ["name" => "Identification", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Educational", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Foreigners", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Registration"],
+            ["name" => "Renewal"],
         ];
 
-        RequirementsCategory::insert($categories);
+        foreach ($categories as $category) {
+            RequirementCategory::create($category);
+        }
     }
 }

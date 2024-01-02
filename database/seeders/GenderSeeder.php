@@ -17,18 +17,12 @@ class GenderSeeder extends Seeder
     {
         //
         $genders = [
-            [
-                'name' => 'Male',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => 'Female',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
+            ['name' => 'Male'],
+            ['name' => 'Female'],
         ];
 
-        Gender::insert($genders);
+        foreach ($genders as $gender) {
+            Gender::create($gender);
+        }
     }
 }

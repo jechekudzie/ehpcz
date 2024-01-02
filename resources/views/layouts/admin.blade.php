@@ -20,11 +20,13 @@
     <link href="{{asset('administration/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- Icons Css -->
     <link href="{{asset('administration/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css"/>
+    <!-- Font Awsome Icons Css V4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- App Css-->
     <link href="{{asset('administration/assets/css/app.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- custom Css-->
     <link href="{{asset('administration/assets/css/custom.min.css')}}" rel="stylesheet" type="text/css"/>
-    @notifyCss
+
     @stack('head')
 </head>
 
@@ -40,17 +42,17 @@
                 <div class="d-flex">
                     <!-- LOGO -->
                     <div class="navbar-brand-box horizontal-logo">
-                        <a href="{{url('/')}}" class="logo logo-dark">
+                        <a style="color:white; font-size: 12px;" href="{{url('/')}}" class="logo logo-dark">
                             {{--<span class="logo-sm">
                                 <img src="administration/assets/images/logo-sm.png" alt="" height="22">
                             </span>
                                 <span class="logo-lg">
                                 <img src="administration/assets/images/logo-dark.png" alt="" height="17">
                             </span>--}}
-                            <span style="color: white;">iTAP Media</span>
+                            <span style="color: white;">EHPCZ</span>
                         </a>
 
-                        <a href="{{url('/')}}" class="logo logo-light">
+                        <a style="color:white; font-size: 12px;" href="{{url('/')}}" class="logo logo-light">
                             {{-- <span class="logo-sm">
                                  <img src="administration/assets/images/logo-sm.png" alt="" height="22">
                              </span>
@@ -58,7 +60,7 @@
                                  <img src="administration/assets/images/logo-light.png" alt="" height="17">
                              </span>--}}
 
-                            <span style="color: white;">iTAP Media</span>
+                            <span style="color: white;">EHPCZ</span>
                         </a>
                     </div>
 
@@ -88,11 +90,11 @@
                                 </div>
 
                                 <div class="dropdown-item bg-transparent text-wrap">
-                                    <a href="{{url('/')}}" class="btn btn-soft-secondary btn-sm btn-rounded">how to
+                                    <a style="color:white; font-size: 12px;" href="{{url('/')}}" class="btn btn-soft-secondary btn-sm btn-rounded">how to
                                         setup
                                         <i
                                             class="mdi mdi-magnify ms-1"></i></a>
-                                    <a href="{{url('/')}}" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i
+                                    <a style="color:white; font-size: 12px;" href="{{url('/')}}" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i
                                             class="mdi mdi-magnify ms-1"></i></a>
                                 </div>
                                 <!-- item-->
@@ -512,7 +514,7 @@
                                 <span
                                     class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Administrator</span>
                                 <span
-                                    class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">iTAP Media</span>
+                                    class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">EHPCZ</span>
                             </span>
                         </span>
                         </button>
@@ -556,7 +558,7 @@
         <!-- LOGO -->
         <div class="navbar-brand-box">
             <!-- Dark Logo-->
-            <a href="{{url('/')}}" class="logo logo-dark">
+            <a style="color:white; font-size: 12px;" href="{{url('/')}}" class="logo logo-dark">
                 {{--<span class="logo-sm">
                     <img src="administration/assets/images/logo-sm.png" alt="" height="22">
                 </span>
@@ -564,17 +566,17 @@
                     <img src="administration/assets/images/logo-dark.png" alt="" height="17">
                 </span>--}}
 
-                <span style="color: white;">iTAP Media</span>
+                <span style="color: white;">EHPCZ</span>
             </a>
             <!-- Light Logo-->
-            <a href="{{url('/')}}" class="logo logo-light">
+            <a style="color:white; font-size: 12px;" href="{{url('/')}}" class="logo logo-light">
                 {{-- <span class="logo-sm">
                      <img src="administration/assets/images/logo-sm.png" alt="" height="22">
                  </span>
              <span class="logo-lg">
                      <img src="administration/assets/images/logo-light.png" alt="" height="17">
                  </span>--}}
-                <span style="color: white;">iTAP Media</span>
+                <span style="color: white;">EHPCZ</span>
             </a>
             <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
                     id="vertical-hover">
@@ -590,36 +592,193 @@
                 <div id="two-column-menu">
                 </div>
                 <ul class="navbar-nav" id="navbar-nav">
-                    <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                    <li style="color:white; font-size: 12px;" class="menu-title"><span data-key="t-menu">Admin Menu</span></li>
+
+
+
+                    <!-- Contact Menu -->
                     <li class="nav-item">
-                        <a class="nav-link menu-link collapsed" href="#sidebarDashboards" data-bs-toggle="collapse"
-                           role="button"
-                           aria-expanded="false" aria-controls="sidebarDashboards">
-                            <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboard</span>
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarContact" data-bs-toggle="collapse" role="button"
+                           aria-expanded="false" aria-controls="sidebarContact">
+                             <span data-key="t-dashboards">CONTACT</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarDashboards">
+                        <div class="collapse menu-dropdown" id="sidebarContact">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{url('/admin/services')}}" class="nav-link active" data-key="t-analytics">
-                                        SERVICES </a>
+                                    <a style="color:white; font-size: 12px;" href="{{url('/contact-types')}}" class="nav-link active" data-key="t-analytics">
+                                        Contact Type </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{url('/admin/categories')}}" class="nav-link"
-                                       data-key="t-ecommerce"> PACKAGE CATEGORIES </a>
+                                    <a style="color:white; font-size: 12px;" href="{{url('/address-types')}}" class="nav-link"
+                                       data-key="t-ecommerce"> Address Type </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Contact Menu -->
+
+                    <!-- Location Menu -->
+                    <li class="nav-item">
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarLocation" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="sidebarLocation">
+                            <span data-key="t-dashboards">LOCATION</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarLocation">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/countries')}}" class="nav-link active" data-key="t-analytics">
+                                        Countries </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/provinces')}}" class="nav-link active" data-key="t-analytics">
+                                        Provinces </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/cities')}}" class="nav-link"
+                                       data-key="t-ecommerce"> Cities </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Location Menu -->
+
+                    <!-- Identification Menu -->
+                    <li class="nav-item">
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarIdentification" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="sidebarIdentification">
+                            <span data-key="t-dashboards">IDENTIFICATION TYPES</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarIdentification">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/titles')}}" class="nav-link active" data-key="t-analytics">
+                                        Titles </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/genders')}}" class="nav-link active" data-key="t-analytics">
+                                        Gender </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/identification-types')}}" class="nav-link"
+                                       data-key="t-ecommerce"> Identification Document Types </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Identification Menu -->
+
+
+                     <!-- Requirements Menu -->
+                     <li class="nav-item">
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarRequirements" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="sidebarRequirements">
+                            <span data-key="t-dashboards">REQUIREMENTS</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarRequirements">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/requirement-categories')}}" class="nav-link active" data-key="t-analytics">
+                                        Requirement Categories </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/requirements')}}" class="nav-link active" data-key="t-analytics">
+                                        Requirements </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Requirements Menu -->
+
+
+
+                     <!-- Professions Menu -->
+                     <li class="nav-item">
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarProfessions" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="sidebarProfessions">
+                            <span data-key="t-dashboards">PROFESSIONS</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarProfessions">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/professions')}}" class="nav-link active" data-key="t-analytics">
+                                        Professions </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/registers')}}" class="nav-link active" data-key="t-analytics">
+                                        Registers </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Professions Menu -->
+
+
+                     <!-- Qualifications Menu -->
+                     <li class="nav-item">
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarQualifications" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="sidebarQualifications">
+                            <span data-key="t-dashboards">QUALIFICATIONS</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarQualifications">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/qualification-categories')}}" class="nav-link active" data-key="t-analytics">
+                                        Qualification Categories </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/qualifications')}}" class="nav-link active" data-key="t-analytics">
+                                        Qualifications </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('/admin/packages')}}" class="nav-link"
-                                       data-key="t-ecommerce"> PACKAGES </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('/admin/accessories')}}" class="nav-link" data-key="t-crypto">
-                                        ACCESSORIES </a>
+                                    <a style="color:white; font-size: 12px;" href="{{url('/qualification-level')}}" class="nav-link active" data-key="t-analytics">
+                                        Qualification Levels </a>
                                 </li>
                             </ul>
                         </div>
-                    </li> <!-- end Dashboard Menu -->
+                    </li>
+                    <!-- end Qualifications Menu -->
+
+
+                    <!-- Institutions Menu -->
+                    <li class="nav-item">
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarInstitutions" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="sidebarInstitutions">
+                            <span data-key="t-dashboards">ACCREDITATION</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarInstitutions">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/institutions')}}" class="nav-link active" data-key="t-analytics">
+                                        Training Institutions </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/accredited-institutions')}}" class="nav-link active" data-key="t-analytics">
+                                        Accredited Qualifications </a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Institutions Menu -->
 
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
 
@@ -669,30 +828,25 @@
 <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
     <i class="ri-arrow-up-line"></i>
 </button>
-<!--end back-to-top-->
 
 <!-- JAVASCRIPT -->
 <script src="{{asset('administration/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('administration/assets/libs/simplebar/simplebar.min.js')}}"></script>
-<script src="{{asset('administration/assets/libs/node-waves/waves.min.js')}}"></script>
-<script src="{{asset('administration/assets/libs/feather-icons/feather.min.js')}}"></script>
-<script src="{{asset('administration/assets/js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
 <script src="{{asset('administration/assets/js/plugins.js')}}"></script>
 
 <!-- list.js min js -->
 <script src="{{asset('administration/assets/libs/list.js/list.min.js')}}"></script>
-<script src="{{asset('administration/assets/libs/list.pagination.js/list.pagination.min.js')}}"></script>
-
-<!-- Sweet Alerts js -->
-<script src="{{asset('administration/assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
 <script src="{{asset('administration/assets/js/pages/crm-companies.init.js')}}"></script>
 
-<!-- App js -->
-<script src="{{asset('administration/assets/js/app.js')}}"></script>
+<!-- Jquery min js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 @stack('scripts')
 
-@notifyJs
+<!-- App js -->
+<script src="{{asset('administration/assets/js/app.js')}}"></script>
+
 </body>
 
 </html>

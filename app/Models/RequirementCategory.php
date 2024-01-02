@@ -6,20 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class City extends Model
+class RequirementCategory extends Model
 {
-
     use HasSlug;
     protected $guarded = [];
 
-    public function province()
+    public function requirements()
     {
-        return $this->belongsTo(Province::class);
-    }
-
-    public function addresses()
-    {
-        return $this->hasMany(Address::class);
+        return $this->hasMany(Requirement::class);
     }
 
     public function getSlugOptions(): SlugOptions

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('province_id');
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->timestamps();
 
             $table->foreign('province_id')->references('id')->on('provinces');

@@ -21,8 +21,9 @@ return new class extends Migration
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->boolean('is_current')->default(1);
-            // Add your employment fields here
+            $table->string('slug')->nullable();
             $table->timestamps();
+
 
             $table->foreign('practitioner_id')->references('id')->on('practitioners');
         });

@@ -15,13 +15,14 @@ class AddressTypeSeeder extends Seeder
      */
     public function run()
     {
-        //
         $addressTypes = [
-            ["name" => "Physical", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Residential", "created_at" => now(), "updated_at" => now()],
-            ["name" => "Business", "created_at" => now(), "updated_at" => now()],
+            ["name" => "Physical"],
+            ["name" => "Residential"],
+            ["name" => "Business"],
         ];
 
-        AddressType::insert($addressTypes);
+        foreach ($addressTypes as $type) {
+            AddressType::create($type);
+        }
     }
 }

@@ -420,6 +420,11 @@ class CitySeeder extends Seeder
             ["province_id"=>"10","name"=>"Zvishavane","created_at"=>now(),"updated_at"=>now()],
 
         ];
-        City::insert($cities);
+        foreach ($cities as $cityData) {
+            City::create([
+                'province_id' => $cityData['province_id'],
+                'name' => $cityData['name'],
+            ]);
+        }
     }
 }

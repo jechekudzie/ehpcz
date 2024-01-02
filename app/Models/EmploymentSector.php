@@ -2,25 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class City extends Model
+class EmploymentSector extends Model
 {
+    use HasFactory, HasSlug;
 
-    use HasSlug;
     protected $guarded = [];
-
-    public function province()
-    {
-        return $this->belongsTo(Province::class);
-    }
-
-    public function addresses()
-    {
-        return $this->hasMany(Address::class);
-    }
 
     public function getSlugOptions(): SlugOptions
     {
