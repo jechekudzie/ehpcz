@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             TitleSeeder::class,
             GenderSeeder::class,
             ProfessionSeeder::class,
+            QualificationLevelSeeder::class,
             QualificationSeeder::class,
             QualificationCategorySeeder::class,
             RequirementCategorySeeder::class,
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder
             EmploymentSectorSeeder::class,
             EmploymentStatusSeeder::class,
             MaritalStatusSeeder::class,
+            InstitutionSeeder::class,
         ]);
     }
 }

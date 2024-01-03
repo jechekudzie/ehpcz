@@ -10,12 +10,13 @@ class AddressTypeController extends Controller
     public function index()
     {
         $addressTypes = AddressType::all();
-        return view('addressTypes.index', compact('addressTypes'));
+        return view('administration.contact.addressTypes.index', compact('addressTypes'));
+
     }
 
     public function create()
     {
-        return view('addressTypes.create');
+        return view('administration.contact.addressTypes.create');
     }
 
     public function store(Request $request)
@@ -26,18 +27,19 @@ class AddressTypeController extends Controller
 
         AddressType::create($request->all());
 
-        return redirect()->route('addressTypes.index')
+        return redirect()->route('address-types.index')
             ->with('success', 'Address type created successfully.');
     }
 
     public function show(AddressType $addressType)
     {
-        return view('addressTypes.show', compact('addressType'));
+        return view('administration.contact.addressTypes.show', compact('addressType'));
     }
 
     public function edit(AddressType $addressType)
     {
-        return view('addressTypes.edit', compact('addressType'));
+        $addressTypes = AddressType::all();
+        return view('administration.contact.addressTypes.edit', compact('addressType','addressTypes'));
     }
 
     public function update(Request $request, AddressType $addressType)
@@ -48,7 +50,7 @@ class AddressTypeController extends Controller
 
         $addressType->update($request->all());
 
-        return redirect()->route('addressTypes.index')
+        return redirect()->route('address-types.index')
             ->with('success', 'Address type updated successfully.');
     }
 
@@ -56,7 +58,7 @@ class AddressTypeController extends Controller
     {
         $addressType->delete();
 
-        return redirect()->route('addressTypes.index')
+        return redirect()->route('address-types.index')
             ->with('success', 'Address type deleted successfully.');
     }
 }

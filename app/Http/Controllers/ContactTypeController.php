@@ -10,12 +10,12 @@ class ContactTypeController extends Controller
     public function index()
     {
         $contactTypes = ContactType::all();
-        return view('contactTypes.index', compact('contactTypes'));
+        return view('administration.contact.contactTypes.index', compact('contactTypes'));
     }
 
     public function create()
     {
-        return view('contactTypes.create');
+        return view('administration.contact.contactTypes.create');
     }
 
     public function store(Request $request)
@@ -26,18 +26,19 @@ class ContactTypeController extends Controller
 
         ContactType::create($request->all());
 
-        return redirect()->route('contactTypes.index')
+        return redirect()->route('contact-types.index')
             ->with('success', 'Contact type created successfully.');
     }
 
     public function show(ContactType $contactType)
     {
-        return view('contactTypes.show', compact('contactType'));
+        return view('administration.contact.contactTypes.show', compact('contactType'));
     }
 
     public function edit(ContactType $contactType)
     {
-        return view('contactTypes.edit', compact('contactType'));
+        $contactTypes = ContactType::all();
+        return view('administration.contact.contactTypes.edit', compact('contactType','contactTypes'));
     }
 
     public function update(Request $request, ContactType $contactType)
@@ -48,7 +49,7 @@ class ContactTypeController extends Controller
 
         $contactType->update($request->all());
 
-        return redirect()->route('contactTypes.index')
+        return redirect()->route('contact-types.index')
             ->with('success', 'Contact type updated successfully.');
     }
 
@@ -56,7 +57,7 @@ class ContactTypeController extends Controller
     {
         $contactType->delete();
 
-        return redirect()->route('contactTypes.index')
+        return redirect()->route('contact-types.index')
             ->with('success', 'Contact type deleted successfully.');
     }
 }

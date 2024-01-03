@@ -1,8 +1,5 @@
 <?php
 
-
-use App\Http\Controllers\IdentificationTypeController;
-use App\Http\Controllers\RequirementCategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -10,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\GenderController;
+use App\Http\Controllers\IdentificationTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProfessionController;
@@ -20,10 +18,9 @@ use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\PaymentCategoryController;
 use App\Http\Controllers\QualificationLevelController;
-use App\Http\Controllers\RequirementsCategoryController;
+use App\Http\Controllers\RequirementCategoryController;
 use App\Http\Controllers\AccreditedInstitutionController;
 use App\Http\Controllers\QualificationCategoryController;
-
 use App\Http\Controllers\ContactController;
 
 /*

@@ -42,7 +42,8 @@
                                             <i class="fa fa-plus"></i> Add Direct
                                         </a>
 
-                                        <button class="btn btn-info add-btn" data-bs-toggle="modal" data-bs-target="#showModal">
+                                        <button class="btn btn-info add-btn" data-bs-toggle="modal"
+                                                data-bs-target="#showModal">
                                             <i class="fa fa-plus"></i> Add Modal
                                         </button>
                                     </div>
@@ -55,7 +56,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <!--start table-->
-                                <table id="buttons-datatables"
+                                <table style="width: 100%;" id="buttons-datatables"
                                        class="display table table-bordered dataTable no-footer"
                                        aria-describedby="buttons-datatables_info">
                                     <thead>
@@ -101,30 +102,6 @@
                                         <td>61</td>
                                         <td>2012/12/02</td>
                                         <td>$372,000</td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td class="sorting_1">Caesar Vance</td>
-                                        <td>Pre-Sales Support</td>
-                                        <td>New York</td>
-                                        <td>21</td>
-                                        <td>2011/12/12</td>
-                                        <td>$106,450</td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td class="sorting_1">Cedric Kelly</td>
-                                        <td>Senior Javascript Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td>22</td>
-                                        <td>2012/03/29</td>
-                                        <td>$433,060</td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td class="sorting_1">Charde Marshall</td>
-                                        <td>Regional Director</td>
-                                        <td>San Francisco</td>
-                                        <td>36</td>
-                                        <td>2008/10/16</td>
-                                        <td>$470,600</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -290,47 +267,28 @@
                             <!--end add modal-->
                         </div>
                     </div>
-
                     <!--end col-->
                     <div class="col-xxl-3">
-                        <div class="card" id="company-view-detail">
-                            <div class="card-body text-center">
-                                <div class="position-relative d-inline-block">
-                                    <div class="avatar-md">
-                                        <div class="avatar-title bg-light rounded-circle">
-                                            <img src="administration/assets/images/brands/mail_chimp.png" alt=""
-                                                 class="avatar-sm rounded-circle object-cover">
-                                        </div>
-                                    </div>
-                                </div>
-                                <h5 class="mt-3 mb-1">Syntyce Solution</h5>
-                                <p class="text-muted">Michael Morris</p>
-
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item avatar-xs">
-                                        <a href="javascript:void(0);"
-                                           class="avatar-title bg-soft-success text-success fs-15 rounded">
-                                            <i class="ri-global-line"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item avatar-xs">
-                                        <a href="javascript:void(0);"
-                                           class="avatar-title bg-soft-danger text-danger fs-15 rounded">
-                                            <i class="ri-mail-line"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item avatar-xs">
-                                        <a href="javascript:void(0);"
-                                           class="avatar-title bg-soft-warning text-warning fs-15 rounded">
-                                            <i class="ri-question-answer-line"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                        <div class="card border card-border-light">
+                            <div class="card-header">
+                                <h6 class="card-title mb-0">Heading</h6>
                             </div>
+                            <div class="card-body">
 
+                                <form action="">
+                                    <div class="mb-3">
+                                        <label for="employeeName" class="form-label">Employee Name</label>
+                                        <input type="text" class="form-control" id="employeeName" placeholder="Enter emploree name">
+                                    </div>
+
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary">Add Leave</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <!--end card-->
                     </div>
+
                     <!--end col-->
                     <!--end card-->
                 </div>
