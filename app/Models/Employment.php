@@ -16,10 +16,28 @@ class Employment extends Model
         return $this->belongsTo(Practitioner::class);
     }
 
+    //province
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    //city
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    //employment sector
+    public function employmentSector()
+    {
+        return $this->belongsTo(EmploymentSector::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom('employer')
             ->saveSlugsTo('slug');
     }
 

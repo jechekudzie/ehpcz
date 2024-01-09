@@ -25,7 +25,7 @@ class Contact extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(['country_code','contact'])
             ->saveSlugsTo('slug');
     }
 

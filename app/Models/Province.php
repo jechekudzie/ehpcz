@@ -18,6 +18,16 @@ class Province extends Model
         return $this->hasMany(City::class);
     }
 
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function employments()
+    {
+        return $this->hasMany(Employment::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

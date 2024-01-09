@@ -13,6 +13,11 @@ class EmploymentSector extends Model
 
     protected $guarded = [];
 
+    //employment
+    public function employment()
+    {
+        return $this->hasMany(Employment::class);
+    }
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\EmploymentController;
+use App\Http\Controllers\PractitionerController;
+use App\Http\Controllers\PractitionerIdentificationController;
+use App\Http\Controllers\PractitionerProfessionsController;
+use App\Http\Controllers\ProfessionalQualificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -214,14 +220,73 @@ Route::resource('payment-categories', PaymentCategoryController::class)->names([
 ]);
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Practitioners Dashboard Routes
 |--------------------------------------------------------------------------
 */
-Route::resource('practitioner-contacts', ContactController::class);
+
+//PractitionerController Routes
+Route::resource('practitioners', PractitionerController::class)->names([
+    'index' => 'practitioners.index',
+    'create' => 'practitioners.create',
+    'store' => 'practitioners.store',
+    'show' => 'practitioners.show',
+    'edit' => 'practitioners.edit',
+    'update' => 'practitioners.update',
+    'destroy' => 'practitioners.destroy',
+]);
+
+
+// Practitioner Identification Routes
+Route::post('practitioner-identifications/store/{practitioner}', [PractitionerIdentificationController::class, 'store'])->name('practitioner-identifications.store');
+Route::get('practitioner-identifications/{practitionerIdentification}/edit', [PractitionerIdentificationController::class, 'edit'])->name('practitioner-identifications.edit');
+Route::patch('practitioner-identifications/{practitionerIdentification}/update', [PractitionerIdentificationController::class, 'update'])->name('practitioner-identifications.update');
+Route::delete('practitioner-identifications/{identification}', [PractitionerIdentificationController::class, 'destroy'])->name('practitioner-identifications.destroy');
+
+// Practitioner Contact Routes
+Route::get('practitioner-contacts', [ContactController::class,'index'])->name('practitioner-contacts.index');
+Route::post('practitioner-contacts/{practitioner}/store', [ContactController::class,'store'])->name('practitioner-contacts.store');
+
+// Practitioner Address Routes
+Route::get('practitioner-address', [AddressController::class,'index'])->name('practitioner-address.index');
+Route::post('practitioner-address/{practitioner}/store', [AddressController::class,'store'])->name('practitioner-address.store');
+
+
+//Practitioner Employment EmploymentController Routes
+Route::get('practitioner-employments/{practitioner}', [EmploymentController::class,'index'])->name('practitioner-employments.index');
+//store route
+Route::post('practitioner-employments/{practitioner}/store', [EmploymentController::class,'store'])->name('practitioner-employments.store');
+//edit route
+Route::get('practitioner-employments/{employment}/edit', [EmploymentController::class,'edit'])->name('practitioner-employments.edit');
+//update route
+Route::patch('practitioner-employments/{employment}/update', [EmploymentController::class,'update'])->name('practitioner-employments.update');
+
+//practitioner professions routes
+Route::get('practitioner-professions/{practitioner}', [PractitionerProfessionsController::class,'index'])->name('practitioner-professions.index');
+//store route
+Route::post('practitioner-professions/{practitioner}/store', [PractitionerProfessionsController::class,'store'])->name('practitioner-professions.store');
+//edit route
+Route::get('practitioner-professions/{practitionerProfession}/edit', [PractitionerProfessionsController::class,'edit'])->name('practitioner-professions.edit');
+//update route
+Route::patch('practitioner-professions/{practitionerProfession}/update', [PractitionerProfessionsController::class,'update'])->name('practitioner-professions.update');
+
+
+//Practitioner Professional Qualifications routes for ProfessionalQualificationController
+Route::get('practitioner-professional-qualifications/{practitionerProfession}', [ProfessionalQualificationController::class,'index'])->name('practitioner-professional-qualifications.index');
+//store route
+Route::post('practitioner-professional-qualifications/{practitionerProfession}/store', [ProfessionalQualificationController::class,'store'])->name('practitioner-professional-qualifications.store');
+//edit route
+Route::get('practitioner-professional-qualifications/{professionalQualification}/edit', [ProfessionalQualificationController::class,'edit'])->name('practitioner-professional-qualifications.edit');
+//update route
+Route::patch('practitioner-professional-qualifications/{professionalQualification}/update', [ProfessionalQualificationController::class,'update'])->name('practitioner-professional-qualifications.update');
+//delete route
+Route::delete('practitioner-professional-qualifications/{professionalQualification}/destroy', [ProfessionalQualificationController::class,'destroy'])->name('practitioner-professional-qualifications.destroy');
+
 
 /*
+ *
 |--------------------------------------------------------------------------
 | Practitioners Dashboard Routes
 |--------------------------------------------------------------------------

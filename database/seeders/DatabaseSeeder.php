@@ -40,6 +40,10 @@ class DatabaseSeeder extends Seeder
             EmploymentStatusSeeder::class,
             MaritalStatusSeeder::class,
             InstitutionSeeder::class,
+            PaymentMethodSeeder::class,
+            RenewalStatusSeeder::class,
+            RegistrationStatusSeeder::class,
+            OperationalStatusSeeder::class,
         ]);
     }
 }

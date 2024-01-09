@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('dob')->nullable();
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('employment_status_id')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
 
 

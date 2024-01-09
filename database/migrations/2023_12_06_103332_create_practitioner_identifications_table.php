@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('practitioner_identifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
-            $table->unsignedBigInteger('identificaction_type_id');
-            $table->string('identification')->nullable();
+            $table->unsignedBigInteger('identification_type_id');
+            $table->string('identification_number')->nullable();
             $table->string('identification_file')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();

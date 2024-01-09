@@ -11,6 +11,13 @@ class EmploymentStatus extends Model
 {
     use HasFactory, HasSlug;
 
+    //add relationship with practitioner
+    public function practitioners()
+    {
+        return $this->hasMany(Practitioner::class);
+    }
+
+
     protected $guarded = [];
 
     public function getSlugOptions(): SlugOptions

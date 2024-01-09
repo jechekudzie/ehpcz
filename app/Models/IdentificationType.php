@@ -13,10 +13,9 @@ class IdentificationType extends Model
 
     protected $guraded = [];
 
-    public function practitioners(){
-
-        return $this->hasMany(Practitioner::class);
-
+    public function practitionerIdentifications()
+    {
+        return $this->hasMany(PractitionerIdentification::class);
     }
 
     public function getSlugOptions(): SlugOptions

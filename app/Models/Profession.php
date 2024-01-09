@@ -12,11 +12,10 @@ class Profession extends Model
     use HasSlug;
     protected $guarded = [];
 
-    public function practitioners()
+    public function practitionerProfessions()
     {
-        return $this->belongsToMany(Practitioner::class);
+        return $this->hasMany(PractitionerProfession::class);
     }
-
     public function qualifications()
     {
         return $this->hasMany(Qualification::class);

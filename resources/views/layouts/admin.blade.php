@@ -11,7 +11,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('administration/assets/images/favicon.ico')}}">
     <!-- Sweet Alert css-->
-    <link href="{{asset('administration/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('administration/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet"
+          type="text/css"/>
     <!-- Layout config Js -->
     <script src="{{asset('administration/assets/js/layout.js')}}"></script>
     <!-- Bootstrap Css -->
@@ -295,7 +296,7 @@
                <span class="logo-sm">
                       <img src="{{asset('logo.png')}}" alt="" height="60">
                 </span>
-            <span class="logo-lg">
+                <span class="logo-lg">
                      <img src="{{asset('logo.png')}}" alt="" height="60">
                 </span>
 
@@ -306,7 +307,7 @@
                 <span class="logo-sm">
                         <img src="{{asset('logo.png')}}" alt="" height="60">
                  </span>
-             <span class="logo-lg">
+                <span class="logo-lg">
                      <img src="{{asset('logo.png')}}" alt="" height="60">
                  </span>
                 {{--<span style="color: white;">EHPCZ</span>--}}
@@ -324,23 +325,63 @@
 
                 <div id="two-column-menu">
                 </div>
+                <div id="two-column-menu">
+                </div>
                 <ul class="navbar-nav" id="navbar-nav">
-                    <li style="color:white; font-size: 12px;" class="menu-title"><span data-key="t-menu">Admin Menu</span></li>
+                    <li style="color:white; font-size: 12px;" class="menu-title"><span data-key="t-menu">Practitioners Menu</span>
+                    </li>
 
                     <!-- Contact Menu -->
                     <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarContact" data-bs-toggle="collapse" role="button"
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarPractitioner" data-bs-toggle="collapse" role="button"
+                           aria-expanded="false" aria-controls="sidebarPractitioner">
+                            <span data-key="t-dashboards">PRACTITIONER</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarPractitioner">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{route('practitioners.index')}}"
+                                       class="nav-link active" data-key="t-analytics">
+                                        Practitioners
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a style="color:white; font-size: 12px;" href="{{route('practitioners.index')}}"
+                                       class="nav-link active" data-key="t-analytics">
+                                        Reports
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Contact Menu -->
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
+
+                </ul>
+                <ul class="navbar-nav" id="navbar-nav">
+                    <li style="color:white; font-size: 12px;" class="menu-title"><span
+                            data-key="t-menu">Admin Menu</span></li>
+
+                    <!-- Contact Menu -->
+                    <li class="nav-item">
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarContact" data-bs-toggle="collapse" role="button"
                            aria-expanded="false" aria-controls="sidebarContact">
                             <span data-key="t-dashboards">CONTACT</span>
                         </a>
                         <div class="collapse menu-dropdown" id="sidebarContact">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{route('contact-types.index')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{route('contact-types.index')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Contact Type </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{route('address-types.index')}}" class="nav-link"
+                                    <a style="color:white; font-size: 12px;" href="{{route('address-types.index')}}"
+                                       class="nav-link"
                                        data-key="t-ecommerce"> Address Type </a>
                                 </li>
 
@@ -351,7 +392,8 @@
 
                     <!-- Location Menu -->
                     <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarLocation" data-bs-toggle="collapse"
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarLocation" data-bs-toggle="collapse"
                            role="button"
                            aria-expanded="false" aria-controls="sidebarLocation">
                             <span data-key="t-dashboards">LOCATION</span>
@@ -360,11 +402,13 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/countries')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/countries')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Countries </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/provinces')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/provinces')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Provinces </a>
                                 </li>
                                 <li class="nav-item">
@@ -379,7 +423,8 @@
 
                     <!-- Identification Menu -->
                     <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarIdentification" data-bs-toggle="collapse"
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarIdentification" data-bs-toggle="collapse"
                            role="button"
                            aria-expanded="false" aria-controls="sidebarIdentification">
                             <span data-key="t-dashboards">IDENTIFICATION TYPES</span>
@@ -388,15 +433,18 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/titles')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/titles')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Titles </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/genders')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/genders')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Gender </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/identification-types')}}" class="nav-link"
+                                    <a style="color:white; font-size: 12px;" href="{{url('/identification-types')}}"
+                                       class="nav-link"
                                        data-key="t-ecommerce"> Identification Document Types </a>
                                 </li>
 
@@ -407,7 +455,8 @@
 
                     <!-- Requirements Menu -->
                     <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarRequirements" data-bs-toggle="collapse"
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarRequirements" data-bs-toggle="collapse"
                            role="button"
                            aria-expanded="false" aria-controls="sidebarRequirements">
                             <span data-key="t-dashboards">REQUIREMENTS</span>
@@ -416,11 +465,13 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/requirement-categories')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/requirement-categories')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Requirement Categories </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/requirements')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/requirements')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Requirements </a>
                                 </li>
 
@@ -431,7 +482,8 @@
 
                     <!-- Professions Menu -->
                     <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarProfessions" data-bs-toggle="collapse"
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarProfessions" data-bs-toggle="collapse"
                            role="button"
                            aria-expanded="false" aria-controls="sidebarProfessions">
                             <span data-key="t-dashboards">PROFESSIONS</span>
@@ -440,11 +492,13 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/professions')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/professions')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Professions </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/registers')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/registers')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Registers </a>
                                 </li>
 
@@ -455,7 +509,8 @@
 
                     <!-- Qualifications Menu -->
                     <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarQualifications" data-bs-toggle="collapse"
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarQualifications" data-bs-toggle="collapse"
                            role="button"
                            aria-expanded="false" aria-controls="sidebarQualifications">
                             <span data-key="t-dashboards">QUALIFICATIONS</span>
@@ -464,16 +519,19 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/qualification-categories')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/qualification-categories')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Qualification Categories </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/qualifications')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/qualifications')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Qualifications </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/qualification-level')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/qualification-level')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Qualification Levels </a>
                                 </li>
                             </ul>
@@ -483,7 +541,8 @@
 
                     <!-- Institutions Menu -->
                     <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed" href="#sidebarInstitutions" data-bs-toggle="collapse"
+                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarInstitutions" data-bs-toggle="collapse"
                            role="button"
                            aria-expanded="false" aria-controls="sidebarInstitutions">
                             <span data-key="t-dashboards">ACCREDITATION</span>
@@ -492,11 +551,13 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/institutions')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/institutions')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Training Institutions </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{url('/accredited-institutions')}}" class="nav-link active" data-key="t-analytics">
+                                    <a style="color:white; font-size: 12px;" href="{{url('/accredited-institutions')}}"
+                                       class="nav-link active" data-key="t-analytics">
                                         Accredited Qualifications </a>
                                 </li>
 
@@ -532,7 +593,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <script>document.write(new Date().getFullYear())</script>
-                        © Velzon.
+                        © EHPCZ.
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">
@@ -566,12 +627,11 @@
 <script src="{{asset('administration/assets/libs/list.js/list.min.js')}}"></script>
 <script src="{{asset('administration/assets/libs/list.pagination.js/list.pagination.min.js')}}"></script>
 
-<!-- Sweet Alerts js -->
-<script src="{{asset('administration/assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
 <script src="{{asset('administration/assets/js/pages/crm-companies.init.js')}}"></script>
 <!-- Jquery min js -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <!-- App js -->
 <script src="{{asset('administration/assets/js/app.js')}}"></script>

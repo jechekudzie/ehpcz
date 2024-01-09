@@ -15,9 +15,12 @@ class Country extends Model
 
     public function provinces()
     {
-
         return $this->hasMany(Province::class);
+    }
 
+    public function practitioners()
+    {
+        return $this->hasMany(Practitioner::class);
     }
 
     public function getSlugOptions(): SlugOptions

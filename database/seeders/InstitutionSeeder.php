@@ -17,18 +17,21 @@ class InstitutionSeeder extends Seeder
     {
         //
         $institutions = [
-            ["name" => "Chinhoyi University"],
-            ["name" => "Solusi University"],
-            ["name" => "National University of Science and Technology"],
+            ["name" => "Army Health Services Training School"],
             ["name" => "Bulawayo Polytechnic"],
+            ["name" => "Chinhoyi University of Technology"],
+            ["name" => "Gwanda Multidisciplinary School"],
+            ["name" => "Gweru Multidisciplinary School"],
+            ["name" => "Joshua Mqabuko Polytechnic"],
+            ["name" => "Kushinga Phikelela Training School"],
             ["name" => "Kwekwe Polytechnic"],
-            ["name" => "Gweru Polytechnic"],
-            ["name" => "Mutare Polytechnic"],
-            ["name" => "Joshua Mqabuko Nkomo Polytechnic"],
-            ["name" => "Kushinga Phikelela Polytechnic"],
             ["name" => "Masvingo Polytechnic"],
-            ["name" => "Kwekwe Polytechnic College"],
+            ["name" => "Mutare Polytechnic"],
+            ["name" => "National University of Science and Technology"],
+            ["name" => "Solusi University"],
+            ["name" => "University of Zimbabwe"],
         ];
+
 
         foreach ($institutions as $institution) {
             Institution::create($institution);

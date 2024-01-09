@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
             $table->unsignedBigInteger('contact_type_id');
+            $table->string('country_code')->nullable();
             $table->string('contact');
             $table->string('slug')->nullable();
             $table->timestamps();

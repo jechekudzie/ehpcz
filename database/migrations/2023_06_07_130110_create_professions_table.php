@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('prefix')->nullable();
             $table->string('plural')->nullable();
-            $table->string('certificate_expiry_month')->nullable();
+            $table->string('expiry_month')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
         });

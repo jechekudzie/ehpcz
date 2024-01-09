@@ -13,6 +13,13 @@ class QualificationCategory extends Model
     use HasSlug;
     protected $guarded = [];
 
+
+    //professionalQualifications
+    public function professionalQualifications()
+    {
+        return $this->hasMany(ProfessionalQualification::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

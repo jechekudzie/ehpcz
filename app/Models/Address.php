@@ -28,10 +28,15 @@ class Address extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom('address')
             ->saveSlugsTo('slug');
     }
 

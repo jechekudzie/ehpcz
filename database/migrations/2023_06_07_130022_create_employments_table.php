@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('employments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
+            $table->unsignedBigInteger('employment_sector_id');
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
             $table->string('employer')->nullable();
             $table->string('position')->nullable();
             $table->string('start_date')->nullable();

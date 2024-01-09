@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
             $table->unsignedBigInteger('address_type_id');
+            $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('city_id');
-            $table->string('address_number')->nullable();
-            $table->string('street')->nullable();
+            $table->string('address')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();

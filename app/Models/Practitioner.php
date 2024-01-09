@@ -10,6 +10,7 @@ class Practitioner extends Model
 {
 
     use HasSlug;
+
     protected $guarded = [];
 
     public function title()
@@ -22,9 +23,15 @@ class Practitioner extends Model
         return $this->belongsTo(Gender::class);
     }
 
-    public function employment()
+    public function employments()
     {
-        return $this->hasOne(Employment::class);
+        return $this->hasMany(Employment::class);
+    }
+
+    //create employment
+    public function createEmployment($employment)
+    {
+        return $this->employments()->create($employment);
     }
 
     public function contacts()
@@ -32,25 +39,62 @@ class Practitioner extends Model
         return $this->hasMany(Contact::class);
     }
 
+    //create contact
+    public function createContact($contact)
+    {
+        return $this->contacts()->create($contact);
+    }
+
     public function addresses()
     {
         return $this->hasMany(Address::class);
     }
 
-    public function identificationType()
+    //create address
+    public function createAddress($address)
     {
-        return $this->belongsTo(IdentificationType::class);
+        return $this->addresses()->create($address);
     }
 
-    public function professions()
+    public function country()
     {
-        return $this->belongsToMany(Profession::class);
+        return $this->belongsTo(Country::class);
     }
+
+    //add employment status
+    public function employmentStatus()
+    {
+        return $this->belongsTo(EmploymentStatus::class);
+    }
+
+    //has practitioner identification
+    public function practitionerIdentifications()
+    {
+        return $this->hasMany(PractitionerIdentification::class);
+    }
+
+    public function createPractitionerIdentifications($practitionerIdentification)
+    {
+        return $this->practitionerIdentifications()->create($practitionerIdentification);
+    }
+
+    //practitioner professions
+    public function practitionerProfessions()
+    {
+        return $this->hasMany(PractitionerProfession::class);
+    }
+
+    //create practitioner profession
+    public function createPractitionerProfession($practitionerProfession)
+    {
+        return $this->practitionerProfessions()->create($practitionerProfession);
+    }
+
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(['first_name', 'last_name'])
             ->saveSlugsTo('slug');
     }
 

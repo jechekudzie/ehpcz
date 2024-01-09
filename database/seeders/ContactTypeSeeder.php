@@ -18,8 +18,8 @@ class ContactTypeSeeder extends Seeder
         //
         $contactTypes = [
             ["name" => "Mobile"],
+            ["name" => "Telephone"],
             ["name" => "Email"],
-            ["name" => "Business"],
         ];
 
         foreach ($contactTypes as $type) {
