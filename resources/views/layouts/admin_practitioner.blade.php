@@ -17,9 +17,9 @@
     <script src="{{asset('administration/assets/js/layout.js')}}"></script>
     <!-- Bootstrap Css -->
     <link href="{{asset('administration/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
-    <!-- Icons Css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Font Awsome Icons Css V4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--  Icons Css  -->
     <link href="{{asset('administration/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- App Css-->
     <link href="{{asset('administration/assets/css/app.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -588,7 +588,7 @@
         <div class="page-content">
             <div class="container-fluid">
                 <div style="margin-top: 3%;" class="row">
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-3" style="background-color: #878a99;font-weight: bold;color: black;!important;">
                         <div class="card mt-n5">
                             <div class="card-body p-4">
                                 <div class="text-center">

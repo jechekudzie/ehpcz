@@ -16,7 +16,7 @@
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
-            <div class="card-body p-4">
+            <div class="card-body p-4" style="background-color: #878a99;font-weight: bold;color: black;!important;">
                 <div class="tab-content">
                     @if(session()->has('errors'))
                         @if($errors->any())

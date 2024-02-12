@@ -5,11 +5,11 @@
 @endpush
 @section('content')
     <!--end col-->
-    <div class="col-xxl-9">
-        <div class="card mt-xxl-n5">
+    <div class="col-xxl-9" >
+        <div class="card mt-xxl-n5" >
             @include('partials.admin_practitioner.profile_nav')
 
-            <div class="card-body p-4">
+            <div class="card-body p-4" style="background-color: #878a99;font-weight: bold;color: black;!important;">
                 <div class="tab-content">
                     <div class="tab-pane active" id="personalDetails" role="tabpanel">
 
