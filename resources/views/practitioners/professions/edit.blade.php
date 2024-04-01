@@ -23,27 +23,17 @@
                                                     </a>
                                                 </span>
                                 <h6 class="card-title mb-0">Practitioner Profession</h6><br/>
-                                @if(session()->has('errors'))
-                                    @if($errors->any())
-                                        <div class="row">
-                                            <div class="toast fade show col-8" role="alert" aria-live="assertive"
-                                                 data-bs-autohide="false" aria-atomic="true">
-                                                <div class="toast-header">
-                                                    <span class="fw-semibold me-auto">Validation Errors</span>
-                                                    <small>Just now</small>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="toast"
-                                                            aria-label="Close"></button>
-                                                </div>
-                                                <div class="toast-body">
-                                                    <ul>
-                                                        @foreach($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                @if($errors->any())
+
+                                    @foreach($errors->all() as $error)
+                                        <!-- Success Alert -->
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong> Errors! </strong> {{ $error }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
                                         </div>
-                                    @endif
+                                    @endforeach
+
                                 @endif
 
                                 @if(session('success'))

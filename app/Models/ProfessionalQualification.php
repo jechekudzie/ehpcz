@@ -46,6 +46,12 @@ class ProfessionalQualification extends Model
         return $this->belongsTo(Institution::class);
     }
 
+    //qualificationFiles
+    public function qualificationFiles()
+    {
+        return $this->hasMany(QualificationFile::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

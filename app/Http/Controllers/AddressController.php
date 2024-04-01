@@ -18,16 +18,10 @@ class AddressController extends Controller
     }
 
     //add store method
-    public function store(Request $request,Practitioner $practitioner)
+    public function store(Request $request, Practitioner $practitioner)
     {
         $validator = Validator::make($request->all(), [
-
-            'address_type_id' => [
-                'required',
-                Rule::unique('addresses')->where(function ($query) use ($practitioner) {
-                    return $query->where('practitioner_id', $practitioner->id);
-                })
-            ],
+            'address_type_id' => 'required',
             'province_id' => 'required',
             'city_id' => 'required',
             'address' => 'required',
@@ -41,9 +35,21 @@ class AddressController extends Controller
 
         $validatedData = $validator->validated();
 
-        $practitioner->createAddress($validatedData);
+        // Check if an address with the given address_type_id exists for this practitioner
+        $address = $practitioner->addresses()->where('address_type_id', $validatedData['address_type_id'])->first();
+
+        if ($address) {
+            // If the address exists, update it
+            $address->update($validatedData);
+            $message = 'Address updated successfully.';
+        } else {
+            // If the address doesn't exist, create a new one
+            $practitioner->createAddress($validatedData);
+            $message = 'Address created successfully.';
+        }
 
         return redirect()->route('practitioners.show', $practitioner->slug)
-            ->with('address_success', 'Address created successfully.');
+            ->with('address_success', $message);
     }
+
 }

@@ -12,11 +12,11 @@
 @endpush
 @section('content')
     <!--end col-->
-    <div class="col-xxl-9">
+    <div class="col-xxl-12">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
-            <div class="card-body p-4" style="background-color: #878a99;font-weight: bold;color: black;!important;">
+            <div class="card-body p-4" style="font-weight: bold;color: black;!important;">
                 <div class="tab-content">
                     @if(session()->has('errors'))
                         @if($errors->any())
@@ -60,6 +60,10 @@
                                     <i class="fa fa-plus"></i> Add Professional Qualification
                                 </a>
 
+                                 <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium" data-bs-toggle="modal" data-bs-target="#addProfession">
+                                    <i class="fa fa-plus"></i> Make Payment
+                                </a>
+
                             </span>
                                 <h6 class="card-title mb-0">{{$practitionerProfession->profession->name}}
                                     Qualifications
@@ -73,12 +77,12 @@
                                             aria-controls="buttons-datatables" rowspan="1" colspan="1"
                                             aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
-                                            style="width: 224.4px;">#
+                                            >#
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Category
+                                            >Category
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
@@ -96,15 +100,21 @@
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Register
+                                            >Register
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Level
+                                            >Level
                                         </th>
 
+
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Position: activate to sort column ascending"
+                                        >Requirements
+                                        </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
@@ -117,16 +127,16 @@
                                     @foreach($practitionerProfession->professionalQualifications as $professionalQualification)
                                         <tr class="even">
                                             <td class="sorting_1">{{$loop->iteration}}</td>
-                                            <td>{{$professionalQualification->qualificationCategory->name}}</td>
+                                            <td style="font-weight: normal;">{{$professionalQualification->qualificationCategory->name}}</td>
                                             <!-- Check if the qualification category is 'Local' or 'Foreign' and display accordingly -->
-                                            <td>
+                                            <td style="font-weight: normal;">
                                                 @if($professionalQualification->qualificationCategory->name == 'Local')
                                                     {{$professionalQualification->qualification->name }}
                                                 @else
                                                     {{$professionalQualification->qualification_name}}
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td style="font-weight: normal;">
                                                 @if($professionalQualification->qualificationCategory->name == 'Local')
                                                     {{$professionalQualification->institution->name}}
                                                 @else
@@ -134,9 +144,16 @@
                                                 @endif
                                             </td>
 
-                                            <td>{{$professionalQualification->register->name}}</td>
-                                            <td>{{$professionalQualification->qualificationLevel->name}}</td>
+                                            <td style="font-weight: normal;">{{$professionalQualification->register->name}}</td>
+                                            <td style="font-weight: normal;">{{$professionalQualification->qualificationLevel->name}}</td>
                                             <td>
+                                                <a href="{{route('practitioner-professional-qualifications.file.index',$professionalQualification->slug)}}"
+                                                   class="edit-button btn btn-sm btn-success" title="Qualification Requirements">
+                                                    Requirements  <i style="font-size: 15px;" class="fa fa-files-o"></i>
+                                                </a>
+                                            </td>
+                                            <td style="font-weight: normal;">
+
                                                 <!-- Edit Button -->
                                                 <a href="{{route('practitioner-professional-qualifications.edit',$professionalQualification->slug)}}"
                                                    class="edit-button btn btn-sm btn-primary" title="Edit">

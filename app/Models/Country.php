@@ -23,6 +23,11 @@ class Country extends Model
         return $this->hasMany(Practitioner::class);
     }
 
+    public function registrationRules()
+    {
+        return $this->hasMany(RegistrationRule::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\EmploymentController;
+use App\Http\Controllers\FeeCategoryController;
+use App\Http\Controllers\FeeItemController;
 use App\Http\Controllers\PractitionerController;
 use App\Http\Controllers\PractitionerIdentificationController;
 use App\Http\Controllers\PractitionerProfessionsController;
 use App\Http\Controllers\ProfessionalQualificationController;
+use App\Http\Controllers\ProfessionalQualificationFilesController;
+use App\Http\Controllers\RegistrationRuleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -263,7 +267,7 @@ Route::get('practitioner-employments/{employment}/edit', [EmploymentController::
 //update route
 Route::patch('practitioner-employments/{employment}/update', [EmploymentController::class,'update'])->name('practitioner-employments.update');
 
-//practitioner professions routes
+//Practitioner professions routes
 Route::get('practitioner-professions/{practitioner}', [PractitionerProfessionsController::class,'index'])->name('practitioner-professions.index');
 //store route
 Route::post('practitioner-professions/{practitioner}/store', [PractitionerProfessionsController::class,'store'])->name('practitioner-professions.store');
@@ -283,6 +287,41 @@ Route::get('practitioner-professional-qualifications/{professionalQualification}
 Route::patch('practitioner-professional-qualifications/{professionalQualification}/update', [ProfessionalQualificationController::class,'update'])->name('practitioner-professional-qualifications.update');
 //delete route
 Route::delete('practitioner-professional-qualifications/{professionalQualification}/destroy', [ProfessionalQualificationController::class,'destroy'])->name('practitioner-professional-qualifications.destroy');
+
+
+////Practitioner Professional Qualifications routes for ProfessionalQualificationFilesController
+//professional qualifications files
+Route::get('professional-qualification-files/{professionalQualification}/index', [ProfessionalQualificationFilesController::class,'index'])->name('practitioner-professional-qualifications.file.index');
+//professional qualifications files store
+Route::post('professional-qualification-files/{professionalQualification}/files/store', [ProfessionalQualificationFilesController::class,'store'])->name('practitioner-professional-qualifications.files.store');
+//professional qualifications files edit
+Route::get('professional-qualification-files/{professionalQualification}/files/{qualificationFile}/edit', [ProfessionalQualificationFilesController::class,'edit'])->name('practitioner-professional-qualifications.files.edit');
+//professional qualifications files update
+Route::patch('professional-qualification-files/{professionalQualification}/update', [ProfessionalQualificationFilesController::class,'update'])->name('practitioner-professional-qualifications.files.update');
+//professional qualifications files destroy
+Route::delete('professional-qualification-files/{professionalQualification}/destroy', [ProfessionalQualificationFilesController::class,'destroy'])->name('practitioner-professional-qualifications.files.destroy');
+
+//FeesCategory
+Route::get('fees-categories/index', [FeeCategoryController::class,'index'])->name('fees-categories.index');
+Route::post('fees-categories/store', [FeeCategoryController::class,'store'])->name('fees-categories.store');
+Route::get('fees-categories/{feeCategory}/edit', [FeeCategoryController::class,'edit'])->name('fees-categories.edit');
+Route::patch('fees-categories/{feeCategory}/update', [FeeCategoryController::class,'update'])->name('fees-categories.update');
+Route::delete('fees-categories/{feeCategory}/destroy', [FeeCategoryController::class,'destroy'])->name('fees-categories.destroy');
+
+//fees items for a category
+Route::get('fees-categories/{feeCategory}/index', [FeeItemController::class,'index'])->name('fees-categories.items');
+Route::post('fees-categories/{feeCategory}/items/store', [FeeItemController::class,'store'])->name('fees-categories.items.store');
+Route::get('fees-categories/{feeCategory}/items/{feeItem}/edit', [FeeItemController::class,'edit'])->name('fees-categories.items.edit');
+Route::patch('fees-categories/{feeCategory}/items/{feeItem}/update', [FeeItemController::class,'update'])->name('fees-categories.items.update');
+Route::delete('fees-categories/{feeCategory}/items/{feeItem}/destroy', [FeeItemController::class,'destroy'])->name('fees-categories.items.destroy');
+
+
+//registartion rules
+Route::get('registration-rules/index', [RegistrationRuleController::class,'index'])->name('registration-rules.index');
+Route::post('registration-rules/store', [RegistrationRuleController::class,'store'])->name('registration-rules.store');
+Route::get('registration-rules/{registrationRule}/edit', [RegistrationRuleController::class,'edit'])->name('registration-rules.edit');
+Route::patch('registration-rules/{registrationRule}/update', [RegistrationRuleController::class,'update'])->name('registration-rules.update');
+Route::delete('registration-rules/{registrationRule}/destroy', [RegistrationRuleController::class,'destroy'])->name('registration-rules.destroy');
 
 
 /*

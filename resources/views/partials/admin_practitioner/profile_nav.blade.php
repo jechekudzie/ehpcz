@@ -25,6 +25,22 @@
 
         <li class="nav-item">
             <a style="font-size: 14px;"
+               class="nav-link {{ Request::routeIs('practitioner-professions*') || Request::routeIs('practitioner-professional-qualifications*') ? 'active' : '' }}"
+               href="{{ route('practitioner-professions.index', $practitioner->slug) }}">
+                <i class="fa fa-book"></i> CPDs
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a style="font-size: 14px;"
+               class="nav-link {{ Request::routeIs('practitioner-professions*') || Request::routeIs('practitioner-professional-qualifications*') ? 'active' : '' }}"
+               href="{{ route('practitioner-professions.index', $practitioner->slug) }}">
+                <i class="fa fa-gavel"></i> Disciplinary Actions
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a style="font-size: 14px;"
                class="nav-link {{ Request::routeIs('practitioners.edit', $practitioner->slug) ? 'active' : '' }}"
                href="{{ route('practitioners.edit', $practitioner->slug) }}">
                 <i class="fa fa-credit-card"></i> Payments

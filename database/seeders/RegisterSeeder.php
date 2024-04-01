@@ -17,11 +17,12 @@ class RegisterSeeder extends Seeder
     {
         //
         $registers = [
-            ["name" => "Student", "description" => "Students in training institution"],
-            ["name" => "Intern", "description" => "Internship"],
-            ["name" => "Provisional", "description" => "Foreign applications"],
-            ["name" => "Provisional", "description" => "Foreign trained Zimbabweans"],
-            ["name" => "Main", "description" => "Permanent Register"],
+            ["name" => "MAIN REGISTRATION", "description" => "Permanent Register"],
+            ["name" => "PROVISIONAL REGISTRATION FOR FOREIGN APPLICANTS", "description" => "Foreign applications, Provisional Registration"],
+            ["name" => "PROVISIONAL REGISTRATION FOR FOREIGN TRAINED ZIMBABWEANS", "description" => "Foreign trained Zimbabweans, Provisional Registration"],
+            ["name" => "INTERNSHIP", "description" => "Internship"],
+            ["name" => "STUDENT", "description" => "Students in training institution"],
+
         ];
 
         foreach ($registers as $register) {

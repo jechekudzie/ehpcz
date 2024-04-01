@@ -17,6 +17,11 @@ class Requirement extends Model
         return $this->belongsTo(RequirementCategory::class);
     }
 
+    public function qualificationFiles()
+    {
+        return $this->hasMany(QualificationFile::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

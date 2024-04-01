@@ -27,8 +27,8 @@ class PractitionerIdentificationController extends Controller
                     return $query->where('practitioner_id', $practitioner->id);
                 })
             ],
-            'identification_number' => 'required',
-            'identification_file' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx|max:2048',
+            'identification_number' => ['required', 'regex:/\b([A-Za-z0-9]{8,12}|[A-Za-z]{2}\d{7})\b/'],
+            'identification_file' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -42,7 +42,7 @@ class PractitionerIdentificationController extends Controller
         //add image upload code using move method
         if ($request->hasFile('identification_file')) {
             $image = $request->file('identification_file');
-            $imagePath = 'images/practitioners/identification_files'; // The directory where you want to save the files
+            $imagePath = $practitioner->first_name.'_'.$practitioner->last_name.'/identification_files'; // The directory where you want to save the files
             $imageName = time() . '_' . $image->getClientOriginalName(); // Customizing the file name to be unique
             $image->move(public_path($imagePath), $imageName); // Move the image to the specified directory
 
@@ -90,7 +90,7 @@ class PractitionerIdentificationController extends Controller
         //add image upload code using move method
         if ($request->hasFile('identification_file')) {
             $image = $request->file('identification_file');
-            $imagePath = 'images/practitioners/identification_files'; // The directory where you want to save the files
+            $imagePath = $practitioner->first_name.'_'.$practitioner->last_name.'/identification_files'; // The directory where you want to save the files
             $imageName = time() . '_' . $image->getClientOriginalName(); // Customizing the file name to be unique
 
             // Check if an existing file is present and delete it

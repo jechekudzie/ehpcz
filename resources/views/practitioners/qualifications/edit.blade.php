@@ -62,7 +62,7 @@
                                     <!--start col-->
                                     <div class="col-12 col-md-12">
 
-                                        <form method="post" action="{{ route('practitioner-professional-qualifications.update', $professionalQualification->id) }}" enctype="multipart/form-data">
+                                        <form method="post" action="{{ route('practitioner-professional-qualifications.update', $professionalQualification->slug) }}" enctype="multipart/form-data">
                                             @csrf
                                             @method('PATCH')
 
@@ -195,9 +195,9 @@
 
                                             <!-- Form Submission Buttons -->
                                             <div class="col-lg-12">
-                                                <div class="hstack gap-2 justify-content-end">
+                                                <div class="hstack gap-2 justify-content-start">
                                                     <button type="submit" class="btn btn-primary">Update Qualification Details</button>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
                                                 </div>
                                             </div>
                                         </form>

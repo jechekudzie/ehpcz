@@ -820,7 +820,7 @@ File: Main Css File
   display: inline-block;
 }
 .hamburger-icon span {
-  background-color: #878a99;
+
   position: absolute;
   border-radius: 2px;
   -webkit-transition: 0.3s cubic-bezier(0.8, 0.5, 0.2, 1.4);
@@ -2174,10 +2174,10 @@ File: Main Css File
 
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   position: relative;

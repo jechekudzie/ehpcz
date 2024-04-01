@@ -27,14 +27,14 @@ class PractitionerController extends Controller
         $genders = Gender::all();
         $employmentStatuses = EmploymentStatus::all();
 
-        return view('practitioners.personalInformation.index', compact('practitioners', 'countries',
+        return view('practitioners.personal_information.index', compact('practitioners', 'countries',
             'genders', 'titles', 'employmentStatuses'));
     }
 
     //add create method
     public function create()
     {
-        return view('practitioners.personalInformation.create');
+        return view('practitioners.personal_information.create');
     }
 
     public function store(Request $request)
@@ -94,14 +94,14 @@ class PractitionerController extends Controller
         $identificationTypes = IdentificationType::all();
         $contactTypes = ContactType::all();
         $addressTypes = AddressType::all();
-        return view('practitioners.personalInformation.show', compact('practitioner','countries',
+        return view('practitioners.personal_information.show', compact('practitioner','countries',
         'titles','genders','employmentStatuses','identificationTypes','contactTypes','addressTypes','identificationErrors'));
     }
 
     //add edit method
     public function edit(Practitioner $practitioner)
     {
-        return view('practitioners.personalInformation.edit', compact('practitioner'));
+        return view('practitioners.personal_information.edit', compact('practitioner'));
     }
 
    // add an update method
@@ -159,8 +159,5 @@ class PractitionerController extends Controller
         // Redirect to a specific route (e.g., index page of practitioners)
         return redirect()->route('practitioners.show',$practitioner->slug)->with('success', 'Practitioner updated successfully.');
     }
-
-
-
 
 }

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/verify-account', [ApiController::class, 'verifyAccount']);
+
 //cities index
 Route::get('/cities/{province_id}', [ApiController::class, 'index'])->name('cities.index');
 Route::get('/qualifications/{profession_id}', [ApiController::class, 'qualifications'])->name('qualifications');

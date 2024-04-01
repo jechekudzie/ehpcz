@@ -23,6 +23,8 @@ class PaymentMethodSeeder extends Seeder
             ['name' => 'Swipe - ZWL'],
             ['name' => 'Transfer - ZWL'],
             ['name' => 'Ecocash - USD'],
+            ['name' => 'Ecocash Biller'],
+            ['name' => 'Paynow Online'],
         ];
 
         foreach ($paymentMethods as $paymentMethod) {

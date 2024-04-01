@@ -16,11 +16,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0" id="page-title">Contact Types</h4>
+                        <h4 class="mb-sm-0" id="page-title">Fees Categorys</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li>
-                                <li class="breadcrumb-item active">Contact Types</li>
+                                <li class="breadcrumb-item active">Fees Categorys</li>
                             </ol>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 <div class="d-flex align-items-center flex-wrap gap-2">
                                     <div class="flex-grow-1">
 
-                                        <a href="{{route('contact-types.index')}}" class="btn btn-info btn-sm add-btn">
+                                        <a href="{{route('fees-categories.index')}}" class="btn btn-info btn-sm add-btn">
                                             <i class="fa fa-refresh"></i> Refresh
                                         </a>
                                         <button id="new-button" class="btn btn-success btn-sm add-btn">
@@ -64,7 +64,13 @@
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Type
+                                            style="width: 336.4px;">Category
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Position: activate to sort column ascending"
+                                            style="width: 336.4px;">Fee Items
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
@@ -75,18 +81,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($contactTypes as $contactType)
+                                    @foreach($feeCategories as $feeCategory)
                                         <tr class="even">
                                             <td class="sorting_1">{{$loop->iteration}}</td>
-                                            <td>{{$contactType->name}}</td>
+                                            <td>{{$feeCategory->name}}</td>
                                             <td>
                                                 <!-- Edit Button -->
-                                                <a href="javascript:void(0);" class="edit-button btn btn-sm btn-primary" data-name="{{ $contactType->name }}" data-slug="{{ $contactType->slug }}" title="Edit">
+                                                <a style="font-size: 12px;" href="{{route('fees-categories.items',$feeCategory->slug)}}" class="edit-button btn btn-sm btn-primary" title="Fees Category">
+                                                    <i class="fa fa-money"></i> Fee Items
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <!-- Edit Button -->
+                                                <a href="javascript:void(0);" class="edit-button btn btn-sm btn-primary" data-name="{{ $feeCategory->name }}" data-slug="{{ $feeCategory->slug }}" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
 
                                                 <!-- Delete Button -->
-                                                <form action="{{ route('contact-types.destroy', $contactType->slug) }}" method="POST" onsubmit="return confirm('Are you sure?');" style="display: inline-block;">
+                                                <form action="{{ route('fees-categories.destroy', $feeCategory->slug) }}" method="POST" onsubmit="return confirm('Are you sure?');" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger" title="Delete">
@@ -106,21 +118,21 @@
                     <div class="col-xxl-3">
                         <div class="card border card-border-light">
                             <div class="card-header">
-                                <h6 id="card-title" class="card-title mb-0">Add  Contact Type</h6>
+                                <h6 id="card-title" class="card-title mb-0">Add  Fees Category</h6>
                             </div>
                             <div class="card-body">
-                                <form id="edit-form" action="" method="post" enctype="multipart/form-data">
+                                <form id="edit-form" action="{{ route('fees-categories.store') }}" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="_method" value="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Contact Type</label>
-                                        <input type="text" name="name" class="form-control" id="name"
-                                               placeholder="Enter contact type" value="">
+                                        <label for="name" class="form-label">Fees Category</label>
+                                        <input type="text" name="name" class="form-control" id="name" placeholder="Enter fees category" value="">
                                     </div>
                                     <div class="text-end">
                                         <button id="submit-button" type="submit" class="btn btn-primary">Add New</button>
                                     </div>
                                 </form>
+
 
 
                             </div>
@@ -171,26 +183,23 @@
             $('.edit-button').on('click', function() {
                 var name = $(this).data('name');
                 var slug = $(this).data('slug');
-
-                // Set form action for update, method to PATCH, and button text to Update
-                $('#edit-form').attr('action', '/contact-types/' + slug);
+                $('#edit-form').attr('action', '/fees-categories/' + slug + '/update');
                 $('input[name="_method"]').val('PATCH');
                 submitButton.text('Update');
                 // Populate the form for editing
                 $('#name').val(name);
-                $('#card-title').text('Edit - ' + name + ' Contact Type');
-                $('#page-title').text('Edit - ' + name + ' Contact Type');
+                $('#card-title').text('Edit - ' + name + ' Fees Category');
+                $('#page-title').text('Edit - ' + name + ' Fees Category');
             });
 
             // Click event for adding a new item
             $('#new-button').on('click', function() {
                 // Clear the form, set action for creation, method to POST, and button text to Add New
-                $('#edit-form').attr('action', '/contact-types');
                 $('input[name="_method"]').val('POST');
                 submitButton.text('Add New');
                 $('#name').val('');
-                $('#card-title').text('Add Contact Type');
-                $('#page-title').text('Add New Contact Type');
+                $('#card-title').text('Add Fees Category');
+                $('#page-title').text('Add New Fees Category');
             });
         });
 

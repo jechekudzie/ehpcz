@@ -17,7 +17,8 @@ class RequirementSeeder extends Seeder
     {
         //
         $requirements = [
-            ["name" => "National ID Card or Passport", "requirements_category_id" => 1],
+            ["name" => "National ID Card", "requirements_category_id" => 1],
+            ["name" => "Passport", "requirements_category_id" => 1],
             ["name" => "Birth Certificate", "requirements_category_id" => 1],
             ["name" => "Passport Sized Photos", "requirements_category_id" => 1],
             ["name" => "Ordinary Level certificates", "requirements_category_id" => 1],

@@ -5,11 +5,11 @@
 @endpush
 @section('content')
     <!--end col-->
-    <div class="col-xxl-9" >
-        <div class="card mt-xxl-n5" >
+    <div class="col-xxl-10">
+        <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
-            <div class="card-body p-4" style="background-color: #878a99;font-weight: bold;color: black;!important;">
+            <div class="card-body p-4" style="font-weight: bold;color: black;!important;">
                 <div class="tab-content">
                     <div class="tab-pane active" id="personalDetails" role="tabpanel">
 
@@ -24,27 +24,17 @@
                                                     </a>
                                                 </span>
                                 <h6 class="card-title mb-0">Practitioner Employment</h6><br/>
-                                @if(session()->has('errors'))
-                                    @if($errors->any())
-                                        <div class="row">
-                                            <div class="toast fade show col-8" role="alert" aria-live="assertive"
-                                                 data-bs-autohide="false" aria-atomic="true">
-                                                <div class="toast-header">
-                                                    <span class="fw-semibold me-auto">Validation Errors</span>
-                                                    <small>Just now</small>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="toast"
-                                                            aria-label="Close"></button>
-                                                </div>
-                                                <div class="toast-body">
-                                                    <ul>
-                                                        @foreach($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                @if($errors->any())
+
+                                    @foreach($errors->all() as $error)
+                                        <!-- Success Alert -->
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong> Errors! </strong> {{ $error }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
                                         </div>
-                                    @endif
+                                    @endforeach
+
                                 @endif
 
                                 @if(session('success'))
@@ -57,91 +47,114 @@
                                 @endif
 
                             </div>
-                            @foreach($practitioner->employments as $employment)
+                            @if($practitioner->employments->isEmpty())
                                 <div class="card-body">
                                     <div class="row">
-                                        <!--start col-->
-                                        <div class="col-6 col-md-4">
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="mb-1">Employer :</p>
-                                                    <h6 class="text-truncate mb-0">
-                                                        {{$employment->employer}}
-                                                    </h6>
-                                                </div>
+                                        <div class="col-12">
+                                            <div class="text-center">
+                                                <h4>No Employment Details Found</h4>
                                             </div>
                                         </div>
-                                        <!--end col-->
-
-                                        <!--start col-->
-                                        <div class="col-6 col-md-4">
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="mb-1">Employment Position :</p>
-                                                    <h6 class="text-truncate mb-0">
-                                                        {{$employment->position}}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-
-                                        <!--start col-->
-                                        <div class="col-6 col-md-4">
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="mb-1">Employment Sector :</p>
-                                                    <h6 class="text-truncate mb-0">L
-                                                        {{$employment->employmentSector->name}}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
                                     </div>
-                                    <div class="row">
-                                        <!--start col-->
-                                        <div class="col-6 col-md-4">
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="mb-1">Province :</p>
-                                                    <h6 class="text-truncate mb-0"> {{$employment->province->name}}</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-
-                                        <!--start col-->
-                                        <div class="col-6 col-md-4">
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="mb-1">City :</p>
-                                                    <h6 class="text-truncate mb-0"> {{$employment->city->name}}</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-
-                                        <!--start col-->
-                                        <div class="col-6 col-md-4">
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="mb-1">Employment Status :</p>
-                                                    <h6 class="text-truncate mb-0">
-                                                        {{$employment->is_current == 1 ? 'Current Employer' : 'Previous Employer'}}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <div style="margin-top:3%">
-                                        <a href="{{route('practitioner-employments.edit',$employment->slug)}}"> <i class="fa fa-pencil"></i> Edit Employment Details</a>
-                                    </div>
-                                    <hr/>
-
                                 </div>
-                            @endforeach
+                            @elseif(!$practitioner->employments->isEmpty())
+                                @foreach($practitioner->employments as $employment)
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!--start col-->
+                                            <div class="col-6 col-md-4">
+                                                <div class="d-flex mt-4">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="mb-1">Employer :</p>
+                                                        <h6 class="text-truncate mb-0">
+                                                            {{$employment->employer}}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+
+                                            <!--start col-->
+                                            <div class="col-6 col-md-4">
+                                                <div class="d-flex mt-4">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="mb-1">Employment Position :</p>
+                                                        <h6 class="text-truncate mb-0">
+                                                            {{$employment->position}}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+
+                                            <!--start col-->
+                                            <div class="col-6 col-md-4">
+                                                <div class="d-flex mt-4">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="mb-1">Employment Sector :</p>
+                                                        <h6 class="text-truncate mb-0">
+                                                            @if($employment->employmentSector)
+                                                                {{$employment->employmentSector->name}}
+                                                            @endif
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <div class="row">
+                                            <!--start col-->
+                                            <div class="col-6 col-md-4">
+                                                <div class="d-flex mt-4">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="mb-1">Province :</p>
+                                                        <h6 class="text-truncate mb-0">
+                                                            @if($employment->province)
+                                                                {{$employment->province->name}}
+                                                            @endif
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+
+                                            <!--start col-->
+                                            <div class="col-6 col-md-4">
+                                                <div class="d-flex mt-4">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="mb-1">City :</p>
+                                                        <h6 class="text-truncate mb-0">
+                                                            @if($employment->city)
+                                                                {{$employment->city->name}}
+                                                            @endif
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+
+                                            <!--start col-->
+                                            <div class="col-6 col-md-4">
+                                                <div class="d-flex mt-4">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="mb-1">Employment Status :</p>
+                                                        <h6 class="text-truncate mb-0">
+                                                            {{$employment->is_current == 1 ? 'Current Employer' : 'Previous Employer'}}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <div style="margin-top:3%">
+                                            <a href="{{route('practitioner-employments.edit',$employment->slug)}}"> <i
+                                                    class="fa fa-pencil"></i> Edit Employment Details</a>
+                                        </div>
+                                        <hr/>
+
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
 
 
@@ -164,7 +177,8 @@
                                                 <!-- Title Dropdown -->
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <label for="employment_sector_id" class="form-label">Employment Sector</label>
+                                                        <label for="employment_sector_id" class="form-label">Employment
+                                                            Sector</label>
                                                         <select class="form-control" id="employment_sector_id"
                                                                 name="employment_sector_id">
                                                             <option value="">Select Employment Sector</option>

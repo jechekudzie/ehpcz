@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "infyomlabs/laravel-generator": "^5.4",
         "laravel/framework": "^9.19",
@@ -13,7 +14,8 @@
         "laravel/tinker": "^2.7",
         "openai-php/laravel": "^0.3.4",
         "openai/openai": "dev-main",
-        "spatie/laravel-permission": "^5.7",
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "spatie/laravel-permission": "*",
         "spatie/laravel-sluggable": "^3.5"
     },
     "require-dev": {

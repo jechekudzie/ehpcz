@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             RequirementSeeder::class,
             RegisterSeeder::class,
             PaymentCategorySeeder::class,
+            FeesCategorySeeder::class,
             AddressTypeSeeder::class,
             ContactTypeSeeder::class,
             CountriesSeeder::class,
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
             RenewalStatusSeeder::class,
             RegistrationStatusSeeder::class,
             OperationalStatusSeeder::class,
+            CurrencySeeder::class,
         ]);
     }
 }

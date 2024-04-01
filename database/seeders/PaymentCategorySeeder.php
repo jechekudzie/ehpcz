@@ -17,11 +17,13 @@ class PaymentCategorySeeder extends Seeder
     {
         //
         $paymentCategories = [
-            ["name" => "Registration fees"],
-            ["name" => "Annual fees"],
-            ["name" => "Application for foreign registrants"],
-            ["name" => "Registration of Extra Qualification"],
-            ["name" => "Miscellaneous fees"],
+            ["name" => "REGISTRATION FEES"],
+            ["name" => "ANNUAL FEES"],
+            ["name" => "TRANSFER FEES"],
+            ["name" => "REGISTRATION OF EXTRA QUALIFICATION FEES"],
+            ["name" => "MISCELLANEOUS FEES"],
+            ["name" => "RESTORATION FEES"],
+            ["name" => "PENALTY FEES"],
         ];
 
         foreach ($paymentCategories as $category) {

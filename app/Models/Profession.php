@@ -21,6 +21,11 @@ class Profession extends Model
         return $this->hasMany(Qualification::class);
     }
 
+    public function fees() {
+        return $this->belongsToMany(FeeItem::class, 'profession_fees')
+            ->withPivot(['amount']);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

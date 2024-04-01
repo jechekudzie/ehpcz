@@ -6,6 +6,7 @@ use App\Models\Practitioner;
 use App\Models\PractitionerProfession;
 use App\Models\ProfessionalQualification;
 use App\Models\QualificationCategory;
+use App\Models\Requirement;
 use Illuminate\Http\Request;
 
 class ProfessionalQualificationController extends Controller
@@ -27,9 +28,9 @@ class ProfessionalQualificationController extends Controller
         $rules = [
             'qualification_category_id' => 'required|exists:qualification_categories,id',
             'qualification_level_id' => 'required|exists:qualification_levels,id',
-            'register_id' => 'required|exists:registers,id',
+            'register_id' => 'nullable|exists:registers,id',
             'start_date' => 'nullable|date',
-            'completion_date' => 'nullable|date|after_or_equal:start_date',
+            'completion_date' => 'nullable|date',
         ];
 
         // Retrieve the qualification category to determine additional validation
@@ -49,7 +50,17 @@ class ProfessionalQualificationController extends Controller
         $validatedData = $request->validate($rules);
 
         // Continue with storing the data
-        $practitionerProfession->createProfessionalQualification($validatedData);
+        $qualification = $practitionerProfession->createProfessionalQualification($validatedData);
+
+        //requirements
+        $requirements = Requirement::whereNotIn('id', [1,2,3])->get();
+
+        $qualification->qualificationFiles()->createMany($requirements->map(function($requirement){
+            return [
+                'requirement_id' => $requirement->id,
+                'file' => null
+            ];
+        })->toArray());
 
         // Redirect back with a success message
         return redirect()->route('practitioner-professional-qualifications.index', $practitionerProfession->slug)->with('success', 'Professional qualification added successfully.');

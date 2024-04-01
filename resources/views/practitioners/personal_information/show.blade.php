@@ -5,11 +5,188 @@
 @endpush
 @section('content')
     <!--end col-->
+    <div class="col-xxl-3" style="font-weight: bold;color: black;!important;">
+        <div class="card mt-n5">
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                        @if($practitioner->image)
+                            <img src="{{ asset($practitioner->image) }}"
+                                 class="rounded-circle avatar-xl img-thumbnail user-profile-image"
+                                 alt="user-profile-image">
+                        @else
+                            @php
+                                $initials = '';
+                                if ($practitioner->first_name) {
+                                    $initials .= strtoupper($practitioner->first_name[0]);
+                                }
+                                if ($practitioner->last_name) {
+                                    $initials .= strtoupper($practitioner->last_name[0]);
+                                }
+                            @endphp
+                            <img src="https://placehold.co/200x200/405189/FFFFFF?text={{ $initials }}"
+                                 class="rounded-circle avatar-xl img-thumbnail user-profile-image"
+                                 alt="user-profile-image">
+                        @endif
+                        <div data-bs-toggle="modal"
+                             data-bs-target="#editPractitioner" class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                            <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+                                                    <span class="avatar-title rounded-circle bg-light text-body">
+                                                        <i class="fa fa-camera"></i>
+                                                    </span>
+                            </label>
+                        </div>
+                    </div>
+                    <h5 class="fs-16 mb-1">{{ $practitioner->first_name.' '.$practitioner->last_name }}</h5>
+                    <p class="text-black mb-0">Lead Designer / Developer</p>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+        <!-- Contact card -->
+        <div class="card">
+            @if(session()->has('errors'))
+                @php $errors = session('errors')->getBag('contactErrors') @endphp
+                @if($errors->any())
+                   <!-- Boostrap dismsable alert -->
+                    <div class="alert-message col-12 alert alert-danger alert-dismissible fade show"
+                         role="alert">
+                        <strong>Message!</strong>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+
+
+                @endif
+            @endif
+            @if(session('contact_success'))
+                <!-- Success Alert -->
+                <div class="alert-message col-12 alert alert-secondary alert-dismissible fade show"
+                     role="alert">
+                    <strong>Message!</strong> {{ session('contact_success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            @endif
+            <div class="card-body">
+                <span class="float-end badge bg-primary align-middle fs-10">
+                    <a style="font-size: 12px;color:white;" href="#"
+                       class="link-primary fw-medium" data-bs-toggle="modal"
+                       data-bs-target="#addContact">
+                        <i class="fa fa-plus"></i> Add
+                    </a>
+                </span>
+                <h5 class="card-title mb-3">CONTACT</h5>
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                        @if($practitioner->contacts)
+                            @foreach($practitioner->contacts as $contact)
+                                <tr>
+                                    <th class="ps-0" scope="row">{{ $contact->contactType->name }}:
+                                    </th>
+                                    <td style="font-weight: normal;" class="text-black">
+                                        @if($contact->contactType->name === 'Email')
+                                            {{ $contact->contact }}
+                                        @else
+                                            +{{$contact->country_code}}{{$contact->contact}}
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- end card body -->
+        </div>
+        <!-- Contact card -->
+
+        <!-- Address card -->
+        <div class="card">
+            @if(session()->has('errors'))
+                @php $errors = session('errors')->getBag('addressErrors') @endphp
+                @if($errors->any())
+                    <div class="alert-message col-12 alert alert-danger alert-dismissible fade show"
+                         role="alert">
+                        <strong>Message!</strong>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+
+                @endif
+            @endif
+            @if(session('address_success'))
+                <div class="alert-message col-12 alert alert-secondary alert-dismissible fade show"
+                     role="alert">
+                    <strong>Message!</strong> {{ session('address_success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            @endif
+            <div class="card-body">
+                                <span class="float-end badge bg-primary align-middle fs-10">
+                                <a style="font-size: 12px;color:white;"
+                                   href="#"
+                                   class="link-primary fw-medium" data-bs-toggle="modal" data-bs-target="#addAddress">
+                                    <i class="fa fa-plus"></i> Add
+                                </a>
+                                </span>
+                <h5 class="card-title  mb-3">ADDRESS</h5>
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-0">
+
+                        @if($practitioner->addresses)
+                            @foreach($practitioner->addresses as $address)
+                                <tbody>
+                                <tr>
+                                    <th class="ps-0" scope="row">
+                                        @if($address->addressType)
+                                            {{ $address->addressType->name }}:
+                                        @endif
+                                    </th>
+                                    <td style="font-weight: normal;" class="text-black">{{$address->address}}
+                                </tr>
+                                <tr>
+                                    <th class="ps-0" scope="row">Province:</th>
+                                    <td style="font-weight: normal;"
+                                        class="text-black">
+                                        @if($address->province)
+                                            {{$address->province->name}}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="ps-0" scope="row">City:</th>
+                                    <td style="font-weight: normal;" class="text-black">
+                                        @if($address->city)
+                                            {{$address->city->name}}
+                                        @endif
+                                    </td>
+                                </tr>
+                                </tbody>
+                            @endforeach
+                        @endif
+
+
+                    </table>
+                </div>
+            </div><!-- end card body -->
+        </div>
+        <!-- Address card -->
+    </div>
     <div class="col-xxl-9" style="font-weight: bold;color:black!important;">
         <div class="card mt-xxl-n5">
-           @include('partials.admin_practitioner.profile_nav');
+            @include('partials.admin_practitioner.profile_nav')
 
-            <div class="card-body p-4" style="background-color: #878a99;font-weight: bold;color: black;!important;">
+            <div class="card-body p-4" style="font-weight: bold;color: black;!important;">
                 <div class="tab-content">
                     <div class="tab-pane active" id="personalDetails" role="tabpanel">
 
@@ -25,14 +202,16 @@
                                                 </span>
                                 <h6 class="card-title mb-0">Practitioner Details</h6><br/>
                                 @if(session()->has('errors'))
-                                    @php $errors = session('errors')->getBag('practitionerErrors'); @endphp
+                                    @php $errors = session('errors')->getBag('practitionerErrors') @endphp
                                     @if($errors->any())
                                         <div class="row">
-                                            <div class="toast fade show col-8" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
+                                            <div class="toast fade show col-8" role="alert" aria-live="assertive"
+                                                 data-bs-autohide="false" aria-atomic="true">
                                                 <div class="toast-header">
                                                     <span class="fw-semibold me-auto">Validation Errors</span>
                                                     <small>Just now</small>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                            aria-label="Close"></button>
                                                 </div>
                                                 <div class="toast-body">
                                                     <ul>
@@ -139,34 +318,29 @@
                             <div class="card-header">
                                  <span class="float-end align-middle fs-4">
                                     <a style="color:white;" href="#"
-                                       class="btn btn-primary fw-medium" data-bs-toggle="modal" data-bs-target="#upload">
+                                       class="btn btn-primary fw-medium" data-bs-toggle="modal"
+                                       data-bs-target="#upload">
                                         <i class="fa fa-plus"></i> Upload
                                     </a>
                                 </span>
 
                                 <h6 class="card-title mb-0">Practitioner Identification</h6><br/>
                                 @if(session()->has('errors'))
-                                    @php $errors = session('errors')->getBag('identificationErrors'); @endphp
+                                    @php $errors = session('errors')->getBag('identificationErrors')@endphp
                                     @if($errors->any())
-                                        <div class="row">
-                                            <div class="toast fade show col-8" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
-                                                <div class="toast-header">
-                                                    <span class="fw-semibold me-auto">Validation Errors</span>
-                                                    <small>Just now</small>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                                </div>
-                                                <div class="toast-body">
-                                                    <ul>
-                                                        @foreach($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
+
+                                        @foreach($errors->all() as $error)
+                                            <!-- Success Alert -->
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <strong> Errors! </strong> {{ $error }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
                                             </div>
-                                        </div>
+                                        @endforeach
+
                                     @endif
                                 @endif
-                                 @if(session('identification_success'))
+                                @if(session('identification_success'))
                                     <div class="col-8 alert alert-message alert-secondary alert-dismissible fade show"
                                          role="alert">
                                         <strong>Message!</strong> {{ session('identification_success') }}
@@ -188,27 +362,36 @@
                                                             <div class="avatar-sm">
                                                                 <div
                                                                     class="avatar-title bg-light text-secondary rounded fs-24">
-                                                                    <i class="ri-folder-zip-line"></i>
+                                                                    <i class="fa fa-file"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="flex-grow-1 overflow-hidden">
                                                             <h5 class="fs-13 mb-1">
                                                                 <a href="{{asset($practitionerIdentification->identification_file)}}"
-                                                                   class="text-body text-truncate d-block" target="_blank">
+                                                                   class="text-body text-truncate d-block"
+                                                                   target="_blank">
                                                                     {{$practitionerIdentification->identificationType->name}}
+
+                                                                    <!-- if identification_file is null -->
+
                                                                 </a>
                                                             </h5>
                                                         </div>
                                                         <div class="flex-shrink-0 ms-2">
                                                             <div class="d-flex gap-1">
-                                                                <a href="{{asset($practitionerIdentification->identification_file)}}"
-                                                                        class="btn btn-icon text-muted btn-sm fs-18" target="_blank">
-                                                                    <i class="ri-upload-2-line"></i>
-                                                                </a>
+                                                                @if($practitionerIdentification->identification_file == null)
+                                                                    <span class="badge bg-danger m-3"> - Please Upload File </span>
+                                                                @else
+                                                                    <a href="{{asset($practitionerIdentification->identification_file)}}"
+                                                                       class="btn btn-icon text-black btn-sm fs-18"
+                                                                       target="_blank">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                @endif
                                                                 <div class="dropdown">
                                                                     <button
-                                                                        class="btn btn-icon text-muted btn-sm fs-18 dropdown"
+                                                                        class="btn btn-icon text-black btn-sm fs-18 dropdown"
                                                                         type="button"
                                                                         data-bs-toggle="dropdown"
                                                                         aria-expanded="false">
@@ -216,18 +399,21 @@
                                                                     </button>
                                                                     <ul class="dropdown-menu">
                                                                         <li>
-                                                                            <a class="dropdown-item edit-identification" href="#"
+                                                                            <a class="dropdown-item edit-identification"
+                                                                               href="#"
                                                                                data-id="{{ $practitionerIdentification->id }}"
                                                                                data-type-id="{{ $practitionerIdentification->identification_type_id }}"
                                                                                data-number="{{ $practitionerIdentification->identification_number }}"
-                                                                               data-bs-toggle="modal" data-bs-target="#editDocument">
-                                                                                <i class="fa fa-pencil align-bottom me-2 text-muted"></i> Upload New
+                                                                               data-bs-toggle="modal"
+                                                                               data-bs-target="#editDocument">
+                                                                                <i class="fa fa-pencil align-bottom me-2 text-black"></i>
+                                                                                Upload New
                                                                             </a>
 
                                                                         </li>
                                                                         <li><a class="dropdown-item"
                                                                                href="#"><i
-                                                                                    class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                                                    class="fa fa-trash align-bottom me-2 text-black"></i>
                                                                                 Delete</a></li>
                                                                     </ul>
                                                                 </div>
@@ -342,8 +528,10 @@
                                                 <!-- Date of Birth Input -->
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label for="dobInput" id="dobLabel" class="form-label">Date of Birth</label>
-                                                        <input type="text" id="datepicker" class="form-control" name="dob"
+                                                        <label for="dobInput" id="dobLabel" class="form-label">Date of
+                                                            Birth</label>
+                                                        <input type="text" id="datepicker" class="form-control"
+                                                               name="dob"
                                                                placeholder="Enter date of birth"
                                                                value="{{ $practitioner->dob }}">
                                                     </div>
@@ -372,7 +560,8 @@
                                                                id="formFile">
                                                         <div style="margin-top: 3%;">
                                                             @if ($practitioner->image)
-                                                                <img src="{{ asset($practitioner->image) }}" alt="Profile Image" style="width: 150px;">
+                                                                <img src="{{ asset($practitioner->image) }}"
+                                                                     alt="Profile Image" style="width: 150px;">
                                                             @endif
                                                         </div>
 
@@ -403,7 +592,7 @@
 
                         <!-- Upload Document Modal -->
                         <div class="modal fade" id="upload" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="myModalLabel">Upload Identification</h5>
@@ -439,11 +628,11 @@
                                                 <!-- First Name Input -->
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <label for="firstnameInput" class="form-label">Identification or
-                                                            Passport Number</label>
+                                                        <label for="firstnameInput" class="form-label">ID or
+                                                            Passport Or Birth Number</label>
                                                         <input type="text" class="form-control" id="firstnameInput"
                                                                name="identification_number"
-                                                               placeholder="43-173039Q47 /DN123456">
+                                                               placeholder="43173039Q47 or DN123456 or Birth Number">
                                                     </div>
                                                 </div>
 
@@ -454,7 +643,7 @@
                                                             Document</label>
                                                         <input type="file" class="form-control" id="identification_file"
                                                                name="identification_file"
-                                                               placeholder="Upload the identification file">
+                                                               placeholder="">
                                                     </div>
                                                 </div>
 
@@ -519,7 +708,8 @@
                                                     <div class="mb-3">
                                                         <label for="firstnameInput" class="form-label">Identification or
                                                             Passport Number</label>
-                                                        <input type="text" class="form-control" id="identification_number"
+                                                        <input type="text" class="form-control"
+                                                               id="identification_number"
                                                                name="identification_number"
                                                                placeholder="43-173039Q47 /DN123456">
                                                     </div>
@@ -542,7 +732,9 @@
                                                         <button type="button" class="btn btn-light"
                                                                 data-bs-dismiss="modal">Close
                                                         </button>
-                                                        <button type="submit" class="btn btn-success">Replace and Update</button>
+                                                        <button type="submit" class="btn btn-success">Replace and
+                                                            Update
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -595,19 +787,19 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // When an edit link is clicked
-            document.querySelectorAll('.edit-identification').forEach(function(element) {
-                element.addEventListener('click', function() {
+            document.querySelectorAll('.edit-identification').forEach(function (element) {
+                element.addEventListener('click', function () {
                     var id = this.getAttribute('data-id');
                     var typeId = this.getAttribute('data-type-id');
                     var number = this.getAttribute('data-number');
 
-                   // alert(id + ' ' + typeId + ' ' + number);
+                    // alert(id + ' ' + typeId + ' ' + number);
                     // Update form action URL (assuming you have a route named 'practitioner-identifications.update')
                     // Select form elements and populate them
                     var modal = document.querySelector('#editDocument');
                     modal.querySelector('#identification_type_id').value = typeId;
                     modal.querySelector('#identification_number').value = number;
-                    modal.querySelector('form').action = '/practitioner-identifications/' + id +'/update';
+                    modal.querySelector('form').action = '/practitioner-identifications/' + id + '/update';
                 });
             });
         });
@@ -637,7 +829,6 @@
 
 
     </script>
-
 
 @endpush
 

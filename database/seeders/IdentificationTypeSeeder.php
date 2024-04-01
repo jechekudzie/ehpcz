@@ -20,6 +20,8 @@ class IdentificationTypeSeeder extends Seeder
         $identificationTypes = [
             ['name' => 'National Identification Card'],
             ['name' => 'Passport'],
+            ['name' => 'Birth Certificate'],
+
         ];
 
         foreach ($identificationTypes as $type) {

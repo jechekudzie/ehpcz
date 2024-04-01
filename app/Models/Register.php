@@ -18,12 +18,18 @@ class Register extends Model
         return $this->hasMany(ProfessionalQualification::class);
     }
 
+    public function registrationRules()
+    {
+        return $this->hasMany(RegistrationRule::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
 
     public function getRouteKeyName()
     {
