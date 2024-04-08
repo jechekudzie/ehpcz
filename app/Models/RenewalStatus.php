@@ -13,6 +13,11 @@ class RenewalStatus extends Model
 
     protected $guarded = [];
 
+    public function renewals()
+    {
+        return $this->hasMany(Renewal::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

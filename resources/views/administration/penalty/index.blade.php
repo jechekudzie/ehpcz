@@ -16,11 +16,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0" id="page-title">Fees Categories</h4>
+                        <h4 class="mb-sm-0" id="page-title">Penalties Fees </h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li>
-                                <li class="breadcrumb-item active">Fees Categories</li>
+                                <li class="breadcrumb-item active">Penalties Fees</li>
                             </ol>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 <div class="d-flex align-items-center flex-wrap gap-2">
                                     <div class="flex-grow-1">
 
-                                        <a href="{{route('fees-categories.index')}}" class="btn btn-info btn-sm add-btn">
+                                        <a href="{{route('penalties.index')}}" class="btn btn-info btn-sm add-btn">
                                             <i class="fa fa-refresh"></i> Refresh
                                         </a>
                                         <button id="new-button" class="btn btn-success btn-sm add-btn">
@@ -75,22 +75,18 @@
                                        aria-describedby="buttons-datatables_info">
                                     <thead>
                                     <tr>
-                                        <th class="sorting sorting_asc" tabindex="0"
-                                            aria-controls="buttons-datatables" rowspan="1" colspan="1"
-                                            aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending"
-                                            style="width: 224.4px;">#
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
-                                            rowspan="1" colspan="1"
-                                            aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Category
-                                        </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Fee Items
+                                            style="width: 336.4px;">
+                                        </th>
+                                        Penalty
+
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Position: activate to sort column ascending"
+                                            style="width: 336.4px;">Threshold Before Restoration (months)
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
@@ -101,24 +97,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($feeCategories as $feeCategory)
+
+                                    @if(!empty($penalty))
                                         <tr class="even">
-                                            <td class="sorting_1">{{$loop->iteration}}</td>
-                                            <td>{{$feeCategory->name}}</td>
+                                            <td>{{$penalty->percentage}}</td>
+                                            <td>{{$penalty->threshold}}</td>
                                             <td>
                                                 <!-- Edit Button -->
-                                                <a style="font-size: 12px;" href="{{route('fees-categories.items',$feeCategory->slug)}}" class="edit-button btn btn-sm btn-primary" title="Fees Category">
-                                                    <i class="fa fa-money"></i> Fee Items
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <!-- Edit Button -->
-                                                <a href="javascript:void(0);" class="edit-button btn btn-sm btn-primary" data-name="{{ $feeCategory->name }}" data-slug="{{ $feeCategory->slug }}" title="Edit">
+                                                <a href="javascript:void(0);" class="edit-button btn btn-sm btn-primary"
+                                                   data-percentage="{{ $penalty->percentage }}"
+                                                   data-threshold="{{ $penalty->threshold }}"
+                                                   data-id="{{ $penalty->id }}" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
 
                                                 <!-- Delete Button -->
-                                                <form action="{{ route('fees-categories.destroy', $feeCategory->slug) }}" method="POST" onsubmit="return confirm('Are you sure?');" style="display: inline-block;">
+                                                <form action="{{ route('penalties.destroy', $penalty->id) }}"
+                                                      method="POST" onsubmit="return confirm('Are you sure?');"
+                                                      style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger" title="Delete">
@@ -127,7 +123,7 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                                 <!--end table-->
@@ -138,21 +134,29 @@
                     <div class="col-xxl-3">
                         <div class="card border card-border-light">
                             <div class="card-header">
-                                <h6 id="card-title" class="card-title mb-0">Add  Fees Category</h6>
+                                <h6 id="card-title" class="card-title mb-0">Add Penalties Fees </h6>
                             </div>
                             <div class="card-body">
-                                <form id="edit-form" action="{{ route('fees-categories.store') }}" method="post" enctype="multipart/form-data">
+                                <form id="edit-form" action="{{ route('penalties.store') }}" method="post"
+                                      enctype="multipart/form-data">
                                     <input type="hidden" name="_method" value="POST">
                                     @csrf
+
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Fees Category</label>
-                                        <input type="text" name="name" class="form-control" id="name" placeholder="Enter fees category" value="">
+                                        <label for="percentage" class="form-label">Penalty in % </label>
+                                        <input type="text" name="percentage" class="form-control" id="percentage"
+                                               placeholder="Enter penalty percentage" value="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="threshold" class="form-label">Threshold Before Restoration (months) </label>
+                                        <input type="text" name="threshold" class="form-control" id="threshold"
+                                               placeholder="Enter threshold before restoration" value="">
                                     </div>
                                     <div class="text-end">
-                                        <button id="submit-button" type="submit" class="btn btn-primary">Add New</button>
+                                        <button id="submit-button" type="submit" class="btn btn-primary">Add New
+                                        </button>
                                     </div>
                                 </form>
-
 
 
                             </div>
@@ -192,37 +196,40 @@
         });
 
         // Assuming you have jQuery available
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Define the submit button
             var submitButton = $('#submit-button'); // Replace with your actual button ID or class
             submitButton.text('Add New');
             //on load by default name field to be empty
-            $('#name').val('');
+            $('#percentage').val('');
+            $('#threshold').val('');
 
             // Click event for the edit button
-            $('.edit-button').on('click', function() {
-                var name = $(this).data('name');
-                var slug = $(this).data('slug');
-                $('#edit-form').attr('action', '/fees-categories/' + slug + '/update');
+            $('.edit-button').on('click', function () {
+                var percentage = $(this).data('percentage');
+                var threshold = $(this).data('threshold');
+                var id = $(this).data('id');
+                $('#edit-form').attr('action', '/penalties/' + id + '/update');
                 $('input[name="_method"]').val('PATCH');
                 submitButton.text('Update');
                 // Populate the form for editing
-                $('#name').val(name);
-                $('#card-title').text('Edit - ' + name + ' Fees Category');
-                $('#page-title').text('Edit - ' + name + ' Fees Category');
+                $('#percentage').val(percentage);
+                $('#threshold').val(threshold);
+                $('#card-title').text('Edit - Penalty ');
+                $('#page-title').text('Edit - Penalty ');
             });
 
             // Click event for adding a new item
-            $('#new-button').on('click', function() {
+            $('#new-button').on('click', function () {
                 // Clear the form, set action for creation, method to POST, and button text to Add New
                 $('input[name="_method"]').val('POST');
                 submitButton.text('Add New');
-                $('#name').val('');
-                $('#card-title').text('Add Fees Category');
-                $('#page-title').text('Add New Fees Category');
+                $('#percentage').val('');
+                $('#threshold').val('');
+                $('#card-title').text('Add Penalty Percentage ');
+                $('#page-title').text('Add Penalty Percentage ');
             });
         });
-
 
 
     </script>

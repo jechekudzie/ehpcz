@@ -52,6 +52,19 @@ class ProfessionalQualification extends Model
         return $this->hasMany(QualificationFile::class);
     }
 
+    //belongs to many registration rules
+    public function registrationRule()
+    {
+        return $this->belongsTo(RegistrationRule::class);
+    }
+
+    public function payments()
+    {
+        return $this->belongsToMany(Payment::class, 'professional_qualification_payment')
+            ->withPivot(['renewal_period'])
+            ->withTimestamps();
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

@@ -15,6 +15,12 @@ class RegistrationStatus extends Model
 
     protected $guarded = [];
 
+    //renewals
+    public function renewals()
+    {
+        return $this->hasMany(Renewal::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

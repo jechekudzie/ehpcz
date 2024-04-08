@@ -73,12 +73,6 @@
                                        aria-describedby="buttons-datatables_info">
                                     <thead>
                                     <tr>
-                                        <th class="sorting sorting_asc" tabindex="0"
-                                            aria-controls="buttons-datatables" rowspan="1" colspan="1"
-                                            aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending"
-                                            >#
-                                        </th>
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
@@ -116,6 +110,13 @@
                                         >Requirements
                                         </th>
 
+
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Position: activate to sort column ascending"
+                                        >Payment
+                                        </th>
+
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Salary: activate to sort column ascending"
@@ -126,7 +127,6 @@
                                     <tbody>
                                     @foreach($practitionerProfession->professionalQualifications as $professionalQualification)
                                         <tr class="even">
-                                            <td class="sorting_1">{{$loop->iteration}}</td>
                                             <td style="font-weight: normal;">{{$professionalQualification->qualificationCategory->name}}</td>
                                             <!-- Check if the qualification category is 'Local' or 'Foreign' and display accordingly -->
                                             <td style="font-weight: normal;">
@@ -148,8 +148,14 @@
                                             <td style="font-weight: normal;">{{$professionalQualification->qualificationLevel->name}}</td>
                                             <td>
                                                 <a href="{{route('practitioner-professional-qualifications.file.index',$professionalQualification->slug)}}"
-                                                   class="edit-button btn btn-sm btn-success" title="Qualification Requirements">
+                                                   class="edit-button" title="Qualification Requirements">
                                                     Requirements  <i style="font-size: 15px;" class="fa fa-files-o"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href=""
+                                                   class="edit-button" title="Qualification Payment">
+                                                    Payment  <i style="font-size: 15px;" class="fa fa-money"></i>
                                                 </a>
                                             </td>
                                             <td style="font-weight: normal;">

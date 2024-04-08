@@ -342,7 +342,7 @@
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a style="/*color:white;*/ font-size: 12px;" href="{{route('practitioners.index')}}"
-                                       class="nav-link" data-key="t-analytics">
+                                       class="nav-link" data-key="t-analytics" target="_blank">
                                         Practitioners
                                     </a>
                                 </li>
@@ -574,7 +574,7 @@
                            href="#FEES" data-bs-toggle="collapse"
                            role="button"
                            aria-expanded="false" aria-controls="FEES">
-                            <span data-key="t-dashboards">FEES STRUCTURE</span>
+                            <span data-key="t-dashboards">ACCOUNT & FINANCE</span>
                         </a>
                         <div class="collapse menu-dropdown" id="FEES">
                             <ul class="nav nav-sm flex-column">
@@ -589,6 +589,19 @@
                                     <a style="/*color:white;*/ font-size: 12px;" href="{{route('registration-rules.index')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Registration Rules </a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('exchange-rate-types.index')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                        Exchange Rate Types </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('penalties.index')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                        Penalty Settings </a>
                                 </li>
 
                             </ul>

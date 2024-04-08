@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\ActiveExchangeRateTypeController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\EmploymentController;
+use App\Http\Controllers\ExchangeRateController;
+use App\Http\Controllers\ExchangeRateTypeController;
 use App\Http\Controllers\FeeCategoryController;
 use App\Http\Controllers\FeeItemController;
+use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\PractitionerController;
 use App\Http\Controllers\PractitionerIdentificationController;
 use App\Http\Controllers\PractitionerProfessionsController;
@@ -316,12 +320,39 @@ Route::patch('fees-categories/{feeCategory}/items/{feeItem}/update', [FeeItemCon
 Route::delete('fees-categories/{feeCategory}/items/{feeItem}/destroy', [FeeItemController::class,'destroy'])->name('fees-categories.items.destroy');
 
 
-//registartion rules
+//registration rules
 Route::get('registration-rules/index', [RegistrationRuleController::class,'index'])->name('registration-rules.index');
 Route::post('registration-rules/store', [RegistrationRuleController::class,'store'])->name('registration-rules.store');
 Route::get('registration-rules/{registrationRule}/edit', [RegistrationRuleController::class,'edit'])->name('registration-rules.edit');
 Route::patch('registration-rules/{registrationRule}/update', [RegistrationRuleController::class,'update'])->name('registration-rules.update');
 Route::delete('registration-rules/{registrationRule}/destroy', [RegistrationRuleController::class,'destroy'])->name('registration-rules.destroy');
+
+
+//exchange rate types
+Route::get('exchange-rate-types/index', [ExchangeRateTypeController::class,'index'])->name('exchange-rate-types.index');
+Route::post('exchange-rate-types/store', [ExchangeRateTypeController::class,'store'])->name('exchange-rate-types.store');
+Route::get('exchange-rate-types/{exchangeRateType}/edit', [ExchangeRateTypeController::class,'edit'])->name('exchange-rate-types.edit');
+Route::patch('exchange-rate-types/{exchangeRateType}/update', [ExchangeRateTypeController::class,'update'])->name('exchange-rate-types.update');
+Route::delete('exchange-rate-types/{exchangeRateType}/destroy', [ExchangeRateTypeController::class,'destroy'])->name('exchange-rate-types.destroy');
+
+//exchange rates
+Route::get('exchange-rates/{exchangeRateType}/index', [ExchangeRateController::class,'index'])->name('exchange-rates.index');
+Route::post('exchange-rates/{exchangeRateType}/store', [ExchangeRateController::class,'store'])->name('exchange-rates.store');
+Route::get('exchange-rates/{exchangeRate}/edit', [ExchangeRateController::class,'edit'])->name('exchange-rates.edit');
+Route::patch('exchange-rates/{exchangeRate}/update', [ExchangeRateController::class,'update'])->name('exchange-rates.update');
+Route::delete('exchange-rates/{exchangeRate}/destroy', [ExchangeRateController::class,'destroy'])->name('exchange-rates.destroy');
+
+
+//activate exchange rate type
+Route::post('exchange-rate-types/activate', [ActiveExchangeRateTypeController::class,'activate'])->name('exchange-rate-types.activate');
+
+//penalties
+Route::get('penalties/index', [PenaltyController::class,'index'])->name('penalties.index');
+Route::post('penalties/store', [PenaltyController::class,'store'])->name('penalties.store');
+Route::get('penalties/{penalty}/edit', [PenaltyController::class,'edit'])->name('penalties.edit');
+Route::patch('penalties/{penalty}/update', [PenaltyController::class,'update'])->name('penalties.update');
+Route::delete('penalties/{penalty}/destroy', [PenaltyController::class,'destroy'])->name('penalties.destroy');
+
 
 
 /*

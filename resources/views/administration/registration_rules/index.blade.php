@@ -50,7 +50,6 @@
                     <!-- Alerts for Messages -->
                     @if(session()->has('errors'))
                         @if($errors->any())
-
                             @foreach($errors->all() as $error)
                                 <!-- Success Alert -->
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -92,7 +91,7 @@
                                             <td>{{ $rule->register->name }}</td>
                                             <td class="col-auto">{{ $rule->is_zimbabwean ? 'Yes' : 'No' }}</td>
                                             <td class="col-auto">{{ $rule->qualificationCategory->name }}</td>
-                                            <td>{{ $rule->feeItem->name }}</td>
+                                            <td>{{ $rule->feeItem->name }} - {{$rule->feeItem->feeCategory->name}}</td>
                                             <td>
                                                 @if ($rule->feeItem->amount > 0)
                                                     {{-- Directly display feeItem->amount with currency symbol when amount is greater than 0 --}}
@@ -118,7 +117,7 @@
                                                 <form action="{{ route('registration-rules.destroy', $rule->id) }}" method="POST" style="display:inline-block;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -177,7 +176,7 @@
                                         <select name="fee_item_id" id="fee_item_id" class="form-control">
                                             <option value="">Select Fee Item</option>
                                             @foreach(\App\Models\FeeItem::where('fee_category_id', 1)->get() as $feeItem)
-                                                <option value="{{ $feeItem->id }}">{{ $feeItem->name }}</option>
+                                                <option value="{{ $feeItem->id }}">{{ $feeItem->name }} - {{$feeItem->feeCategory->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

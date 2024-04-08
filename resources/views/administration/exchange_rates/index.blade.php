@@ -16,11 +16,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0" id="page-title">Fees Categories</h4>
+                        <h4 class="mb-sm-0" id="page-title">{{$exchangeRateType->name}} - Exchange Rates</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li>
-                                <li class="breadcrumb-item active">Fees Categories</li>
+                                <li class="breadcrumb-item active">{{$exchangeRateType->name}} - Exchange Rates/li>
                             </ol>
                         </div>
                     </div>
@@ -34,8 +34,8 @@
                                 <div class="d-flex align-items-center flex-wrap gap-2">
                                     <div class="flex-grow-1">
 
-                                        <a href="{{route('fees-categories.index')}}" class="btn btn-info btn-sm add-btn">
-                                            <i class="fa fa-refresh"></i> Refresh
+                                        <a href="{{route('exchange-rate-types.index')}}" class="btn btn-info btn-sm add-btn">
+                                            <i class="fa fa-arrow-left"></i> Back
                                         </a>
                                         <button id="new-button" class="btn btn-success btn-sm add-btn">
                                             <i class="fa fa-plus"></i> Add new
@@ -84,13 +84,25 @@
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Category
+                                            style="width: 336.4px;">Base Currency
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            style="width: 336.4px;">Fee Items
+                                            style="width: 336.4px;">Exchange Currency
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Position: activate to sort column ascending"
+                                            style="width: 336.4px;">Rate
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Position: activate to sort column ascending"
+                                            style="width: 336.4px;">Effective Date
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
@@ -101,24 +113,28 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($feeCategories as $feeCategory)
+                                    @foreach($exchangeRates as $exchangeRate)
                                         <tr class="even">
                                             <td class="sorting_1">{{$loop->iteration}}</td>
-                                            <td>{{$feeCategory->name}}</td>
+                                            <td>{{$exchangeRate->baseCurrency->symbol.' '.$exchangeRate->baseCurrency->name}}</td>
+                                            <td>{{$exchangeRate->exchangeCurrency->symbol.' '.$exchangeRate->exchangeCurrency->name}}</td>
+                                            <td>{{$exchangeRate->exchangeCurrency->symbol}} {{$exchangeRate->rate}}</td>
+                                            <td>{{$exchangeRate->effective_date}} </td>
+                                            <!-- Exchange Rates -->
+
                                             <td>
                                                 <!-- Edit Button -->
-                                                <a style="font-size: 12px;" href="{{route('fees-categories.items',$feeCategory->slug)}}" class="edit-button btn btn-sm btn-primary" title="Fees Category">
-                                                    <i class="fa fa-money"></i> Fee Items
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <!-- Edit Button -->
-                                                <a href="javascript:void(0);" class="edit-button btn btn-sm btn-primary" data-name="{{ $feeCategory->name }}" data-slug="{{ $feeCategory->slug }}" title="Edit">
+                                                <a href="javascript:void(0);" class="edit-button btn btn-sm btn-primary"
+                                                   data-id="{{ $exchangeRate->id }}"
+                                                   data-base="{{ $exchangeRate->baseCurrency->id }}"
+                                                   data-exchange="{{ $exchangeRate->exchangeCurrency->id }}"
+                                                   data-rate="{{$exchangeRate->rate}}"
+                                                   data-effective="{{$exchangeRate->effective_date}}" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
 
                                                 <!-- Delete Button -->
-                                                <form action="{{ route('fees-categories.destroy', $feeCategory->slug) }}" method="POST" onsubmit="return confirm('Are you sure?');" style="display: inline-block;">
+                                                <form action="{{ route('exchange-rates.destroy', $exchangeRate->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger" title="Delete">
@@ -138,21 +154,38 @@
                     <div class="col-xxl-3">
                         <div class="card border card-border-light">
                             <div class="card-header">
-                                <h6 id="card-title" class="card-title mb-0">Add  Fees Category</h6>
+                                <h6 id="card-title" class="card-title mb-0">{{$exchangeRateType->name}} Rates</h6>
                             </div>
                             <div class="card-body">
-                                <form id="edit-form" action="{{ route('fees-categories.store') }}" method="post" enctype="multipart/form-data">
+                                <form id="edit-form" action="{{ route('exchange-rates.store',$exchangeRateType->id) }}" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="_method" value="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Fees Category</label>
-                                        <input type="text" name="name" class="form-control" id="name" placeholder="Enter fees category" value="">
+                                        <label for="base_currency_id" class="form-label">Base Currency</label>
+                                        <select name="base_currency_id" class="form-control" id="base_currency_id" readonly>
+                                            <option value="{{ $currencies->first()->id }}">{{ $currencies->first()->symbol }} - {{ $currencies->first()->name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exchange_currency_id" class="form-label">Exchange Currency</label>
+                                        <select name="exchange_currency_id" class="form-control" id="exchange_currency_id">
+                                            @foreach($currencies as $currency)
+                                                <option value="{{ $currency->id }}">{{ $currency->symbol }} - {{ $currency->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="rate" class="form-label">Rate</label>
+                                        <input type="text" name="rate" class="form-control" id="rate" placeholder="Enter exchange rate" value="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="effective_date" class="form-label">Effective Date</label>
+                                        <input type="date" name="effective_date" class="form-control" id="effective_date" value="">
                                     </div>
                                     <div class="text-end">
-                                        <button id="submit-button" type="submit" class="btn btn-primary">Add New</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
-
 
 
                             </div>
@@ -193,35 +226,49 @@
 
         // Assuming you have jQuery available
         $(document).ready(function() {
-            // Define the submit button
-            var submitButton = $('#submit-button'); // Replace with your actual button ID or class
+            var submitButton = $('#submit-button');
             submitButton.text('Add New');
-            //on load by default name field to be empty
-            $('#name').val('');
 
-            // Click event for the edit button
             $('.edit-button').on('click', function() {
-                var name = $(this).data('name');
-                var slug = $(this).data('slug');
-                $('#edit-form').attr('action', '/fees-categories/' + slug + '/update');
-                $('input[name="_method"]').val('PATCH');
-                submitButton.text('Update');
-                // Populate the form for editing
-                $('#name').val(name);
-                $('#card-title').text('Edit - ' + name + ' Fees Category');
-                $('#page-title').text('Edit - ' + name + ' Fees Category');
-            });
+                var base = $(this).data('base');
+                var exchange = $(this).data('exchange'); // Adjusted to match the HTML
+                var rate = $(this).data('rate');
+                var effective = $(this).data('effective');
+                var id = $(this).data('id');
 
-            // Click event for adding a new item
+                // Debugging: Check if baseCurrencyId and exchangeCurrencyId are correctly retrieved
+                console.log("Base Currency ID: ", base);
+                console.log("Exchange Currency ID: ", exchange);
+
+                // Set the form action, method, and button text for editing
+                $('#edit-form').attr('action', '/exchange-rates/' + id + '/update') ;
+                $('input[name="_method"]').val('PATCH');
+                $('#submit-button').text('Update');
+
+                // Populate the form fields with the data from the button
+                $('#base_currency_id').val(base);
+                $('#exchange_currency_id').val(exchange);
+                $('#rate').val(rate);
+                $('#effective_date').val(effective);
+
+                // Update titles or other elements as needed
+                $('#card-title, #page-title').text('Edit Exchange Rate');
+            });
             $('#new-button').on('click', function() {
-                // Clear the form, set action for creation, method to POST, and button text to Add New
+                // Reset form for adding a new exchange rate
+                $('#edit-form').attr('action', '/exchange-rates').trigger("reset");
                 $('input[name="_method"]').val('POST');
                 submitButton.text('Add New');
-                $('#name').val('');
-                $('#card-title').text('Add Fees Category');
-                $('#page-title').text('Add New Fees Category');
+
+                // Clear form fields and reset titles
+                $('#base_currency_id').val(''); // Make sure this ID matches your form field's ID
+                $('#exchange_currency_id').val(''); // Make sure this ID matches your form field's ID
+                $('#rate').val('');
+                $('#effective_date').val('');
+                $('#card-title, #page-title').text('Add New Exchange Rate');
             });
         });
+
 
 
 

@@ -17,9 +17,9 @@ class RegisterSeeder extends Seeder
     {
         //
         $registers = [
-            ["name" => "MAIN REGISTRATION", "description" => "Permanent Register"],
-            ["name" => "PROVISIONAL REGISTRATION FOR FOREIGN APPLICANTS", "description" => "Foreign applications, Provisional Registration"],
-            ["name" => "PROVISIONAL REGISTRATION FOR FOREIGN TRAINED ZIMBABWEANS", "description" => "Foreign trained Zimbabweans, Provisional Registration"],
+            ["name" => "MAIN", "description" => "Permanent Register"],
+            ["name" => "PROVISIONAL REGISTRATION FOR FOREIGN APPLICANTS", "description" => "PROVISIONAL REGISTRATION FOR FOREIGN APPLICANTS"],
+            ["name" => "PROVISIONAL REGISTRATION FOR FOREIGN TRAINED ZIMBABWEANS", "description" => "PROVISIONAL REGISTRATION FOR FOREIGN TRAINED ZIMBABWEANS"],
             ["name" => "INTERNSHIP", "description" => "Internship"],
             ["name" => "STUDENT", "description" => "Students in training institution"],
 
