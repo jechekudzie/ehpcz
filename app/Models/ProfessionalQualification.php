@@ -65,6 +65,37 @@ class ProfessionalQualification extends Model
             ->withTimestamps();
     }
 
+
+    public function findMatchingRegistrationRuleId($practitionerProfession, $isZimbabwean, $qualificationCategoryId)
+    {
+        // Find potential registration rules based on initial criteria
+        $potentialRegistrationRules = RegistrationRule::with('feeItem.professions')
+            ->where('is_zimbabwean', $isZimbabwean)
+            ->where('qualification_category_id', $qualificationCategoryId)
+            ->get();
+
+        foreach ($potentialRegistrationRules as $rule) {
+            $feeItemProfessions = $rule->feeItem->professions; // Accessing the professions related to the feeItem
+
+            if ($feeItemProfessions->isEmpty()) {
+                // If there are no professions linked to this feeItem, the rule is a match
+                return $rule;
+            } else {
+                // If there are linked professions, check if any match the practitioner's profession
+                foreach ($feeItemProfessions as $profession) {
+                    if ($profession->id === $practitionerProfession->profession_id) {
+                        // Found a matching profession, return this rule's ID
+                        return $rule;
+                    }
+                }
+            }
+        }
+
+        // No matching rule was found
+        return null;
+    }
+
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

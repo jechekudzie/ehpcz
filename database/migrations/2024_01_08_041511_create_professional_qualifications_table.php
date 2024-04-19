@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('is_verified')->default(0);//0 for unverified, 1 for verified
             $table->boolean('is_current')->default(0);//0 for not current, 1 for current
             $table->boolean('is_active')->default(0);//0 for not current, 1 for current
-            $table->boolean('is_zimbabwean')->default(0);//0 for not current, 1 for current
+            $table->unsignedBigInteger('registration_rule_id')->default(0);//registration rule
             $table->boolean('admin')->default(0);
             $table->boolean('accountant')->default(0);
             $table->boolean('registrar')->default(0);

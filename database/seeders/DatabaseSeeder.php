@@ -44,8 +44,11 @@ class DatabaseSeeder extends Seeder
             RenewalStatusSeeder::class,
             RegistrationStatusSeeder::class,
             OperationalStatusSeeder::class,
+            FeeItemsTableSeeder::class,
             CurrencySeeder::class,
+            RegistrationRuleSeeder::class,
             ExchangeRateTypeSeeder::class,
+
         ]);
     }
 }

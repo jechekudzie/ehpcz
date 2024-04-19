@@ -90,6 +90,12 @@ class Practitioner extends Model
         return $this->practitionerProfessions()->create($practitionerProfession);
     }
 
+    //renewals
+    public function renewals()
+    {
+        return $this->hasMany(Renewal::class);
+    }
+
 
     public function getSlugOptions(): SlugOptions
     {

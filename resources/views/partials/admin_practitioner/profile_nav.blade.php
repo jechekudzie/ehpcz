@@ -41,9 +41,9 @@
 
         <li class="nav-item">
             <a style="font-size: 14px;"
-               class="nav-link {{ Request::routeIs('practitioners.edit', $practitioner->slug) ? 'active' : '' }}"
-               href="{{ route('practitioners.edit', $practitioner->slug) }}">
-                <i class="fa fa-credit-card"></i> Payments
+               class="nav-link {{ Request::routeIs('renewals*', $practitioner->slug) ? 'active' : '' }}"
+               href="{{ route('renewals.index', $practitioner->slug) }}">
+                <i class="fa fa-credit-card"></i> Renewals & Registration
             </a>
         </li>
 

@@ -14,6 +14,8 @@ use App\Http\Controllers\PractitionerProfessionsController;
 use App\Http\Controllers\ProfessionalQualificationController;
 use App\Http\Controllers\ProfessionalQualificationFilesController;
 use App\Http\Controllers\RegistrationRuleController;
+use App\Models\ActiveExchangeRateType;
+use App\Models\ExchangeRate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -216,7 +218,7 @@ Route::resource('accredited-institutions', AccreditedInstitutionController::clas
     'destroy' => 'accredited-institutions.destroy',
 ]);
 
-// PaymentCategoryController
+/*// PaymentCategoryController
 Route::resource('payment-categories', PaymentCategoryController::class)->names([
     'index' => 'payment-categories.index',
     'create' => 'payment-categories.create',
@@ -225,7 +227,7 @@ Route::resource('payment-categories', PaymentCategoryController::class)->names([
     'edit' => 'payment-categories.edit',
     'update' => 'payment-categories.update',
     'destroy' => 'payment-categories.destroy',
-]);
+]);*/
 
 
 
@@ -353,6 +355,24 @@ Route::get('penalties/{penalty}/edit', [PenaltyController::class,'edit'])->name(
 Route::patch('penalties/{penalty}/update', [PenaltyController::class,'update'])->name('penalties.update');
 Route::delete('penalties/{penalty}/destroy', [PenaltyController::class,'destroy'])->name('penalties.destroy');
 
+//registration for qualification
+Route::get('registration/{practitionerProfession}/{professionalQualification}/{practitioner}', [\App\Http\Controllers\RegistrationController::class,'index'])->name('registration.index');
+Route::get('registration/{practitionerProfession}', [\App\Http\Controllers\RegistrationController::class,'create'])->name('registration.create');
+Route::post('registration/{practitionerProfession}/store', [\App\Http\Controllers\RegistrationController::class,'storeRegistration'])->name('registration.store');
+
+//renewals
+Route::get('renewals/{practitioner}', [\App\Http\Controllers\RenewalController::class,'index'])->name('renewals.index');
+Route::post('renewals/{practitioner}/store', [\App\Http\Controllers\RenewalController::class,'store'])->name('renewals.store');
+Route::get('renewals/{renewal}/edit', [\App\Http\Controllers\RenewalController::class,'edit'])->name('renewals.edit');
+Route::patch('renewals/{renewal}/update', [\App\Http\Controllers\RenewalController::class,'update'])->name('renewals.update');
+Route::delete('renewals/{renewal}/destroy', [\App\Http\Controllers\RenewalController::class,'destroy'])->name('renewals.destroy');
+
+//renewal payments
+Route::get('renewals/{renewal}/payments', [\App\Http\Controllers\PaymentController::class,'index'])->name('renewal.payments.index');
+Route::post('renewals/{renewal}/payments/store', [\App\Http\Controllers\PaymentController::class,'store'])->name('renewal.payments.store');
+Route::get('renewals/{renewal}/payments/{payment}/edit', [\App\Http\Controllers\PaymentController::class,'edit'])->name('renewal.payments.edit');
+Route::patch('renewals/{renewal}/payments/{payment}/update', [\App\Http\Controllers\PaymentController::class,'update'])->name('renewal.payments.update');
+Route::delete('renewals/{renewal}/payments/{payment}/destroy', [\App\Http\Controllers\PaymentController::class,'destroy'])->name('renewal.payments.destroy');
 
 
 /*

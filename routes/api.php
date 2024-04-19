@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ExchangeRateController;
+use App\Http\Controllers\FeeItemController;
+use App\Http\Controllers\RegistrationRuleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,20 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// In routes/api.php
+// Fetch fee items by category
+Route::get('/fee-categories/{categoryId}/fee-items', [FeeItemController::class, 'getFeeItemsByCategory']);
+
+// Fetch fee item details including amount
+Route::get('/fee-items/{id}/amount', [FeeItemController::class, 'getFeeItemAmount']);
+
+// Fetch fee item by registration rule
+Route::get('/registration-rules/{id}/fee-item', [RegistrationRuleController::class, 'getFeeItem']);
+
+
+// Define the route for getting the active exchange rate
+Route::get('/get-active-exchange-rate/{currencyId}', [ExchangeRateController::class, 'getActiveExchangeRate']);
 
 Route::post('/verify-account', [ApiController::class, 'verifyAccount']);
 

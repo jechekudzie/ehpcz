@@ -463,7 +463,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <script>document.write(new Date().getFullYear())</script>
+                        <script>{{date('Y')}}</script>
                         © EHPCZ.
                     </div>
                     <div class="col-sm-6">
@@ -499,7 +499,7 @@
 <script src="{{asset('administration/assets/libs/list.pagination.js/list.pagination.min.js')}}"></script>
 
 
-<script src="{{asset('administration/assets/js/pages/crm-companies.init.js')}}"></script>
+{{--<script src="{{asset('administration/assets/js/pages/crm-companies.init.js')}}"></script>--}}
 <!-- Jquery min js -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 

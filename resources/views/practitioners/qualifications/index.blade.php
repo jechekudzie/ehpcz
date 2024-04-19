@@ -153,7 +153,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href=""
+                                                <a href="{{route('registration.index',[$practitionerProfession->slug,$professionalQualification->slug,$practitioner->slug])}}"
                                                    class="edit-button" title="Qualification Payment">
                                                     Payment  <i style="font-size: 15px;" class="fa fa-money"></i>
                                                 </a>
@@ -291,7 +291,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
+                                       {{-- <div class="row">
                                             <!-- Register Dropdown -->
                                             <div class="col-lg-12">
                                                 <div class="mb-3">
@@ -306,7 +306,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--}}
 
                                         <div class="row">
                                             <!-- Start and Completion Dates -->

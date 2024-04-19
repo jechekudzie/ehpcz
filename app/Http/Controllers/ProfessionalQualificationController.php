@@ -16,7 +16,7 @@ class ProfessionalQualificationController extends Controller
     {
         $practitioner = $practitionerProfession->practitioner;
 
-        return view('practitioners.qualifications.index',compact('practitionerProfession','practitioner'));
+        return view('practitioners.qualifications.index', compact('practitionerProfession', 'practitioner'));
     }
 
     public function store(Request $request, PractitionerProfession $practitionerProfession)
@@ -53,25 +53,38 @@ class ProfessionalQualificationController extends Controller
         $qualification = $practitionerProfession->createProfessionalQualification($validatedData);
 
         //requirements
-        $requirements = Requirement::whereNotIn('id', [1,2,3])->get();
+        $requirements = Requirement::whereNotIn('id', [1, 2, 3])->get();
 
-        $qualification->qualificationFiles()->createMany($requirements->map(function($requirement){
+        $qualification->qualificationFiles()->createMany($requirements->map(function ($requirement) {
             return [
                 'requirement_id' => $requirement->id,
                 'file' => null
             ];
         })->toArray());
 
+        // Determine if the practitioner is Zimbabwean
+        if ($practitioner->country->name == 'Zimbabwe') {
+            $isZimbabwean = 1;
+        }else{
+            $isZimbabwean = 0;
+        }
+
+        $registrationRule = $qualification->findMatchingRegistrationRuleId($practitionerProfession, $isZimbabwean, $qualification->qualification_category_id);
+        $qualification->registration_rule_id = $registrationRule->id;
+        $qualification->register_id = $registrationRule->register_id;
+        $qualification->save();
+
         // Redirect back with a success message
         return redirect()->route('practitioner-professional-qualifications.index', $practitionerProfession->slug)->with('success', 'Professional qualification added successfully.');
     }
+
     //edit method return edit view
     public function edit(ProfessionalQualification $professionalQualification)
     {
         $practitionerProfession = $professionalQualification->practitionerProfession;
         $practitioner = $practitionerProfession->load('practitioner');
 
-        return view('practitioners.qualifications.edit',compact('practitionerProfession','practitioner','professionalQualification'));
+        return view('practitioners.qualifications.edit', compact('practitionerProfession', 'practitioner', 'professionalQualification'));
     }
 
     //update method update the data

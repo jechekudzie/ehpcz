@@ -176,7 +176,7 @@
                                         <select name="fee_item_id" id="fee_item_id" class="form-control">
                                             <option value="">Select Fee Item</option>
                                             @foreach(\App\Models\FeeItem::where('fee_category_id', 1)->get() as $feeItem)
-                                                <option value="{{ $feeItem->id }}">{{ $feeItem->name }} - {{$feeItem->feeCategory->name}}</option>
+                                                <option value="{{ $feeItem->id }}">{{ $feeItem->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
