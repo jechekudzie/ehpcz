@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('practitioners', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('title_id');
-            $table->unsignedBigInteger('gender_id');
-            $table->string('first_name');
+            $table->unsignedBigInteger('title_id')->nullable();
+            $table->unsignedBigInteger('gender_id')->nullable();
+            $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('dob')->nullable();
             $table->string('image')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();

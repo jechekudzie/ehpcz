@@ -52,7 +52,13 @@ use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
 
-    return view('administration.index');
+    // get qualifications where name like Bachelor of  Environmental Science Honours Degree In Public Health
+    $qualifications = \App\Models\Qualification::where('name', 'like', '%Bachelor of Environmental Science Honours Degree In Public Health%')->get();
+
+    dd($qualifications);
+
+    return view('auth.login');
+
 });
 
 /*
@@ -60,6 +66,15 @@ Route::get('/', function () {
 | Administration Dashboard Utilities Routes
 |--------------------------------------------------------------------------
 */
+
+//paynow routes
+Route::get('/paynow', [\App\Http\Controllers\AdminController::class, 'initiatePayment'])->name('paynow');
+
+
+//create import route for PractitionersImportController
+Route::get('import/practitioners', [\App\Http\Controllers\PractitionersImportController::class, 'index'])->name('import.practitioners');
+//store import route for PractitionersImportController
+Route::post('import/practitioners', [\App\Http\Controllers\PractitionersImportController::class, 'store'])->name('import.practitioners.store');
 
 // Landing page
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
@@ -369,11 +384,17 @@ Route::delete('renewals/{renewal}/destroy', [\App\Http\Controllers\RenewalContro
 
 //renewal payments
 Route::get('renewals/{renewal}/payments', [\App\Http\Controllers\PaymentController::class,'index'])->name('renewal.payments.index');
+Route::get('renewals/{renewal}/payments/create', [\App\Http\Controllers\PaymentController::class,'create'])->name('renewal.payments.create');
 Route::post('renewals/{renewal}/payments/store', [\App\Http\Controllers\PaymentController::class,'store'])->name('renewal.payments.store');
 Route::get('renewals/{renewal}/payments/{payment}/edit', [\App\Http\Controllers\PaymentController::class,'edit'])->name('renewal.payments.edit');
 Route::patch('renewals/{renewal}/payments/{payment}/update', [\App\Http\Controllers\PaymentController::class,'update'])->name('renewal.payments.update');
 Route::delete('renewals/{renewal}/payments/{payment}/destroy', [\App\Http\Controllers\PaymentController::class,'destroy'])->name('renewal.payments.destroy');
 
+
+//portal
+Route::get('/portal', [\App\Http\Controllers\PortalController::class,'index'])->name('portal.index');
+Route::get('/portal/store', [\App\Http\Controllers\PortalController::class,'checkExistence'])->name('portal.index');
+Route::post('/portal/store', [\App\Http\Controllers\PortalController::class,'checkExistence'])->name('portal.store');
 
 /*
  *

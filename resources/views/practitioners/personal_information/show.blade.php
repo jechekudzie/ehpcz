@@ -48,7 +48,7 @@
             @if(session()->has('errors'))
                 @php $errors = session('errors')->getBag('contactErrors') @endphp
                 @if($errors->any())
-                   <!-- Boostrap dismsable alert -->
+                    <!-- Boostrap dismsable alert -->
                     <div class="alert-message col-12 alert alert-danger alert-dismissible fade show"
                          role="alert">
                         <strong>Message!</strong>
@@ -58,7 +58,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                 aria-label="Close"></button>
                     </div>
-
 
                 @endif
             @endif
@@ -86,13 +85,18 @@
                         @if($practitioner->contacts)
                             @foreach($practitioner->contacts as $contact)
                                 <tr>
-                                    <th class="ps-0" scope="row">{{ $contact->contactType->name }}:
+                                    <th class="ps-0" scope="row">
+                                        @if($contact->contactType)
+                                            {{ $contact->contactType->name }}:
+                                        @endif
                                     </th>
                                     <td style="font-weight: normal;" class="text-black">
-                                        @if($contact->contactType->name === 'Email')
-                                            {{ $contact->contact }}
-                                        @else
-                                            +{{$contact->country_code}}{{$contact->contact}}
+                                        @if($contact->contactType)
+                                            @if($contact->contactType->name === 'Email')
+                                                {{ $contact->contact }}
+                                            @else
+                                                +{{$contact->country_code}}{{$contact->contact}}
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>
@@ -293,7 +297,13 @@
                                         <div class="d-flex mt-4">
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Country of origin :</p>
-                                                <h6 class="text-truncate mb-0">{{$practitioner->country->name}}</h6>
+                                                <h6 class="text-truncate mb-0">
+                                                    @if($contact->country)
+                                                        {{$practitioner->country->name}}
+                                                    @endif
+
+                                                </h6>
+
                                             </div>
                                         </div>
                                     </div>
@@ -304,7 +314,11 @@
                                         <div class="d-flex mt-4">
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Employment Status :</p>
-                                                <h6 class="text-truncate mb-0">{{$practitioner->employmentStatus->name}}</h6>
+                                                <h6 class="text-truncate mb-0">
+                                                    @if($practitioner->employmentStatus)
+                                                        {{$practitioner->employmentStatus->name}}
+                                                    @endif
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>

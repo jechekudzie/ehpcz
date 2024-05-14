@@ -91,7 +91,9 @@
                                 <div class="col-md-3">
                                     <div class="card team-box">
                                         <div class="team-cover">
-                                            <img src="https://placehold.co/800x533/405189/FFFFFF?text={{$practitioner->first_name.'+'.$practitioner->last_name}}" alt="" class="img-fluid"/>
+                                            <img
+                                                src="https://placehold.co/800x533/405189/FFFFFF?text={{$practitioner->first_name.'+'.$practitioner->last_name}}"
+                                                alt="" class="img-fluid"/>
                                         </div>
                                         <div class="card-body p-4">
                                             <div class="row align-items-center team-row">
@@ -107,7 +109,8 @@
                                                             </a>
                                                             <ul class="dropdown-menu dropdown-menu-end"
                                                                 aria-labelledby="dropdownMenuLink3">
-                                                                <li><a class="dropdown-item" href="javascript:void(0);">Renewal Status</a>
+                                                                <li><a class="dropdown-item" href="javascript:void(0);">Renewal
+                                                                        Status</a>
                                                                 </li>
                                                                 <li><a class="dropdown-item" href="javascript:void(0);">Payments</a>
                                                                 </li>
@@ -139,7 +142,8 @@
                                                                         $initials .= strtoupper($practitioner->last_name[0]);
                                                                     }
                                                                 @endphp
-                                                                <div class="avatar-title bg-soft-danger text-danger rounded-circle">
+                                                                <div
+                                                                    class="avatar-title bg-soft-danger text-danger rounded-circle">
                                                                     {{ $initials }}
                                                                 </div>
                                                             @endif
@@ -151,7 +155,16 @@
                                                                aria-controls="offcanvasExample">
                                                                 <h5 class="fs-16 mb-1">{{ $practitioner->first_name.' '.$practitioner->last_name }}</h5>
                                                             </a>
-                                                            <p class="text-muted mb-0">Full Stack Developer</p>
+                                                            <p class="text-muted mb-0">
+                                                                @if($practitioner->practitionerProfessions)
+                                                                    <!-- Display the first profession -->
+                                                                    @foreach($practitioner->practitionerProfessions as $profession)
+                                                                        {{ $profession->profession->name }}
+                                                                        @break
+                                                                    @endforeach
+
+                                                                @endif
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>

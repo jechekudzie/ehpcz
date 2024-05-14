@@ -31,6 +31,7 @@ class QualificationSeeder extends Seeder
             ["name" => "Bachelor of Science In Occupational and Environmental Health", "profession_id" => 1],
             ["name" => "Masters Degree In Public Health", "profession_id" => 1],
             ["name" => "Masters Degree In Environmental Health", "profession_id" => 1],
+
         ];
 
         foreach ($qualifications as $qualification) {

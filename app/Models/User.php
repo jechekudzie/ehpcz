@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(Role::class);
     }
 
+    // Users this user is a practitioner for
+    public function users() {
+        return $this->belongsToMany(User::class, 'practitioner_user', 'practitioner_id', 'user_id');
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

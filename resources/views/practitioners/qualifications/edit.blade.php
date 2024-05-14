@@ -142,7 +142,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="qualification" class="form-label">Qualification</label>
-                                                        <input type="text" class="form-control" id="qualification" name="qualification"
+                                                        <input type="text" class="form-control" id="qualification" name="qualification_name"
                                                                placeholder="Enter Qualification" value="{{ $professionalQualification->qualification }}">
                                                     </div>
                                                 </div>
@@ -151,12 +151,12 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="institution" class="form-label">Institution</label>
-                                                        <input type="text" class="form-control" id="institution" name="institution"
+                                                        <input type="text" class="form-control" id="institution" name="institution_name"
                                                                placeholder="Enter Institution" value="{{ $professionalQualification->institution }}">
                                                     </div>
                                                 </div>
                                             </div>
-
+{{--
                                             <div class="row">
                                                 <!-- Register Dropdown -->
                                                 <div class="col-lg-12">
@@ -173,7 +173,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>--}}
 
                                             <div class="row">
                                                 <!-- Start and Completion Dates -->

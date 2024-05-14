@@ -246,11 +246,17 @@
                         <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
-                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Admin</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+                                    @if(auth()->check())
+                                        {{auth()->user()->name}}
+                                    @endif
+                                </span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">
+                                     @if(auth()->check())
+                                        {{auth()->user()->roles->first()->name}}
+                                    @endif
+                                </span>
                             </span>
                         </span>
                         </button>
@@ -278,9 +284,14 @@
                                     class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle">Settings</span></a>
 
-                            <a class="dropdown-item" href="auth-logout-basic.html"><i
-                                    class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
-                                    class="align-middle" data-key="t-logout">Logout</span></a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="dropdown-item"href="{{route('logout')}}" onclick="event.preventDefault();
+                                                this.closest('form').submit();"><i
+                                        class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle" data-key="t-logout">Logout</span>
+                                </a>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -390,6 +401,27 @@
                     </li>
                     <!-- end Contact Menu -->
 
+                    <!-- Location Menu -->
+                    <li class="nav-item">
+                        <a style="/*color:white;*/ font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#sidebarLocation" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="sidebarLocation">
+                            <span data-key="t-dashboards">IMPORT PRACTITIONERS</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarLocation">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('import.practitioners')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                        Import Practitioners </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- end Location Menu -->
                     <!-- Location Menu -->
                     <li class="nav-item">
                         <a style="/*color:white;*/ font-size: 12px;" class="nav-link menu-link collapsed"

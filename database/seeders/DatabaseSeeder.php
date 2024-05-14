@@ -48,6 +48,8 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             RegistrationRuleSeeder::class,
             ExchangeRateTypeSeeder::class,
+            RolesSeeder::class,
+            UserSeeder::class
 
         ]);
     }

@@ -13,6 +13,11 @@ class Practitioner extends Model
 
     protected $guarded = [];
 
+    // Practitioners associated with this user
+    public function practitioners() {
+        return $this->belongsToMany(User::class, 'practitioner_user', 'user_id', 'practitioner_id');
+    }
+
     public function title()
     {
         return $this->belongsTo(Title::class);
@@ -61,7 +66,7 @@ class Practitioner extends Model
         return $this->belongsTo(Country::class);
     }
 
-    //add employment status
+    //add employment statusphp
     public function employmentStatus()
     {
         return $this->belongsTo(EmploymentStatus::class);

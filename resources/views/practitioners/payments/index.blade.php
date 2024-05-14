@@ -63,6 +63,10 @@
                                     <i class="fa fa-plus"></i> Make Payment
                                 </a>
 
+                                <a style="font-size: 12px; color: white;" href="{{route('renewal.payments.create',$renewal->id)}}" class="btn btn-primary fw-medium">
+                                    <i class="fa fa-plus"></i> Record Payment
+                                </a>
+
 
                             </span>
                                 <h6 class="card-title mb-0">{{$renewal->practitioner->first_name. ' '. $renewal->practitioner->last_name}}
@@ -107,8 +111,7 @@
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <!-- Delete Button -->
-                                                <form action="" method="POST"
-                                                      onsubmit="return confirm('Are you sure?');"
+                                                <form action="" method="POST" onsubmit="return confirm('Are you sure?');"
                                                       style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
@@ -136,112 +139,159 @@
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-
                                     <form method="post" action="{{ route('renewal.payments.store', $renewal->id) }}"
                                           enctype="multipart/form-data">
                                         @csrf
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- Payment Method Dropdown -->
+                                                <div class="mb-3">
+                                                    <label for="payment_method_id" class="form-label">Payment
+                                                        Method</label>
+                                                    <select class="form-control" id="payment_method_id"
+                                                            name="payment_method_id"
+                                                            required>
+                                                        <option value="">Select Payment Method</option>
+                                                        @foreach($paymentMethods as $method)
+                                                            <option
+                                                                value="{{ $method->id }}">{{ $method->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Fee Category Dropdown -->
+                                                <div class="mb-3">
+                                                    <label for="fee_category_id" class="form-label">Fee Category</label>
+                                                    <select class="form-control" id="fee_category_id"
+                                                            name="fee_category_id"
+                                                            required
+                                                            onchange="updateFeeItems(this.options[this.selectedIndex].text)">
+                                                        <option value="">Select Fee Category</option>
+                                                        @foreach($feeCategories as $category)
+                                                            <option value="{{ $category->id }}"
+                                                                    data-name="{{ $category->name }}">{{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Professional Qualifications Dropdown -->
+                                                <div class="mb-3" id="professionalQualificationsDiv"
+                                                     style="display: none;">
+                                                    <label for="professional_qualification_id" class="form-label">Professional
+                                                        Qualification</label>
+                                                    <select class="form-control" id="professional_qualification_id"
+                                                            name="professional_qualification_id"
+                                                            onchange="updateSelectedFeeItem()">
+                                                        <option value="">Select Professional Qualification</option>
+                                                        @foreach($renewal->practitionerProfession->professionalQualifications as $qualification)
+                                                            <option value="{{ $qualification->id }}"
+                                                                    data-registration-rule-id="{{ $qualification->registration_rule_id }}"
+                                                                    data-profession-id="{{ $qualification->profession_id }}">
+                                                                @if($qualification->qualification_category_id == 1)
+                                                                    {{ $qualification->qualification->name }}
+                                                                @else
+                                                                    {{ $qualification->qualification_name }}
+                                                                @endif
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                        <!-- Payment Method Dropdown -->
-                                        <div class="mb-3">
-                                            <label for="payment_method_id" class="form-label">Payment Method</label>
-                                            <select class="form-control" id="payment_method_id" name="payment_method_id"
-                                                    required>
-                                                <option value="">Select Payment Method</option>
-                                                @foreach($paymentMethods as $method)
-                                                    <option value="{{ $method->id }}">{{ $method->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="hidden" id="practitionerProfession" name="practitioner_profession_id"
+                                                   value="{{$renewal->practitionerProfession->id}}">
+
+                                            <div class="col-md-6">
+                                                <!-- Fee Items Dropdown -->
+                                                <div class="mb-3" id="feeItemsDiv" style="display: none;">
+                                                    <label for="dynamic_fee_item_id" class="form-label">Fee Item</label>
+                                                    <select class="form-control" id="dynamic_fee_item_id"
+                                                            name="fee_item_id">
+                                                        <option value="">Select Fee Item</option>
+                                                        <!-- Options will be dynamically added here based on the selected fee category -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Currency Dropdown -->
+                                                <div class="mb-3">
+                                                    <label for="currency_id" class="form-label">Currency</label>
+                                                    <select class="form-control" id="currency_id" name="currency_id"
+                                                            required>
+                                                        <option value="">Select Currency</option>
+                                                        @foreach($currencies as $currency)
+                                                            <option
+                                                                value="{{ $currency->id }}">{{ $currency->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Payment Date -->
+                                                <div class="mb-3">
+                                                    <label for="payment_date" class="form-label">Payment Date</label>
+                                                    <input type="text" class="form-control" id="payment_date"
+                                                           name="payment_date" required
+                                                           placeholder="Choose Payment Date">
+                                                </div>
+                                            </div>
+
+                                            <!-- Hidden fields for storing the active exchange rate and its ID -->
+                                            <input type="hidden" id="hidden_exchange_rate" name="exchange_rate">
+                                            <input type="hidden" id="hidden_exchange_rate_id" name="exchange_rate_id">
+
+                                            <div class="col-md-4">
+                                                <!-- Amount Input -->
+                                                <div class="mb-3">
+                                                    <label for="amount_invoiced" class="form-label">Amount
+                                                        Invoiced</label>
+                                                    <input type="text" class="form-control" id="amount_invoiced"
+                                                           name="amount_invoiced" required placeholder="Enter Amount" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <!-- Amount Input -->
+                                                <div class="mb-3">
+                                                    <label for="amount" class="form-label">Amount in USD</label>
+                                                    <input type="number" class="form-control" id="amount" name="amount"
+                                                           required
+                                                           placeholder="Enter Amount" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <!-- Amount Input -->
+                                                <div class="mb-3">
+                                                    <label for="amount_paid" class="form-label">Amount Paid</label>
+                                                    <input type="number" class="form-control" id="amount_paid" name="amount_paid" required
+                                                           placeholder="Enter Amount Paid">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <!-- Amount Input -->
+                                                <div class="mb-3">
+                                                    <label for="reference" class="form-label">Transaction Reference Number</label>
+                                                    <input type="text" min="4" class="form-control" id="reference" name="reference"
+                                                           required placeholder="For Ecocash" >
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <!-- Amount Input -->
+                                                <div class="mb-3">
+                                                    <label for="pop" class="form-label">Proof of Payment</label>
+                                                    <input type="file" class="form-control" id="pop" name="pop" required
+                                                           placeholder="Upload proof of payment">
+                                                </div>
+                                            </div>
+
                                         </div>
-
-                                        <!-- Fee Category Dropdown -->
-                                        <div class="mb-3">
-                                            <label for="fee_category_id" class="form-label">Fee Category</label>
-                                            <select class="form-control" id="fee_category_id" name="fee_category_id"
-                                                    required
-                                                    onchange="updateFeeItems(this.options[this.selectedIndex].text)">
-                                                <option value="">Select Fee Category</option>
-                                                @foreach($feeCategories as $category)
-                                                    <option value="{{ $category->id }}"
-                                                            data-name="{{ $category->name }}">{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <!-- Professional Qualifications Dropdown -->
-                                        <div class="mb-3" id="professionalQualificationsDiv" style="display: none;">
-                                            <label for="professional_qualification_id" class="form-label">Professional
-                                                Qualification</label>
-                                            <select class="form-control" id="professional_qualification_id"
-                                                    name="professional_qualification_id"
-                                                    onchange="updateSelectedFeeItem()">
-                                                <option value="">Select Professional Qualification</option>
-                                                @foreach($renewal->practitionerProfession->professionalQualifications as $qualification)
-                                                    <option value="{{ $qualification->id }}"
-                                                            data-registration-rule-id="{{ $qualification->registration_rule_id }}"
-                                                            data-profession-id="{{ $qualification->profession_id }}">
-                                                        @if($qualification->qualification_category_id == 1)
-                                                            {{ $qualification->qualification->name }}
-                                                        @else
-                                                            {{ $qualification->qualification_name }}
-                                                        @endif
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <input type="hidden" id="practitionerProfession"
-                                               value="{{$renewal->practitionerProfession->id}}">
-
-                                        <!-- Fee Items Dropdown -->
-                                        <div class="mb-3" id="feeItemsDiv" style="display: none;">
-                                            <label for="dynamic_fee_item_id" class="form-label">Fee Item</label>
-                                            <select class="form-control" id="dynamic_fee_item_id" name="fee_item_id">
-                                                <option value="">Select Fee Item</option>
-                                                <!-- Options will be dynamically added here based on the selected fee category -->
-                                            </select>
-                                        </div>
-
-                                        <!-- Currency Dropdown -->
-                                        <div class="mb-3">
-                                            <label for="currency_id" class="form-label">Currency</label>
-                                            <select class="form-control" id="currency_id" name="currency_id" required>
-                                                <option value="">Select Currency</option>
-                                                @foreach($currencies as $currency)
-                                                    <option value="{{ $currency->id }}">{{ $currency->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-
-                                        <!-- Payment Date -->
-                                        <div class="mb-3">
-                                            <label for="payment_date" class="form-label">Payment Date</label>
-                                            <input type="text" class="form-control" id="payment_date"
-                                                   name="payment_date" required placeholder="Choose Payment Date">
-                                        </div>
-
-
-                                        <!-- Hidden fields for storing the active exchange rate and its ID -->
-                                        <input type="text" id="hidden_exchange_rate" name="exchange_rate">
-                                        <input type="text" id="hidden_exchange_rate_id" name="exchange_rate_id">
-                                        <!-- Amount Input -->
-                                        <div class="mb-3">
-                                            <label for="amount_invoiced" class="form-label">Amount Invoiced</label>
-                                            <input type="text" class="form-control" id="amount_invoiced"
-                                                   name="amount_invoiced" required placeholder="Enter Amount">
-                                        </div>
-
-                                        <!-- Amount Input -->
-                                        <div class="mb-3">
-                                            <label for="amount" class="form-label">Amount</label>
-                                            <input type="number" class="form-control" id="amount" name="amount" required
-                                                   placeholder="Enter Amount">
-                                        </div>
-
                                         <!-- Submit Button -->
                                         <button type="submit" class="btn btn-primary">Submit Payment</button>
                                     </form>
-
 
                                 </div>
                             </div>
@@ -262,7 +312,6 @@
     <script src="{{asset('administration/assets/js/pages/profile-setting.init.js')}}"></script>
     <!-- Ensure Date Picker-->
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
@@ -326,8 +375,8 @@
                 .then(data => {
                     const amountInput = document.getElementById('amount'); // Ensure this is the correct ID of your amount input field
                     amountInput.value = data.amount; // Set the fetched amount as the value of the amount input field
-                })
-                .catch(error => console.error('Error fetching fee item amount:', error));
+                    calculateInvoicedAmount(); // Calculate invoiced amount when fee item is selected
+                }).catch(error => console.error('Error fetching fee item amount:', error));
         }
 
         // Add an event listener for when a fee item is selected
@@ -338,20 +387,27 @@
 
         });
 
-        // Exchange rate based on currency and payment date
-        document.addEventListener('DOMContentLoaded', function () {
-            const currencyIdField = document.getElementById('currency_id');
-            const paymentDateField = document.getElementById('payment_date');
+        function calculateInvoicedAmount() {
+
             const amountInput = document.getElementById('amount'); // Ensure the ID matches your amount input field
             const exchangeRateInput = document.getElementById('hidden_exchange_rate');
             const exchangeRateIdInput = document.getElementById('hidden_exchange_rate_id');
-            const amountInvoicedInput = document.getElementById('amount_invoiced'); // Ensure this ID matches your amount invoiced field
+            const amountInvoicedInput = document.getElementById('amount_invoiced');
+            const amount = parseFloat(amountInput.value) || 0;
+            const exchangeRate = parseFloat(exchangeRateInput.value) || 1;
+            amountInvoicedInput.value = (amount * exchangeRate).toFixed(2); // Update the invoiced amount
+        }
 
-            function calculateInvoicedAmount() {
-                const amount = parseFloat(amountInput.value) || 0;
-                const exchangeRate = parseFloat(exchangeRateInput.value) || 1;
-                amountInvoicedInput.value = (amount * exchangeRate).toFixed(2); // Update the invoiced amount
-            }
+        // Exchange rate based on currency and payment date
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Ensure this ID matches your amount invoiced field
+            const currencyIdField = document.getElementById('currency_id');
+            const paymentDateField = document.getElementById('payment_date');
+            const exchangeRateInput = document.getElementById('hidden_exchange_rate');
+            const exchangeRateIdInput = document.getElementById('hidden_exchange_rate_id');
+            const amountInput = document.getElementById('amount'); // Ensure the ID matches your amount input field
+            calculateInvoicedAmount(); // Calculate on load to ensure any default values are processed
 
             // Function to fetch and update exchange rate
             function fetchAndUpdateExchangeRate() {
@@ -379,8 +435,7 @@
                         exchangeRateIdInput.value = data.exchange_rate_id;
 
                         calculateInvoicedAmount(); // Calculate invoiced amount when new exchange rate is fetched
-                    })
-                    .catch(error => console.error('Error fetching active exchange rate:', error));
+                    }).catch(error => console.error('Error fetching active exchange rate:', error));
             }
 
             // Event listeners
@@ -405,8 +460,6 @@
             // Initial calculation
             calculateInvoicedAmount(); // Calculate on load to ensure any default values are processed
         });
-
-
 
 
     </script>

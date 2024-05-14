@@ -53,14 +53,18 @@
                         <div class="card border card-border-primary">
                             <div class="card-header">
                             <span class="float-end fs-10">
-                                 <a style="font-size: 12px; color: white;" href="{{route('practitioner-professions.index',$practitioner->slug)}}" class="btn btn-success fw-medium">
+                                 <a style="font-size: 12px; color: white;"
+                                    href="{{route('practitioner-professions.index',$practitioner->slug)}}"
+                                    class="btn btn-success fw-medium">
                                      <i class="fa fa-arrow-left"></i> Back To Professions
                                  </a>
-                                <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium" data-bs-toggle="modal" data-bs-target="#addProfession">
+                                <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium"
+                                   data-bs-toggle="modal" data-bs-target="#addProfession">
                                     <i class="fa fa-plus"></i> Add Professional Qualification
                                 </a>
 
-                                 <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium" data-bs-toggle="modal" data-bs-target="#addProfession">
+                                 <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium"
+                                    data-bs-toggle="modal" data-bs-target="#addProfession">
                                     <i class="fa fa-plus"></i> Make Payment
                                 </a>
 
@@ -76,7 +80,7 @@
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            >Category
+                                        >Category
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
@@ -94,13 +98,13 @@
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            >Register
+                                        >Register
                                         </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
-                                            >Level
+                                        >Level
                                         </th>
 
 
@@ -138,24 +142,34 @@
                                             </td>
                                             <td style="font-weight: normal;">
                                                 @if($professionalQualification->qualificationCategory->name == 'Local')
-                                                    {{$professionalQualification->institution->name}}
+                                                    @if($professionalQualification->institution)
+                                                        {{$professionalQualification->institution->name}}
+                                                    @endif
                                                 @else
                                                     {{$professionalQualification->institution_name}}
                                                 @endif
                                             </td>
 
-                                            <td style="font-weight: normal;">{{$professionalQualification->register->name}}</td>
-                                            <td style="font-weight: normal;">{{$professionalQualification->qualificationLevel->name}}</td>
+                                            <td style="font-weight: normal;">
+                                                @if($professionalQualification->register)
+                                                    {{$professionalQualification->register->name}}
+                                                @endif
+                                            </td>
+                                            <td style="font-weight: normal;">
+                                                @if($professionalQualification->qualificationLevel)
+                                                    {{$professionalQualification->qualificationLevel->name}}
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{route('practitioner-professional-qualifications.file.index',$professionalQualification->slug)}}"
                                                    class="edit-button" title="Qualification Requirements">
-                                                    Requirements  <i style="font-size: 15px;" class="fa fa-files-o"></i>
+                                                    Requirements <i style="font-size: 15px;" class="fa fa-files-o"></i>
                                                 </a>
                                             </td>
                                             <td>
                                                 <a href="{{route('registration.index',[$practitionerProfession->slug,$professionalQualification->slug,$practitioner->slug])}}"
                                                    class="edit-button" title="Qualification Payment">
-                                                    Payment  <i style="font-size: 15px;" class="fa fa-money"></i>
+                                                    Payment <i style="font-size: 15px;" class="fa fa-money"></i>
                                                 </a>
                                             </td>
                                             <td style="font-weight: normal;">
@@ -291,22 +305,22 @@
                                             </div>
                                         </div>
 
-                                       {{-- <div class="row">
-                                            <!-- Register Dropdown -->
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                    <label for="register_id" class="form-label">Register</label>
-                                                    <select class="form-control" id="register_id"
-                                                            name="register_id">
-                                                        <option value="">Select Register</option>
-                                                        @foreach(\App\Models\Register::all() as $register)
-                                                            <option
-                                                                value="{{$register->id}}">{{$register->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>--}}
+                                        {{-- <div class="row">
+                                             <!-- Register Dropdown -->
+                                             <div class="col-lg-12">
+                                                 <div class="mb-3">
+                                                     <label for="register_id" class="form-label">Register</label>
+                                                     <select class="form-control" id="register_id"
+                                                             name="register_id">
+                                                         <option value="">Select Register</option>
+                                                         @foreach(\App\Models\Register::all() as $register)
+                                                             <option
+                                                                 value="{{$register->id}}">{{$register->name}}</option>
+                                                         @endforeach
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                         </div>--}}
 
                                         <div class="row">
                                             <!-- Start and Completion Dates -->

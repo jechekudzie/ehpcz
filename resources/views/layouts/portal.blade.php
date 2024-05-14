@@ -194,10 +194,10 @@
                                     class="align-middle">Settings</span></a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                            <a class="dropdown-item"href="{{route('logout')}}" onclick="event.preventDefault();
+                                <a class="dropdown-item"href="{{route('logout')}}" onclick="event.preventDefault();
                                                 this.closest('form').submit();"><i
-                                    class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
-                                    class="align-middle" data-key="t-logout">Logout</span></a>
+                                        class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle" data-key="t-logout">Logout</span></a>
                             </form>
                         </div>
                     </div>
@@ -237,58 +237,7 @@
         </div>
         <!-- LOGO -->
         <!-- SIDEBARD -->
-        <div id="scrollbar">
-            <div class="container-fluid">
 
-                <div id="two-column-menu">
-                </div>
-                <div id="two-column-menu">
-                </div>
-                <ul class="navbar-nav" id="navbar-nav">
-                    <li style="color:white; font-size: 12px;" class="menu-title"><span data-key="t-menu">Practitioners Menu</span>
-                    </li>
-
-                    <!-- Contact Menu -->
-                    <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
-                           href="#sidebarPractitioner" data-bs-toggle="collapse" role="button"
-                           aria-expanded="false" aria-controls="sidebarPractitioner">
-                            <span data-key="t-dashboards">PRACTITIONER</span>
-                        </a>
-                        <div class="collapse menu-dropdown" id="sidebarPractitioner">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{route('practitioners.index')}}"
-                                       class="nav-link active" data-key="t-analytics">
-                                        Practitioners
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{route('practitioners.index')}}"
-                                       class="nav-link active" data-key="t-analytics">
-                                        Reports
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- end Contact Menu -->
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
-
-                </ul>
-                <ul class="navbar-nav" id="navbar-nav">
-                    <li style="color:white; font-size: 12px;" class="menu-title"><span
-                            data-key="t-menu">Admin Menu</span>
-                    </li>
-
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
-
-                </ul>
-            </div>
-            <!-- Sidebar -->
-        </div>
         <!-- SIDEBARD -->
 
         <div class="sidebar-background"></div>
@@ -303,167 +252,11 @@
 
         <div class="page-content">
             <div class="container-fluid">
-                <div style="margin-top: 3%;" class="row">
+                <div style="margin-top: -5%;" class="row">
 
                     @yield('content')
 
                 </div>
-                <!-- Contact Modal -->
-                <div class="modal fade" id="addContact" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="myModalLabel"> Add Contact</h5>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post"
-                                      action="{{ route('practitioner-contacts.store',$practitioner->slug) }}"
-                                      enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row">
-                                        <!-- Contact Type Dropdown -->
-                                        <div class="col-lg-4">
-                                            <div class="mb-3">
-                                                <label for="contact_type_id" class="form-label">Contact Type</label>
-                                                <select class="form-control" id="contact_type_id"
-                                                        name="contact_type_id">
-                                                    <option value="">Select Contact Type</option>
-                                                    @foreach(\App\Models\ContactType::all() as $contactType)
-                                                        <option value="{{$contactType->id}}"
-                                                                data-type-name="{{$contactType->name}}">{{$contactType->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <!-- Country -->
-                                        <div class="col-lg-4 country-code-div">
-                                            <div class="mb-3">
-                                                <label for="country_code" class="form-label">Country
-                                                    Code</label>
-                                                <select class="form-control" id="country_code"
-                                                        name="country_code">
-                                                    <option value="">Select Country Code</option>
-                                                    @foreach(\App\Models\Country::all() as $country)
-                                                        <option
-                                                            value="{{$country->code}}">{{$country->name}}
-                                                            (+{{$country->code}})
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <!-- contact number -->
-                                        <div class="col-lg-4">
-                                            <div class="mb-3">
-                                                <label for="contact" class="form-label">
-                                                    Contact</label>
-                                                <input type="text" class="form-control" id="contact"
-                                                       name="contact"
-                                                       placeholder="eg. 0774685885">
-                                            </div>
-                                        </div>
-                                        <!-- Form Submission Buttons -->
-                                        <div class="col-lg-12">
-                                            <div class="hstack gap-2 justify-content-end">
-                                                <button type="button" class="btn btn-light"
-                                                        data-bs-dismiss="modal">Close
-                                                </button>
-                                                <button type="submit" class="btn btn-success">Add contact</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                        <!--end modal-content-->
-                    </div>
-                    <!--end modal-dialog-->
-                </div>
-                <!--end modal-->
-
-                <!-- Address Modal -->
-                <div class="modal fade" id="addAddress" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="myModalLabel"> Add Address</h5>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post"
-                                      action="{{ route('practitioner-address.store',$practitioner->slug) }}"
-                                      enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row">
-                                        <!-- Contact Type Dropdown -->
-                                        <div class="col-lg-4">
-                                            <div class="mb-3">
-                                                <label for="address_type_id" class="form-label">Address Type</label>
-                                                <select class="form-control" id="address_type_id"
-                                                        name="address_type_id">
-                                                    <option value="">Select Contact Type</option>
-                                                    @foreach(\App\Models\AddressType::all() as $addressType)
-                                                        <option id="type_name"
-                                                                value="{{$addressType->id}}">{{$addressType->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4">
-                                            <div class="mb-3">
-                                                <label for="province_id" class="form-label">Province</label>
-                                                <select class="form-control" id="province_id"
-                                                        name="province_id">
-                                                    <option value="">Select Province</option>
-                                                    @foreach(\App\Models\Province::all() as $province)
-                                                        <option value="{{$province->id}}">{{$province->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4">
-                                            <div class="mb-3">
-                                                <label for="city_id" class="form-label">City</label>
-                                                <select class="form-control" id="city_id" name="city_id"></select>
-
-                                            </div>
-                                        </div>
-
-
-                                        <!-- contact number -->
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                <label for="address" class="form-label">
-                                                    Address</label>
-                                                <textarea type="text" class="form-control" id="address"
-                                                          name="address"
-                                                          placeholder="Enter you address"></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- Form Submission Buttons -->
-                                        <div class="col-lg-12">
-                                            <div class="hstack gap-2 justify-content-end">
-                                                <button type="button" class="btn btn-light"
-                                                        data-bs-dismiss="modal">Close
-                                                </button>
-                                                <button type="submit" class="btn btn-success">Add Address</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                        <!--end modal-content-->
-                    </div>
-                    <!--end modal-dialog-->
-                </div>
-                <!--end modal-->
-                <!--end row-->
 
             </div>
             <!-- container-fluid -->

@@ -21,7 +21,6 @@ class ProfessionalQualificationController extends Controller
 
     public function store(Request $request, PractitionerProfession $practitionerProfession)
     {
-
         $practitioner = $practitionerProfession->practitioner;
 
         // Basic validation rules that apply to both local and foreign qualifications
@@ -63,11 +62,7 @@ class ProfessionalQualificationController extends Controller
         })->toArray());
 
         // Determine if the practitioner is Zimbabwean
-        if ($practitioner->country->name == 'Zimbabwe') {
-            $isZimbabwean = 1;
-        }else{
-            $isZimbabwean = 0;
-        }
+        $isZimbabwean =  $practitioner->country->name == 'Zimbabwe' ? 1 : 0;
 
         $registrationRule = $qualification->findMatchingRegistrationRuleId($practitionerProfession, $isZimbabwean, $qualification->qualification_category_id);
         $qualification->registration_rule_id = $registrationRule->id;
@@ -90,16 +85,16 @@ class ProfessionalQualificationController extends Controller
     //update method update the data
     public function update(Request $request, ProfessionalQualification $professionalQualification)
     {
+        //$qualification = $practitionerProfession->professionalQualifications()->findOrFail($qualificationId);
         $practitionerProfession = $professionalQualification->practitionerProfession;
-        $practitioner = $practitionerProfession->practitioner;
 
         // Basic validation rules that apply to both local and foreign qualifications
         $rules = [
             'qualification_category_id' => 'required|exists:qualification_categories,id',
             'qualification_level_id' => 'required|exists:qualification_levels,id',
-            'register_id' => 'required|exists:registers,id',
+            'register_id' => 'nullable|exists:registers,id',
             'start_date' => 'nullable|date',
-            'completion_date' => 'nullable|date|after_or_equal:start_date',
+            'completion_date' => 'nullable|date',
         ];
 
         // Retrieve the qualification category to determine additional validation
@@ -118,8 +113,33 @@ class ProfessionalQualificationController extends Controller
         // Perform validation
         $validatedData = $request->validate($rules);
 
-        // Continue with storing the data
+        // Update the qualification data
         $professionalQualification->update($validatedData);
+
+        // Update files if needed, can be adapted to update only changes or additions
+        $requirements = Requirement::whereNotIn('id', [1, 2, 3])->get();
+        $existingFiles = $professionalQualification->qualificationFiles;
+
+        $existingFiles->each(function($file) use ($requirements) {
+            if (!$requirements->contains('id', $file->requirement_id)) {
+                $file->delete(); // Remove files that are no longer needed
+            }
+        });
+
+        foreach ($requirements as $requirement) {
+            $professionalQualification->qualificationFiles()->updateOrCreate(
+                ['requirement_id' => $requirement->id],
+                ['file' => null] // Assuming no new file data provided
+            );
+        }
+
+        // Update registration rule and other related fields
+        $isZimbabwean = $practitionerProfession->practitioner->country->name == 'Zimbabwe' ? 1 : 0;
+
+        $registrationRule = $professionalQualification->findMatchingRegistrationRuleId($practitionerProfession, $isZimbabwean, $professionalQualification->qualification_category_id);
+        $professionalQualification->registration_rule_id = $registrationRule->id;
+        $professionalQualification->register_id = $registrationRule->register_id;
+        $professionalQualification->save();
 
         // Redirect back with a success message
         return redirect()->route('practitioner-professional-qualifications.index', $practitionerProfession->slug)->with('success', 'Professional qualification updated successfully.');
