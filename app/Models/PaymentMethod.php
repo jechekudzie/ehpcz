@@ -13,6 +13,12 @@ class PaymentMethod extends Model
 
     protected $guarded = [];
 
+    //has many payments
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

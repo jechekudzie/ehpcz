@@ -29,10 +29,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->hasRole('admin')) {
-           dd('admin');
+        if (Auth::user()->hasRole('practitioner')) {
+            $user = Auth::user();
+            $practitioner = $user->practitioners->first();
+            if ($practitioner) {
+                return redirect()->route('practitioners.show', $practitioner->slug)->with('success', 'Logged in successfully.');
+            } else {
+                Auth::logout();
+                return back()->with('error', 'This user is not associated with any practitioner.');
+            }
         }
-        //return redirect()->intended(RouteServiceProvider::HOME);
+
         return redirect('/practitioners');
     }
 
@@ -41,12 +48,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        //get user role
+        $role = Auth::user()->roles->pluck('name')->first();
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        if ($role == 'practitioner') {
+            return redirect()->route('portal.index');
+        }
+
+        return redirect()->route('login');
     }
 }

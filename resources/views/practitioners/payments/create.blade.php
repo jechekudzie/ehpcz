@@ -17,7 +17,7 @@
 
 @section('content')
     <!--end col-->
-    <div class="col-xxl-12">
+    <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
@@ -29,14 +29,14 @@
                             <div class="card-header">
                             <span class="float-end fs-10">
                                  <a style="font-size: 12px; color: white;"
-                                    href="{{route('renewals.index',$renewal->practitioner->slug)}}"
+                                    href="{{route('renewal.payments.index',$renewal->id)}}"
                                     class="btn btn-success fw-medium">
-                                     <i class="fa fa-arrow-left"></i> Back To Renewals
+                                     <i class="fa fa-arrow-left"></i> Back to {{$renewal->period}} Payments
                                  </a>
-                                <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium"
+                                {{--<a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium"
                                    data-bs-toggle="modal" data-bs-target="#addProfession">
                                     <i class="fa fa-plus"></i> Make Payment
-                                </a>
+                                </a>--}}
                             </span>
                                 <h6 class="card-title mb-0">
                                     {{$renewal->practitioner->first_name. ' '. $renewal->practitioner->last_name}}
@@ -58,6 +58,28 @@
 <!-- Include livewire scripts -->
 @livewireScripts
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "yy-mm-dd",
+                onSelect: function (dateText, inst) {
+                    var date = $(this).datepicker('getDate'),
+                        day = date.getDate(),
+                        month = date.getMonth() + 1,
+                        year = date.getFullYear();
 
+                    var monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+
+                    var dateString = day + ' ' + monthNames[month - 1] + ' ' + year;
+                    $('#payment_date').text('Payment Date (' + dateString + ')');
+                }
+            });
+        });
+
+
+    </script>
 @endpush
 

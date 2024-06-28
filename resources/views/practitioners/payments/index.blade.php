@@ -12,7 +12,7 @@
 @endpush
 @section('content')
     <!--end col-->
-    <div class="col-xxl-12">
+    <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
@@ -58,13 +58,15 @@
                                     class="btn btn-success fw-medium">
                                      <i class="fa fa-arrow-left"></i> Back To Renewals
                                  </a>
-                                <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium"
+                                {{--<a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium"
                                    data-bs-toggle="modal" data-bs-target="#addProfession">
                                     <i class="fa fa-plus"></i> Make Payment
-                                </a>
+                                </a>--}}
 
-                                <a style="font-size: 12px; color: white;" href="{{route('renewal.payments.create',$renewal->id)}}" class="btn btn-primary fw-medium">
-                                    <i class="fa fa-plus"></i> Record Payment
+                                <a style="font-size: 12px; color: white;"
+                                   href="{{route('renewal.payments.create',$renewal->id)}}"
+                                   class="btn btn-primary fw-medium">
+                                    <i class="fa fa-plus"></i> Record {{ $renewal->period }} Payment
                                 </a>
 
 
@@ -79,12 +81,15 @@
                                     <thead>
                                     <tr>
                                         <th>Period</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Practitioner Profession</th>
-                                        <th>Outstanding Balances
-                                        <th>Payments</th>
-
+                                        <th>Fee Category</th>
+                                        <th>Fee</th>
+                                        <th>Amount Invoiced</th>
+                                        <th>Amount Paid</th>
+                                        <th>Balance</th>
+                                        <th>Currency</th>
+                                        <th>Exchange Rate</th>
+                                        <th>Exchange Rate Type</th>
+                                        <th>Approval</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -92,14 +97,24 @@
                                     @foreach($renewal->payments as $payment)
                                         <tr class="even">
                                             <td style="font-weight: normal;">{{$renewal->period}}</td>
-                                            <td style="font-weight: normal;">{{$payment->period}}</td>
-                                            <td style="font-weight: normal;">{{$payment->period}}</td>
-                                            <td style="font-weight: normal;">{{$payment->period}}</td>
-                                            <td style="font-weight: normal;">{{$payment->period}}</td>
-                                            <td>
-                                                <a href="{{route('renewal.payments.index',$renewal->id)}}"
-                                                   class="edit-button" title="Qualification Requirements">
-                                                    Payments <i style="font-size: 15px;" class="fa fa-files-o"></i>
+                                            <td style="font-weight: normal;">{{$payment->feeCategory->name}}</td>
+                                            <td style="font-weight: normal;">{{$payment->feeItem->name}}</td>
+                                            <td style="font-weight: normal;">{{$payment->amount_invoiced}}</td>
+                                            <td style="font-weight: normal;">{{$payment->amount_paid}}</td>
+                                            <td style="font-weight: normal;">{{$payment->balance}}</td>
+                                            <td style="font-weight: normal;">{{$payment->currency->name}}</td>
+                                            <td style="font-weight: normal;">{{$payment->exchange_rate}}</td>
+                                            <td style="font-weight: normal;">
+                                                @if($payment->exchangeRate)
+                                                {{$payment->exchangeRate->exchangeRateType->name}}
+                                                @endif
+                                            </td>
+
+                                            <td style="font-weight: normal;">
+                                                <a href="{{route('check-for-payment-approval',$payment->id)}}" class="btn btn-sm btn-block btn-outline-primary d-flex justify-content-between align-items-center" title="Edit">
+                                                    <div style="text-align: center;">
+                                                        <i class="fa fa-check text-success"></i> or <i class="fa fa-times text-danger"></i>
+                                                    </div>
                                                 </a>
                                             </td>
 
@@ -111,7 +126,8 @@
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <!-- Delete Button -->
-                                                <form action="" method="POST" onsubmit="return confirm('Are you sure?');"
+                                                <form action="" method="POST"
+                                                      onsubmit="return confirm('Are you sure?');"
                                                       style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
@@ -200,7 +216,8 @@
                                                 </div>
                                             </div>
 
-                                            <input type="hidden" id="practitionerProfession" name="practitioner_profession_id"
+                                            <input type="hidden" id="practitionerProfession"
+                                                   name="practitioner_profession_id"
                                                    value="{{$renewal->practitionerProfession->id}}">
 
                                             <div class="col-md-6">
@@ -248,7 +265,8 @@
                                                     <label for="amount_invoiced" class="form-label">Amount
                                                         Invoiced</label>
                                                     <input type="text" class="form-control" id="amount_invoiced"
-                                                           name="amount_invoiced" required placeholder="Enter Amount" readonly>
+                                                           name="amount_invoiced" required placeholder="Enter Amount"
+                                                           readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -265,7 +283,8 @@
                                                 <!-- Amount Input -->
                                                 <div class="mb-3">
                                                     <label for="amount_paid" class="form-label">Amount Paid</label>
-                                                    <input type="number" class="form-control" id="amount_paid" name="amount_paid" required
+                                                    <input type="number" class="form-control" id="amount_paid"
+                                                           name="amount_paid" required
                                                            placeholder="Enter Amount Paid">
                                                 </div>
                                             </div>
@@ -273,9 +292,11 @@
                                             <div class="col-md-6">
                                                 <!-- Amount Input -->
                                                 <div class="mb-3">
-                                                    <label for="reference" class="form-label">Transaction Reference Number</label>
-                                                    <input type="text" min="4" class="form-control" id="reference" name="reference"
-                                                           required placeholder="For Ecocash" >
+                                                    <label for="reference" class="form-label">Transaction Reference
+                                                        Number</label>
+                                                    <input type="text" min="4" class="form-control" id="reference"
+                                                           name="reference"
+                                                           required placeholder="For Ecocash">
                                                 </div>
                                             </div>
 

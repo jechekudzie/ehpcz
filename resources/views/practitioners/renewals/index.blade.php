@@ -12,7 +12,7 @@
 @endpush
 @section('content')
     <!--end col-->
-    <div class="col-xxl-12">
+    <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
@@ -68,18 +68,16 @@
                                 <h6 class="card-title mb-0">{{$practitioner->first_name. ' '. $practitioner->last_name}}
                                     Renewals
                                 </h6><br/>
-                                <table style="width: 100%;" id="buttons-datatables"
+                                <table {{--style="width: 100%;"--}} id="buttons-datatables"
                                        class="display table table-bordered dataTable no-footer"
                                        aria-describedby="buttons-datatables_info">
                                     <thead>
                                     <tr>
                                         <th>Period</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
+                                        <th>Duration</th>
                                         <th>Practitioner Profession</th>
-                                        <th>Outstanding Balances
-                                        <th>Payments</th>
-
+                                        <th>Balances
+                                        <th>Approval</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -87,34 +85,49 @@
                                     @foreach($practitioner->renewals as $renewal)
                                         <tr class="even">
                                             <td style="font-weight: normal;">{{$renewal->period}}</td>
-                                            <td style="font-weight: normal;">{{$renewal->start_date}}</td>
-                                            <td style="font-weight: normal;">{{$renewal->end_date}}</td>
-                                            <td style="font-weight: normal;">{{$renewal->practitionerProfession->profession->name}}</td>
-                                            <td style="font-weight: normal;">{{$renewal->payments->sum('balance')}}</td>
                                             <td>
-                                                <a href="{{route('renewal.payments.index',$renewal->id)}}"
-                                                   class="edit-button" title="Qualification Requirements">
-                                                    Payments <i style="font-size: 15px;" class="fa fa-files-o"></i>
-                                                </a>
+                                                <div style="display: flex; justify-content: space-between;">
+                                                    <div class="alert alert-success"
+                                                         style="flex: 1; margin-right: 10px;">{{$renewal->start_date}}</div>
+                                                    <div class="alert alert-danger"
+                                                         style="flex: 1;">{{$renewal->end_date}}</div>
+                                                </div>
                                             </td>
 
-                                            <td style="font-weight: normal;">
+                                            <td style="font-weight: normal;">{{$renewal->practitionerProfession->profession->name}}</td>
+                                            <td style="font-weight: normal;">{{$renewal->payments->sum('balance')}}</td>
 
-                                                <!-- Edit Button -->
+                                            <td style="font-weight: normal;">
                                                 <a href=""
-                                                   class="edit-button btn btn-sm btn-primary" title="Edit">
-                                                    <i class="fa fa-pencil"></i>
+                                                   class="btn btn-sm btn-block btn-outline-primary d-flex justify-content-between align-items-center"
+                                                   title="Edit">
+                                                    <div style="text-align: center;">
+                                                        <i class="fa fa-check text-success"></i> or <i
+                                                            class="fa fa-times text-danger"></i>
+                                                    </div>
                                                 </a>
-                                                <!-- Delete Button -->
-                                                <form action="" method="POST"
-                                                      onsubmit="return confirm('Are you sure?');"
-                                                      style="display: inline-block;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
+                                            <td>
+
+                                                <!-- renewal certificates -->
+                                                <a href="{{route('renewal.certificate.show',$renewal->id)}}"
+                                                   class="edit-button" title="Certificates" target="_blank">
+                                                    Certificates <i style="font-size: 15px;"
+                                                                    class="fa fa-certificate"></i>
+                                                </a>
+                                                |
+                                                <!-- Payments Button -->
+                                                <a href="{{route('renewal.cpd.index',$renewal->id)}}"
+                                                   class="edit-button" title="Payments">
+                                                    CPD Points <i style="font-size: 15px;"
+                                                                  class="fa fa-graduation-cap"></i>
+                                                </a>
+                                                |
+                                                <!-- Payments Button -->
+                                                <a href="{{route('renewal.payments.index',$renewal->id)}}"
+                                                   class="edit-button" title="Payments">
+                                                    Payments <i style="font-size: 15px;" class="fa fa-money"></i>
+                                                </a>
+
                                             </td>
                                         </tr>
 
@@ -164,11 +177,13 @@
                                                 <div class="mb-3">
                                                     <label for="practitioner_profession_id" class="form-label">Practitioner
                                                         Profession</label>
-                                                    <select class="form-control" id="practitioner_profession_id" name="practitioner_profession_id" required>
+                                                    <select class="form-control" id="practitioner_profession_id"
+                                                            name="practitioner_profession_id" required>
                                                         <option value="">Select Profession</option>
 
                                                         @foreach($practitioner->practitionerProfessions as $practitionerProfession)
-                                                            <option value="{{ $practitionerProfession->id }}">{{ $practitionerProfession->profession->name }}</option>
+                                                            <option
+                                                                value="{{ $practitionerProfession->id }}">{{ $practitionerProfession->profession->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

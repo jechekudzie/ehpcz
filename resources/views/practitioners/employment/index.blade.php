@@ -4,8 +4,10 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 @endpush
 @section('content')
+    {{--@include('partials.admin_practitioner.profile')
+--}}
     <!--end col-->
-    <div class="col-xxl-10">
+    <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 

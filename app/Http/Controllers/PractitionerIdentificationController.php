@@ -42,7 +42,7 @@ class PractitionerIdentificationController extends Controller
         //add image upload code using move method
         if ($request->hasFile('identification_file')) {
             $image = $request->file('identification_file');
-            $imagePath = $practitioner->first_name.'_'.$practitioner->last_name.'/identification_files'; // The directory where you want to save the files
+            $imagePath = 'identification_files/'.$practitioner->first_name.'_'.$practitioner->last_name; // The directory where you want to save the files
             $imageName = time() . '_' . $image->getClientOriginalName(); // Customizing the file name to be unique
             $image->move(public_path($imagePath), $imageName); // Move the image to the specified directory
 

@@ -45,10 +45,14 @@ class DatabaseSeeder extends Seeder
             RegistrationStatusSeeder::class,
             OperationalStatusSeeder::class,
             FeeItemsTableSeeder::class,
+            PenaltySeeder::class,
             CurrencySeeder::class,
             RegistrationRuleSeeder::class,
             ExchangeRateTypeSeeder::class,
+            ConditionSeeder::class,
+            CertificateTypesSeeder::class,
             RolesSeeder::class,
+            ModuleSeeder::class,
             UserSeeder::class
 
         ]);

@@ -27,6 +27,7 @@
     <link href="{{asset('administration/assets/css/custom.min.css')}}" rel="stylesheet" type="text/css"/>
 
     @stack('head')
+
 </head>
 
 <body>
@@ -194,10 +195,10 @@
                                     class="align-middle">Settings</span></a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                            <a class="dropdown-item"href="{{route('logout')}}" onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();
                                                 this.closest('form').submit();"><i
-                                    class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
-                                    class="align-middle" data-key="t-logout">Logout</span></a>
+                                        class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle" data-key="t-logout">Logout</span></a>
                             </form>
                         </div>
                     </div>
@@ -236,6 +237,7 @@
             </button>
         </div>
         <!-- LOGO -->
+        @hasanyrole('reception|admin|accountant|accounts-clerk|procurement|registrar|super-admin')
         <!-- SIDEBARD -->
         <div id="scrollbar">
             <div class="container-fluid">
@@ -244,52 +246,37 @@
                 </div>
                 <div id="two-column-menu">
                 </div>
-                <ul class="navbar-nav" id="navbar-nav">
-                    <li style="color:white; font-size: 12px;" class="menu-title"><span data-key="t-menu">Practitioners Menu</span>
-                    </li>
 
-                    <!-- Contact Menu -->
-                    <li class="nav-item">
-                        <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
-                           href="#sidebarPractitioner" data-bs-toggle="collapse" role="button"
-                           aria-expanded="false" aria-controls="sidebarPractitioner">
-                            <span data-key="t-dashboards">PRACTITIONER</span>
-                        </a>
-                        <div class="collapse menu-dropdown" id="sidebarPractitioner">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{route('practitioners.index')}}"
-                                       class="nav-link active" data-key="t-analytics">
-                                        Practitioners
-                                    </a>
-                                </li>
+                    <ul class="navbar-nav" id="navbar-nav">
+                        <li style="color:white; font-size: 12px;" class="menu-title"><span data-key="t-menu">Practitioners Menu</span>
+                        </li>
 
-                                <li class="nav-item">
-                                    <a style="color:white; font-size: 12px;" href="{{route('practitioners.index')}}"
-                                       class="nav-link active" data-key="t-analytics">
-                                        Reports
-                                    </a>
-                                </li>
+                        <!-- Contact Menu -->
+                        <li class="nav-item">
+                            <a style="color:white; font-size: 12px;" class="nav-link menu-link collapsed"
+                               href="#sidebarPractitioner" data-bs-toggle="collapse" role="button"
+                               aria-expanded="false" aria-controls="sidebarPractitioner">
+                                <span data-key="t-dashboards">PRACTITIONER</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarPractitioner">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a style="color:white; font-size: 12px;" href="{{route('practitioners.index')}}"
+                                           class="nav-link active" data-key="t-analytics">
+                                            Practitioners
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
 
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- end Contact Menu -->
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
+                    </ul>
 
-                </ul>
-                <ul class="navbar-nav" id="navbar-nav">
-                    <li style="color:white; font-size: 12px;" class="menu-title"><span
-                            data-key="t-menu">Admin Menu</span>
-                    </li>
-
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
-
-                </ul>
             </div>
             <!-- Sidebar -->
         </div>
         <!-- SIDEBARD -->
+        @endhasanyrole
 
         <div class="sidebar-background"></div>
     </div>
@@ -304,6 +291,8 @@
         <div class="page-content">
             <div class="container-fluid">
                 <div style="margin-top: 3%;" class="row">
+
+                    @include('partials.admin_practitioner.profile')
 
                     @yield('content')
 
@@ -554,9 +543,9 @@
     // Wait for the DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', function () {
         // Set a timeout to hide the alerts after 10 seconds
-        setTimeout(function() {
+        setTimeout(function () {
             var alertMessages = document.getElementsByClassName('alert-message');
-            for(var i = 0; i < alertMessages.length; i++) {
+            for (var i = 0; i < alertMessages.length; i++) {
                 alertMessages[i].style.display = 'none';
             }
         }, 5000); // 5000 milliseconds = 5 seconds
@@ -564,10 +553,6 @@
 </script>
 
 @stack('scripts')
-
-
-
-
 
 
 </body>

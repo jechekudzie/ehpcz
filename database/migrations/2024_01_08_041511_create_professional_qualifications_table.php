@@ -33,6 +33,7 @@ return new class extends Migration
             $table->boolean('admin')->default(0);
             $table->boolean('accountant')->default(0);
             $table->boolean('registrar')->default(0);
+            $table->string('status')->default('pending');
             $table->string('slug')->nullable();
             $table->timestamps();
         });

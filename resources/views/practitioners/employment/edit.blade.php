@@ -4,7 +4,8 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 @endpush
 @section('content')
-    <!--end col-->
+    {{--@include('partials.admin_practitioner.profile')
+    <!--end col-->--}}
     <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
@@ -142,7 +143,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="hstack gap-2 justify-content-end">
                                                         <button type="submit" class="btn btn-primary">Update Employment</button>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <a href="{{route('practitioner-employments.index',$practitioner->slug)}}" class="btn btn-secondary">Cancel</a>
                                                     </div>
                                                 </div>
                                             </div>

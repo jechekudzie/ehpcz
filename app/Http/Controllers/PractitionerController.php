@@ -21,7 +21,6 @@ class PractitionerController extends Controller
     public function index()
     {
         $practitioners = Practitioner::all();
-
         $countries = Country::all();
         $titles = Title::all();
         $genders = Gender::all();
@@ -78,7 +77,7 @@ class PractitionerController extends Controller
         }
 
         // Redirect to a specific route (e.g., index page of practitioners)
-        return redirect()->route('practitioners.index')->with('success', 'Practitioner added successfully.');
+        return redirect()->route('practitioners.show',$practitioner->slug)->with('success', 'Practitioner added successfully.');
     }
 
     //add show method

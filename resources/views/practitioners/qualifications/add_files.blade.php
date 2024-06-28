@@ -12,7 +12,7 @@
 @endpush
 @section('content')
     <!--end col-->
-    <div class="col-xxl-12">
+    <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 

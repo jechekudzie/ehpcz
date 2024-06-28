@@ -72,6 +72,11 @@
                                             aria-label="Salary: activate to sort column ascending"
                                             style="width: 112.4px;">Last Name
                                         </th>
+                                        <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
+                                            rowspan="1" colspan="1"
+                                            aria-label="Salary: activate to sort column ascending"
+                                            style="width: 112.4px;">Action
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -79,6 +84,7 @@
                                         <tr class="even">
                                             <td class="sorting_1">{{$loop->iteration}}</td>
                                             <td>{{$practitioner->first_name}}</td>
+                                            <td>{{$practitioner->last_name}}</td>
                                             <td>
                                                 <!-- Edit Button -->
                                                 <a href="javascript:void(0);" class="edit-button btn btn-sm btn-primary" data-name="{{ $practitioner->first_name }}" data-slug="{{ $practitioner->slug }}" title="Edit">

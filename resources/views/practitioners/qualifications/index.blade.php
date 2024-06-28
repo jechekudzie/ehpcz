@@ -12,7 +12,7 @@
 @endpush
 @section('content')
     <!--end col-->
-    <div class="col-xxl-12">
+    <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
@@ -63,10 +63,6 @@
                                     <i class="fa fa-plus"></i> Add Professional Qualification
                                 </a>
 
-                                 <a style="font-size: 12px; color: white;" href="#" class="btn btn-primary fw-medium"
-                                    data-bs-toggle="modal" data-bs-target="#addProfession">
-                                    <i class="fa fa-plus"></i> Make Payment
-                                </a>
 
                             </span>
                                 <h6 class="card-title mb-0">{{$practitionerProfession->profession->name}}
@@ -114,17 +110,20 @@
                                         >Requirements
                                         </th>
 
-
+                                        @hasanyrole('reception|admin|accountant|accounts-clerk|procurement|registrar|super-admin')
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Position: activate to sort column ascending"
                                         >Payment
                                         </th>
 
+                                        <th>Approval</th>
+
+                                        @endhasanyrole
                                         <th class="sorting" tabindex="0" aria-controls="buttons-datatables"
                                             rowspan="1" colspan="1"
                                             aria-label="Salary: activate to sort column ascending"
-                                            style="width: 112.4px;">Action
+                                            >Action
                                         </th>
                                     </tr>
                                     </thead>
@@ -166,12 +165,22 @@
                                                     Requirements <i style="font-size: 15px;" class="fa fa-files-o"></i>
                                                 </a>
                                             </td>
+                                            @hasanyrole('reception|admin|accountant|accounts-clerk|procurement|registrar|super-admin')
                                             <td>
                                                 <a href="{{route('registration.index',[$practitionerProfession->slug,$professionalQualification->slug,$practitioner->slug])}}"
                                                    class="edit-button" title="Qualification Payment">
                                                     Payment <i style="font-size: 15px;" class="fa fa-money"></i>
                                                 </a>
                                             </td>
+                                            <td>
+                                                <a href="{{route('qualifications.approve.create',$professionalQualification->slug)}}" class="btn btn-sm btn-block btn-outline-primary d-flex justify-content-between align-items-center" title="Edit">
+                                                    <div style="text-align: center;">
+                                                        <i class="fa fa-check text-success"></i> or <i class="fa fa-times text-danger"></i>
+                                                    </div>
+                                                </a>
+
+                                            </td>
+                                            @endhasanyrole
                                             <td style="font-weight: normal;">
 
                                                 <!-- Edit Button -->
@@ -179,6 +188,7 @@
                                                    class="edit-button btn btn-sm btn-primary" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                                @hasanyrole('reception|admin|accountant|accounts-clerk|procurement|registrar|super-admin')
                                                 <!-- Delete Button -->
                                                 <form
                                                     action="{{ route('practitioner-professional-qualifications.destroy', $professionalQualification->slug) }}"
@@ -190,6 +200,7 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
+                                                @endhasanyrole
                                             </td>
                                         </tr>
 

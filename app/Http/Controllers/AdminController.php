@@ -63,7 +63,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('administration.index');
+        return redirect()->route('practitioners.index');
     }
 
     public function table()

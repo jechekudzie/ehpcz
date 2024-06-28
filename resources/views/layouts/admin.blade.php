@@ -641,6 +641,45 @@
                     </li>
                     <!-- end Institutions Menu -->
 
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">SUPER ADMIN</span></li>
+                    <li class="nav-item">
+                        <a style="/*color:white;*/ font-size: 12px;" class="nav-link menu-link collapsed"
+                           href="#super-admin" data-bs-toggle="collapse"
+                           role="button"
+                           aria-expanded="false" aria-controls="FEES">
+                            <span data-key="t-dashboards">SUPER ADMIN</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="super-admin">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('admin.permissions.index')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                       System Modules </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('roles.index')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                       System Roles </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('admin.users.index')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                        System Users </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('admin.signatures.index')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                        Signatures </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
             <!-- Sidebar -->

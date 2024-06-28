@@ -101,6 +101,24 @@ class Practitioner extends Model
         return $this->hasMany(Renewal::class);
     }
 
+    //practitioner user pivot table
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'practitioner_user');
+    }
+
+    //payments
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    //continuous professional development
+    public function continuousProfessionalDevelopments()
+    {
+        return $this->hasMany(ContinuousProfessionalDevelopment::class);
+    }
+
 
     public function getSlugOptions(): SlugOptions
     {

@@ -4,8 +4,10 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 @endpush
 @section('content')
+   {{-- @include('partials.admin_practitioner.profile')--}}
+
     <!--end col-->
-    <div class="col-xxl-12">
+    <div class="col-xxl-9">
         <div class="card mt-xxl-n5">
             @include('partials.admin_practitioner.profile_nav')
 
@@ -15,6 +17,7 @@
 
                         <div class="card border card-border-primary">
                             <div class="card-header">
+                                @hasanyrole('reception|admin|accountant|accounts-clerk|procurement|registrar|super-admin')
                                 <span class="float-end align-middle fs-10">
                                     <a style="font-size: 12px;color:white;"
                                        href="{{route('practitioner-professions.index',$practitioner->slug)}}"
@@ -23,6 +26,7 @@
                                         <i class="fa fa-plus"></i> Add Profession
                                     </a>
                                 </span>
+                                @endhasanyrole
                                 <h6 class="card-title mb-0 text-black w-75">Practitioner Professions</h6><br/>
                                 @if($errors->any())
 
@@ -94,10 +98,10 @@
                                                         <i class="ri-arrow-right-s-line align-middle ms-1 lh-1"></i>
                                                     </a>
 
-                                                    <a style="font-size: 14px;" href="javascript:void(0);"
+                                                    {{--<a style="font-size: 14px;" href="javascript:void(0);"
                                                        class="link-success float-end">Renewals
                                                         <i class="ri-arrow-right-s-line align-middle ms-1 lh-1"></i>
-                                                    </a>
+                                                    </a>--}}
 
                                                 </div>
                                             </div>

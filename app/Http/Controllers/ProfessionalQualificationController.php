@@ -65,8 +65,8 @@ class ProfessionalQualificationController extends Controller
         $isZimbabwean =  $practitioner->country->name == 'Zimbabwe' ? 1 : 0;
 
         $registrationRule = $qualification->findMatchingRegistrationRuleId($practitionerProfession, $isZimbabwean, $qualification->qualification_category_id);
-        $qualification->registration_rule_id = $registrationRule->id;
-        $qualification->register_id = $registrationRule->register_id;
+        $qualification->registration_rule_id = $registrationRule->id ?? '';
+        $qualification->register_id = $registrationRule->register_id ?? '';
         $qualification->save();
 
         // Redirect back with a success message

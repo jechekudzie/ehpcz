@@ -18,7 +18,7 @@
                                                 <span class="float-end badge bg-primary align-middle fs-10">
                                                     <a style="font-size: 14px;color:white;"
                                                        href="{{route('practitioner-professions.index',$practitioner->slug)}}"
-                                                       class="link-primary fw-medium">
+                                                       class="btn btn-primary btn-sm">
                                                         <i class="fa fa-arrow-left"></i> Back To Professions
                                                     </a>
                                                 </span>
@@ -97,7 +97,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="hstack gap-2 justify-content-end">
                                                         <button type="submit" class="btn btn-primary">Submit Profession Details</button>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <a href="{{route('practitioner-professions.index',$practitioner->slug)}}" class="btn btn-secondary">Cancel</a>
                                                     </div>
                                                 </div>
                                             </div>
