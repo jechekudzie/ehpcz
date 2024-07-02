@@ -505,8 +505,12 @@ Route::post('/portal/practitioner-data/store', [\App\Http\Controllers\Practition
 */
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    if (Auth::check()) {
+        // Destroy the active session
+        Auth::logout();
+    }
+    return view('auth.login');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

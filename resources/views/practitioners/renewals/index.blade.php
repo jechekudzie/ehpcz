@@ -69,14 +69,14 @@
                                     Renewals
                                 </h6><br/>
                                 <table {{--style="width: 100%;"--}} id="buttons-datatables"
-                                       class="display table table-bordered dataTable no-footer"
+                                       class="display table table-bordered no-footer"
                                        aria-describedby="buttons-datatables_info">
                                     <thead>
                                     <tr>
-                                        <th>Period</th>
+                                       {{-- <th>Period</th>--}}
                                         <th>Duration</th>
                                         <th>Practitioner Profession</th>
-                                        <th>Balances
+                                        {{--<th>Balances--}}
                                         <th>Approval</th>
                                         <th>Action</th>
                                     </tr>
@@ -84,18 +84,18 @@
                                     <tbody>
                                     @foreach($practitioner->renewals as $renewal)
                                         <tr class="even">
-                                            <td style="font-weight: normal;">{{$renewal->period}}</td>
+                                           {{-- <td style="font-weight: normal;">{{$renewal->period}}</td>--}}
                                             <td>
                                                 <div style="display: flex; justify-content: space-between;">
                                                     <div class="alert alert-success"
-                                                         style="flex: 1; margin-right: 10px;">{{$renewal->start_date}}</div>
+                                                         style="font-size: 10px;flex: 1; margin-right: 5px;">{{$renewal->start_date}}</div>
                                                     <div class="alert alert-danger"
-                                                         style="flex: 1;">{{$renewal->end_date}}</div>
+                                                         style="font-size: 10px;flex: 1;">{{$renewal->end_date}}</div>
                                                 </div>
                                             </td>
 
                                             <td style="font-weight: normal;">{{$renewal->practitionerProfession->profession->name}}</td>
-                                            <td style="font-weight: normal;">{{$renewal->payments->sum('balance')}}</td>
+                                           {{-- <td style="font-weight: normal;">{{$renewal->payments->sum('balance')}}</td>--}}
 
                                             <td style="font-weight: normal;">
                                                 <a href=""
@@ -118,7 +118,7 @@
                                                 <!-- Payments Button -->
                                                 <a href="{{route('renewal.cpd.index',$renewal->id)}}"
                                                    class="edit-button" title="Payments">
-                                                    CPD Points <i style="font-size: 15px;"
+                                                    CPDs <i style="font-size: 15px;"
                                                                   class="fa fa-graduation-cap"></i>
                                                 </a>
                                                 |

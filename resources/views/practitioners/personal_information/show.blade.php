@@ -151,7 +151,18 @@
 
                                 <div class="row">
 
-
+                                    <div class="col-6 col-md-4">
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <p class="mb-1">Identification :</p>
+                                                <h6 class="text-truncate mb-0">
+                                                    @if($practitioner->practitionerIdentifications)
+                                                        {{$practitioner->practitionerIdentifications->first()->identification_number ?? 'Not Available'}}
+                                                    @endif
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!--start col-->
                                     <div class="col-6 col-md-4">
                                         <div class="d-flex mt-4">
@@ -625,6 +636,15 @@
                 dateFormat: "yy-mm-dd",
                 changeMonth: true,
                 changeYear: true,
+                yearRange: "1900:c", // Sets the start year to 1900 and the end year to the current year
+                beforeShow: function (input, inst) {
+                    setTimeout(function () {
+                        inst.dpDiv.css({
+                            top: $(input).offset().top - inst.dpDiv.outerHeight(),
+                            left: $(input).offset().left
+                        });
+                    }, 0);
+                },
                 onSelect: function (dateText, inst) {
                     var date = $(this).datepicker('getDate'),
                         day = date.getDate(),
@@ -639,6 +659,7 @@
                 }
             });
         });
+
     </script>
 
     <script>

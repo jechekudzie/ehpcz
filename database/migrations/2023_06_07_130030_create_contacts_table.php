@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('contact');
             $table->string('slug')->nullable();
             $table->timestamps();
-
         });
     }
 

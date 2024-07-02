@@ -235,6 +235,15 @@
                 dateFormat: "yy-mm-dd",
                 changeMonth: true,
                 changeYear: true,
+                yearRange: "1900:c", // Sets the start year to 1900 and the end year to the current year
+                beforeShow: function (input, inst) {
+                    setTimeout(function () {
+                        inst.dpDiv.css({
+                            top: $(input).offset().top - inst.dpDiv.outerHeight(),
+                            left: $(input).offset().left
+                        });
+                    }, 0);
+                },
                 onSelect: function (dateText, inst) {
                     var date = $(this).datepicker('getDate'),
                         day = date.getDate(),
