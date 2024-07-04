@@ -45,8 +45,8 @@ class PortalController extends Controller
         if (!$practitionerProfession) {
             $message = '<a href="' . route('portal.practitioner-data') . '">Click Here To Submit Your Data To The Council</a>.';
             return back()->with('error', 'Your Registration number did not match any of our records, please make sure to provide a valid
-            registration number. If you are sure the registration number is valid,
-            please click this link in front to submit you details to the council for further verification. ' . $message);
+            registration number. If you’re registration is not found, do not worry. We are still updating our records in the new system.
+            You can use this link to submit your latest details. ' . $message);
 
         } else {
             $practitioner = $practitionerProfession->practitioner;
@@ -98,18 +98,24 @@ class PortalController extends Controller
     // Register a new user
     public function register(Request $request)
     {
+        // Check if the email already exists
+        $emailExists = User::where('email', $request->email)->exists();
+
+        // Validate the request
         $validator = Validator::make($request->all(), [
             'practitioner_id' => 'required|exists:practitioners,id',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
         ]);
 
-        if ($validator->fails()) {
+        // If the email exists, add a custom error message
+        if ($emailExists) {
             $message = 'An account with this email already exists. <a href="' . url('login') . '">Log In</a> or <a href="' . route('password.request') . '">Reset Password</a>.';
-
-            // Adding a custom error message for the email field
             $validator->errors()->add('email', $message);
+        }
 
+        // If the validation fails, redirect back with errors
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
