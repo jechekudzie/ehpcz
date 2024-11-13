@@ -17,6 +17,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        if (Auth::check()) {
+            // Destroy the active session
+            Auth::logout();
+        }
         return view('auth.login');
     }
 

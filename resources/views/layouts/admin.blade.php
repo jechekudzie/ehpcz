@@ -61,13 +61,15 @@
                     </div>
 
                     <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
-                            id="topnav-hamburger-icon">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
+                            id="topnav-hamburger-icon"
+                            style="background-color: #405189; color: white; border: 1px solid black;">
+    <span class="hamburger-icon">
+        <span style="background-color: white; display: block; height: 2px; margin: 4px 0;"></span>
+        <span style="background-color: white; display: block; height: 2px; margin: 4px 0;"></span>
+        <span style="background-color: white; display: block; height: 2px; margin: 4px 0;"></span>
+    </span>
                     </button>
+
                 </div>
 
                 <div class="d-flex align-items-center">
@@ -286,7 +288,7 @@
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a class="dropdown-item"href="{{route('logout')}}" onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();
                                                 this.closest('form').submit();"><i
                                         class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                         class="align-middle" data-key="t-logout">Logout</span>
@@ -387,7 +389,8 @@
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a style="/*color:white;*/ font-size: 12px;" href="{{route('contact-types.index')}}"
-                                       class="nav-link {{ Request::routeIs('contact-types.index*') ? 'active' : '' }}" data-key="t-analytics">
+                                       class="nav-link {{ Request::routeIs('contact-types.index*') ? 'active' : '' }}"
+                                       data-key="t-analytics">
                                         Contact Type </a>
                                 </li>
                                 <li class="nav-item">
@@ -413,7 +416,8 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('import.practitioners')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{route('import.practitioners')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Import Practitioners </a>
                                 </li>
@@ -444,7 +448,8 @@
                                         Provinces </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{url('/cities')}}" class="nav-link"
+                                    <a style="/*color:white;*/ font-size: 12px;" href="{{url('/cities')}}"
+                                       class="nav-link"
                                        data-key="t-ecommerce"> Cities </a>
                                 </li>
 
@@ -497,7 +502,8 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{url('/requirement-categories')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{url('/requirement-categories')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Requirement Categories </a>
                                 </li>
@@ -551,7 +557,8 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{url('/qualification-categories')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{url('/qualification-categories')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Qualification Categories </a>
                                 </li>
@@ -588,7 +595,8 @@
                                         Training Institutions </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{url('/accredited-institutions')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{url('/accredited-institutions')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Accredited Qualifications </a>
                                 </li>
@@ -599,7 +607,8 @@
                     </li>
                     <!-- end Institutions Menu -->
 
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">ACCOUNT & FINANCE</span></li>
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span
+                            data-key="t-pages">ACCOUNT & FINANCE</span></li>
                     <!-- Institutions Menu -->
                     <li class="nav-item">
                         <a style="/*color:white;*/ font-size: 12px;" class="nav-link menu-link collapsed"
@@ -612,20 +621,23 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('fees-categories.index')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{route('fees-categories.index')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Payment Fees Categories </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('registration-rules.index')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{route('registration-rules.index')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Registration Rules </a>
                                 </li>
 
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('exchange-rate-types.index')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{route('exchange-rate-types.index')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Exchange Rate Types </a>
                                 </li>
@@ -653,15 +665,16 @@
                             <ul class="nav nav-sm flex-column">
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('admin.permissions.index')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{route('admin.permissions.index')}}"
                                        class="nav-link" data-key="t-analytics">
-                                       System Modules </a>
+                                        System Modules </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a style="/*color:white;*/ font-size: 12px;" href="{{route('roles.index')}}"
                                        class="nav-link" data-key="t-analytics">
-                                       System Roles </a>
+                                        System Roles </a>
                                 </li>
 
                                 <li class="nav-item">
@@ -671,7 +684,8 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a style="/*color:white;*/ font-size: 12px;" href="{{route('admin.signatures.index')}}"
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{route('admin.signatures.index')}}"
                                        class="nav-link" data-key="t-analytics">
                                         Signatures </a>
                                 </li>

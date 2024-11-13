@@ -99,7 +99,8 @@
                                             @if($practitioner->practitionerProfessions)
                                                 <!-- Display the first profession -->
                                                 @foreach($practitioner->practitionerProfessions as $profession)
-                                                    {{ $profession->profession->name }}
+                                                    {{ $profession->profession->name }} <br/>
+                                                    {{ $profession->registration_number }}
                                                     @break
                                                 @endforeach
 

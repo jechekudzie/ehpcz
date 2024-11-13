@@ -8,7 +8,7 @@
 
     <!--end col-->
     <div class="col-xxl-9">
-        <div class="card mt-xxl-n5">
+        <div class="card">
             @include('partials.admin_practitioner.profile_nav')
 
             <div class="card-body p-4" style="font-weight: bold;color: black;!important;">
@@ -66,7 +66,7 @@
 
                                     @foreach($practitioner->practitionerProfessions as $practitionerProfession)
                                         <!-- start profession col -->
-                                        <div class="col-xxl-4 col-lg-4">
+                                        <div class="col-xxl-6 col-lg-6">
                                             <div class="card border-1 m-4">
                                                 <div class="card-header">
                                                     <a href="{{route('practitioner-professions.edit',$practitionerProfession->slug)}}"

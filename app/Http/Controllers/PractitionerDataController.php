@@ -17,6 +17,13 @@ use App\Models\Province;
 
 class PractitionerDataController extends Controller
 {
+
+    public function index()
+    {
+        $practitioners = PractitionerData::all();
+
+        return view('administration.import.practitioner_data', compact('practitioners'));
+    }
     public function create()
     {
         $identificationTypes = IdentificationType::all();

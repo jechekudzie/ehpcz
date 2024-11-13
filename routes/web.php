@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\ActiveExchangeRateTypeController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Auth\VotingLoginController;
+use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\ElectionController;
+use App\Http\Controllers\ElectionGroupController;
+use App\Http\Controllers\ElectionGroupProfessionController;
 use App\Http\Controllers\EmploymentController;
 use App\Http\Controllers\ExchangeRateController;
 use App\Http\Controllers\ExchangeRateTypeController;
@@ -17,6 +22,7 @@ use App\Http\Controllers\ProfessionalQualificationFilesController;
 use App\Http\Controllers\RegistrationApprovalController;
 use App\Http\Controllers\RegistrationRuleController;
 use App\Http\Controllers\SignatureController;
+
 use App\Models\ActiveExchangeRateType;
 use App\Models\ExchangeRate;
 use Illuminate\Support\Facades\Auth;
@@ -53,17 +59,105 @@ use App\Http\Controllers\ContactController;
 |
 */
 
+
+
+Route::resource('elections', ElectionController::class);
+
+//election group routes where election group belong to an election
+// Use resource routing with shallow nesting for ElectionGroup under Election
+Route::resource('elections.groups', ElectionGroupController::class)->shallow();
+
+// Route to view and manage professions within an election group
+Route::get('elections/{election}/groups/{group}/professions', [ElectionGroupProfessionController::class, 'index'])->name('elections.groups.professions.index');
+Route::post('elections/{election}/groups/{group}/professions', [ElectionGroupProfessionController::class, 'store'])->name('elections.groups.professions.store');
+Route::delete('elections/{election}/groups/{group}/professions/{profession}', [ElectionGroupProfessionController::class, 'destroy'])->name('elections.groups.professions.destroy');
+
+// Category management routes for a group within an election
+Route::get('elections/{election}/groups/{group}/categories', [\App\Http\Controllers\ProfessionCategoryController::class, 'index'])->name('elections.groups.categories.index');
+Route::post('elections/{election}/groups/{group}/categories', [\App\Http\Controllers\ProfessionCategoryController::class, 'store'])->name('elections.groups.categories.store');
+Route::delete('elections/{election}/groups/{group}/categories/{category}', [\App\Http\Controllers\ProfessionCategoryController::class, 'destroy'])->name('elections.groups.categories.destroy');
+
+//Candidates
+Route::get('elections/{election}/categories/{category}/candidates', [\App\Http\Controllers\CandidateController::class, 'index'])->name('elections.categories.candidates.index');
+Route::post('elections/{election}/categories/{category}/candidates', [\App\Http\Controllers\CandidateController::class, 'store'])->name('elections.categories.candidates.store');
+Route::delete('elections/{election}/categories/{category}/candidates/{candidate}', [\App\Http\Controllers\CandidateController::class, 'destroy'])->name('elections.categories.candidates.destroy');
+
+Route::get('elections/{election}/categories/{category}/practitioners/search', [CandidateController::class, 'searchPractitioners'])->name('elections.categories.practitioners.search');
+
+//Elections /index
+Route::get('/voting', [\App\Http\Controllers\ElectionVotingController::class, 'index'])->name('election-voting.index');
+
+
+Route::get('/voting/login', [VotingLoginController::class, 'showLoginForm'])->name('voting.login');
+Route::post('/voting/authenticate', [VotingLoginController::class, 'authenticate'])->name('voting.authenticate');
+
+
+//Dummy votes route
+Route::get('/voting/dummy-votes', [\App\Http\Controllers\ElectionVotingController::class, 'simulateVotes'])->name('voting.dummy-votes');
+
+//voting results
+Route::get('/voting/results', [\App\Http\Controllers\ElectionVotingController::class, 'results'])->name('voting.results');
+
+
+
+Route::get('/datanow', function () {
+
+    $professions = \App\Models\Profession::all();
+    $qualifications = \App\Models\Qualification::all();
+
+    foreach ($professions as $profession) {
+
+        echo  $profession->name . '<br>';
+    }
+
+    echo '<br>';
+    echo '<br>';
+    echo '<br>';
+
+    foreach ($qualifications as $qualification) {
+
+        echo  $qualification->name . '<br>';
+    }
+
+
+});
+
+
 Route::get('/', function () {
 
     return view('auth.login');
 
 });
 
+Route::get('/index', function () {
+
+    return view('index');
+
+});
+
+Route::get('/practitioner/index', function () {
+
+    return view('administration.practitioners.index');
+
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Administration Dashboard Utilities Routes
 |--------------------------------------------------------------------------
 */
+
+//system users for UserController
+Route::get('admin/users/index', [\App\Http\Controllers\UserController::class, 'index'])->name('admin.users.index');
+Route::post('admin/users/store', [\App\Http\Controllers\UserController::class, 'store'])->name('admin.users.store');
+Route::get('admin/users/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('admin.users.edit');
+Route::patch('admin/users/{user}/update', [\App\Http\Controllers\UserController::class, 'update'])->name('admin.users.update');
+Route::delete('admin/users/{user}/destroy', [\App\Http\Controllers\UserController::class, 'destroy'])->name('admin.users.destroy');
+
+//practitioner data
+Route::get('admin/practitioner-data/index', [\App\Http\Controllers\PractitionerDataController::class, 'index'])->name('admin.practitioner-data.index');
 
 //paynow routes
 Route::get('/paynow', [\App\Http\Controllers\AdminController::class, 'initiatePayment'])->name('paynow');
@@ -275,12 +369,6 @@ Route::group(['middleware' => ['auth']], function () {
             'destroy' => 'roles.destroy',
         ]);
 
-//system users for UserController
-        Route::get('admin/users/index', [\App\Http\Controllers\UserController::class, 'index'])->name('admin.users.index');
-        Route::post('admin/users/store', [\App\Http\Controllers\UserController::class, 'store'])->name('admin.users.store');
-        Route::get('admin/users/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('admin.users.edit');
-        Route::patch('admin/users/{user}/update', [\App\Http\Controllers\UserController::class, 'update'])->name('admin.users.update');
-        Route::delete('admin/users/{user}/destroy', [\App\Http\Controllers\UserController::class, 'destroy'])->name('admin.users.destroy');
 
         /*// PaymentCategoryController
         Route::resource('payment-categories', PaymentCategoryController::class)->names([
@@ -505,8 +593,12 @@ Route::post('/portal/practitioner-data/store', [\App\Http\Controllers\Practition
 */
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    if (Auth::check()) {
+        // Destroy the active session
+        Auth::logout();
+    }
+    return view('auth.login');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

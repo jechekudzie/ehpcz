@@ -38,15 +38,6 @@ return new class extends Migration
             $table->unsignedBigInteger('marital_status_id');
             $table->timestamps();
 
-            // Foreign key constraints
-           /* $table->foreign('identification_type_id')->references('id')->on('identification_types');
-            $table->foreign('profession_id')->references('id')->on('professions');
-            $table->foreign('qualification_id')->references('id')->on('qualifications');
-            $table->foreign('institution_id')->references('id')->on('institutions');
-            $table->foreign('employment_sector_id')->references('id')->on('employment_sectors');
-            $table->foreign('gender_id')->references('id')->on('genders');
-            $table->foreign('marital_status_id')->references('id')->on('marital_statuses');
-            $table->foreign('province_id')->references('id')->on('provinces');*/
         });
     }
 

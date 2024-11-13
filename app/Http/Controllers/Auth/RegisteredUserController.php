@@ -46,6 +46,14 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        $practitioner = $user->practitioners->first();
+
+        if ($practitioner) {
+            return redirect()->route('practitioners.show', $practitioner->slug)->with('success', 'Logged in successfully.');
+        } else {
+            Auth::logout();
+            return back()->with('error', 'This user is not associated with any practitioner.');
+        }
     }
 }

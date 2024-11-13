@@ -26,7 +26,6 @@ class Profession extends Model
             ->withPivot(['amount']);
     }
 
-
     //renewals
     public function renewals()
     {

@@ -18,17 +18,17 @@
             <div class="row">
                 <!-- Error Messages -->
                 @if(session()->has('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Error!</strong> {!! session('error') !!}
+                    <div style="font-size: 15px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Message!</strong> {!! session('error') !!}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
 
 
-            @if(session()->has('errors'))
+                @if(session()->has('errors'))
                     @if($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Errors:</strong>
+                            <strong>Message:</strong>
                             <ul>
                                 @foreach($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -72,7 +72,7 @@
                                                     <label for="registration_number" class="form-label">Registration
                                                         Number</label>
                                                     <input type="text" class="form-control" id="registration_number"
-                                                           name="registration_number" {{--value="414382"--}} required
+                                                           name="registration_number" required
                                                            placeholder="Enter your Registration Number">
                                                 </div>
                                             </div>
@@ -99,7 +99,8 @@
                                                     <label for="identification_number" class="form-label">ID
                                                         Number</label>
                                                     <input type="text" class="form-control" id="identification_number"
-                                                           name="identification_number" {{--value="61-059678P61"--}} required
+                                                           name="identification_number"
+                                                           {{--value="61-059678P61"--}} required
                                                            placeholder="Enter your Identification or Passport Number">
                                                 </div>
                                             </div>
@@ -128,8 +129,16 @@
                                             <div class="col-lg-12">
                                                 <div class="hstack gap-2 justify-content-start">
                                                     <button type="submit" class="btn btn-success">
-                                                        Submit Registration Number
+                                                        Check Registration Number Existence
                                                     </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 mt-5">
+                                                <p class="card-text">If you already have login credentials, please enter your email
+                                                    address and password to access the EHPCZ Portal.</p>
+                                                <div class="hstack gap-2 justify-content-start">
+                                                    <a href="{{ url('/login') }}" class="btn btn-secondary">Login</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,54 +147,61 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Instructions Existing Users</h4>
+                       {{--   <div class="col-lg-4 col-md-4">
+                              <div class="card">
+                                  <div class="card-body">
+                                      <h4 class="card-title">Instructions Existing Users</h4>
 
-                                <p class="card-text">If you already have login credentials, please enter your email
-                                    address and password to access the EHPCZ Portal.</p>
-                            </div>
-                        </div>
+                                      <p class="card-text">If you already have login credentials, please enter your email
+                                          address and password to access the EHPCZ Portal.</p>
+                                  </div>
+                              </div>
 
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <h4 class="card-title">Login</h4>
-                                <form method="post" action="{{ route('portal.login') }}">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="email" name="email" required
-                                               placeholder="Enter your Email">
-                                    </div>
+                              <div class="card mt-4">
+                                  <div class="card-body">
+                                      <h4 class="card-title">Login</h4>
+                                      <form method="post" action="{{ route('portal.login') }}">
+                                          @csrf
+                                          <div class="mb-3">
+                                              <label for="email" class="form-label">Email Address</label>
+                                              <input type="email" class="form-control" id="email" name="email" required
+                                                     placeholder="Enter your Email">
+                                          </div>
 
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                               required
-                                               placeholder="Enter your Password">
-                                    </div>
+                                          <div class="mb-3">
+                                              <label for="password" class="form-label">Password</label>
+                                              <input type="password" class="form-control" id="password" name="password"
+                                                     required
+                                                     placeholder="Enter your Password">
+                                          </div>
 
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                                        <label class="form-check-label" for="remember">Remember Me</label>
-                                    </div>
+                                          <div class="mb-3 form-check">
+                                              <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                                              <label class="form-check-label" for="remember">Remember Me</label>
 
-                                    <button type="submit" class="btn btn-primary">Login</button>
-                                </form>
+                                          </div>
 
-                                <hr>
+                                          <div class="mb-3 form-check">
+                                              @if (Route::has('password.request'))
+                                                  <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                                                      {{ __('Forgot your password?') }}
+                                                  </a>
+                                              @endif
+                                          </div>
 
-                                <p class="card-text">If you are accessing the portal for the first time, please use your
-                                    registration number and identification details to create your account.</p>
-                            </div>
-                        </div>
-                    </div>
+                                          <button type="submit" class="btn btn-primary">Login</button>
+                                      </form>
+
+                                      <hr>
+
+                                      <p class="card-text">If you are accessing the portal for the first time, please use your
+                                          registration number and identification details to create your account.</p>
+                                  </div>
+                              </div>
+                          </div>--}}
                 </div>
             </div>
-
         </div>
     </div>
 @stop

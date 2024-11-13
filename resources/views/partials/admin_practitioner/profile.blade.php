@@ -31,7 +31,17 @@
                     </div>
                 </div>
                 <h5 class="fs-16 mb-1">{{ $practitioner->first_name.' '.$practitioner->last_name }}</h5>
-                <p class="text-black mb-0">Lead Designer / Developer</p>
+                <p class="text-black mb-0">
+                    @if($practitioner->practitionerProfessions)
+                        {{ $practitioner->practitionerProfessions->first()->profession->name ?? 'Not Available' }}
+                    @endif
+                </p>
+                <p class="text-black mb-0">
+                    Registration Number:
+                    @if($practitioner->practitionerProfessions)
+                        {{ $practitioner->practitionerProfessions->first()->registration_number ?? 'Not Available'}}
+                    @endif
+                </p>
             </div>
         </div>
     </div>
@@ -86,9 +96,9 @@
                                 <td style="font-weight: normal;" class="text-black">
                                     @if($contact->contactType)
                                         @if($contact->contactType->name === 'Email')
-                                            {{ $contact->contact }}
+                                            {{ $contact->contact ?? 'Not Available' }}
                                         @else
-                                            +{{$contact->country_code}}{{$contact->contact}}
+                                            {{$contact->country_code ?? ''}}{{$contact->contact ?? 'Not Available'}}
                                         @endif
                                     @endif
                                 </td>
