@@ -63,6 +63,9 @@ use App\Http\Controllers\ContactController;
 
 Route::resource('elections', ElectionController::class);
 
+Route::patch('/elections/{election}/status-update', [ElectionController::class, 'updateStatus'])->name('elections.updateStatus');
+
+
 //election group routes where election group belong to an election
 // Use resource routing with shallow nesting for ElectionGroup under Election
 Route::resource('elections.groups', ElectionGroupController::class)->shallow();

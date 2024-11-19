@@ -14,17 +14,13 @@ class ElectionVotingController extends Controller
     //index page
     public function index()
     {
-        //get the latest election
+        // Try to get the latest election, or return null if none exist
         $election = Election::latest()->first();
 
-
-        //get session practitioner_id
-       // $practitioner_id = session('practitioner_id');
-        //dd($practitioner_id);
-
-
-        return view('elections.voting.index',compact('election'));
+        // Pass null to the view if no election is found
+        return view('elections.voting.index', compact('election'));
     }
+
 
 
     public function simulateVotes()
@@ -97,13 +93,15 @@ class ElectionVotingController extends Controller
     {
         $election = Election::latest()->first();
         // Load election groups and associated data for the specified election
-        $groups = $election->electionGroups()->with([
-            'categories.candidates.votes',
-            'categories.candidates.practitioner'
-        ])->get();
 
-        // Debug the data structure
-        //dd($groups);
+        $groups = [];
+
+        if ($election->status == 'Completed'){
+            $groups = $election->electionGroups()->with([
+                'categories.candidates.votes',
+                'categories.candidates.practitioner'
+            ])->get();
+        }
 
         return view('elections.results.index', compact('election', 'groups'));
     }

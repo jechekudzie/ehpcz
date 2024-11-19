@@ -62,6 +62,7 @@
                                         <option value="" disabled selected>Select a category</option>
                                         <option value="Local Authority">Local Authority</option>
                                         <option value="Non-Local Authority">Non-Local Authority</option>
+                                        <option value="General">General</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Add Category</button>

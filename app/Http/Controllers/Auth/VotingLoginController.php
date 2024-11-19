@@ -20,19 +20,18 @@ class VotingLoginController extends Controller
     {
         $request->validate([
             'registration_number' => 'required',
-
         ]);
 
-
-        //first get practitionerProfessions, then get the first profession then get registration number
+        // Find the practitioner profession by registration number
         $practitionerProfession = PractitionerProfession::where('registration_number', $request->registration_number)->first();
 
-        $practitioner = $practitionerProfession->practitioner;
-
-        if (!$practitioner) {
+        // Check if practitioner profession exists
+        if (!$practitionerProfession || !$practitionerProfession->practitioner) {
             return redirect()->route('voting.login')->with('error', 'Registration number not found.');
         }
 
+        // Get the practitioner from practitioner profession
+        $practitioner = $practitionerProfession->practitioner;
 
         // Store practitioner ID in the session
         Session::put('practitioner_id', $practitioner->id);

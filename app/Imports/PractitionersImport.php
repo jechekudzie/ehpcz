@@ -29,61 +29,18 @@ class PractitionersImport implements ToCollection
 
         foreach ($rows as $row) {
             // Skip rows with empty critical fields
-            if (empty($row[0]) && empty($row[1]) && empty($row[4])) {
+            if (empty($row[0]) && empty($row[1]) && empty($row[3])) {
                 continue;
             }
-
-            $gender = Gender::where('name', $row[16])->first();
-
             $practitioner = Practitioner::create(
                 [
-                    'first_name' => $row[0],
-                    'last_name' => $row[1],
-                    'dob' => $row[15],
+                    'last_name' => $row[0],
+                    'first_name' => $row[1],
                     'country_id' => 230,
-                    'gender_id' => $gender->id ?? null,
                 ]);
 
-            if (!empty($row[14])) {
-                Contact::create([
-                    'practitioner_id' => $practitioner->id,
-                    'contact_type_id' => 1,
-                    'contact' => $row[14],
-                ]);
-            }
-            if (!empty($row[12])) {
-                Contact::create([
-                    'practitioner_id' => $practitioner->id,
-                    'contact_type_id' => 3,
-                    'contact' => $row[12],
-                ]);
-            }
 
-            //employment section
-            if (!empty($row[8])) {
-                $employmentStatus = EmploymentStatus::where('name', $row[8])->first();
-                if ($employmentStatus != null) {
-                    if ($employmentStatus->name == 'Employed') {
-                        $sector = EmploymentSector::where('name', $row[10])->first();
-                        $province = Province::where('name', $row[11])->first();
-                        $employment = Employment::create([
-                            'practitioner_id' => $practitioner->id,
-                            'employment_sector_id' => $sector->id ?? null,
-                            'employer' => $row[9],
-                            'position' => $row[10],
-                            'country_id' => 230,
-                            'province_id' => $province->id ?? null,
-                            'is_current' => 1,
-                        ]);
-                    }
-
-                    $practitioner->update([
-                        'employment_status_id' => $employmentStatus->id ?? null,
-                    ]);
-                }
-            }
-
-            $profession = Profession::where('name', $row[4])->first();
+            $profession = Profession::where('name', $row[3])->first();
 
             if ($profession != null) {
                 $practitionerProfession = PractitionerProfession::create([
@@ -94,15 +51,15 @@ class PractitionersImport implements ToCollection
                     'is_active' => 1,
                 ]);
 
-                if (!empty($row[5])) {
-                    $qualification = Qualification::where('name', 'like', '%' . $row[5] . '%')->first();
+                if (!empty($row[4])) {
+                    $qualification = Qualification::where('name', 'like', '%' . $row[4] . '%')->first();
                     if ($qualification != null) {
                         $professionalQualification = ProfessionalQualification::create([
                             'practitioner_profession_id' => $practitionerProfession->id,
                             'qualification_id' => $qualification->id ?? null,
                             'qualification_category_id' => 1,
-                            'qualification_name' => $row[5],
-                            'institution_name' => $row[6],
+                            'qualification_name' => $row[4],
+                            'institution_name' => null,
                             'is_verified' => 1,
                             'is_active' => 1,
                             'status' => 'approved',

@@ -21,7 +21,7 @@ class ProfessionCategoryController extends Controller
     public function store(Request $request, Election $election, ElectionGroup $group)
     {
         $request->validate([
-            'name' => 'required|in:Local Authority,Non-Local Authority',
+            'name' => 'required|in:Local Authority,Non-Local Authority,General',
         ]);
 
         // Check if this category already exists in this group

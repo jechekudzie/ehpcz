@@ -85,6 +85,13 @@
                                                 <i class="fa fa-pencil"></i>
                                             </a>
 
+                                            <!-- Update Status Button -->
+                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                                    data-bs-target="#statusModal" data-id="{{ $election->id }}"
+                                                    data-status="{{ $election->status }}" title="Update Status">
+                                                <i class="fa fa-sync"></i> Status
+                                            </button>
+
                                             <!-- Delete Button -->
                                             <form action="{{ route('elections.destroy', $election->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" style="display: inline-block;">
                                                 @csrf
@@ -170,6 +177,42 @@
             </div>
         </div>
     </div>
+
+    <!-- Update Status Modal -->
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statusModalLabel">Update Election Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="statusForm" method="POST" action="">
+                        @csrf
+                        @method('PATCH')
+
+                        <!-- Status Selection -->
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Select Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="Pending">Pending</option>
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <!-- Hidden field to store election ID -->
+                        <input type="hidden" id="electionId" name="election_id" value="">
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @stop
 
 @push('scripts')
@@ -185,6 +228,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Event listener for the Update Status button to open the modal with data
+            $('#statusModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var electionId = button.data('id'); // Extract election ID from data-* attributes
+                var status = button.data('status'); // Extract current status
+
+                // Update the modal's form action with the election ID
+                var formAction = '/elections/' + electionId + '/status-update';
+                $('#statusForm').attr('action', formAction);
+
+                // Set the selected status in the dropdown
+                $('#status').val(status);
+                $('#electionId').val(electionId); // Update hidden input with election ID
+            });
+        });
+    </script>
 
    <script>
 

@@ -47,13 +47,18 @@
             <!-- Table for Elections -->
             <div class="row">
                 <div class="col-xxl-12">
-                    <!-- Notifications -->
-                    <!-- Embed the Livewire Component for Candidate Listing -->
-                    <livewire:candidate-listing :election="$election" />
+                    @if($election)
+                        <!-- Embed the Livewire Component for Candidate Listing -->
+                        <livewire:candidate-listing :election="$election" />
+                    @else
+                        <!-- Show a fallback message when no election is available -->
+                        <div class="alert alert-warning">
+                            No elections are currently available to display.
+                        </div>
+                    @endif
                 </div>
-
-
             </div>
+
         </div>
     </div>
 @stop

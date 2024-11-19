@@ -690,6 +690,14 @@
                                         Signatures </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a style="/*color:white;*/ font-size: 12px;"
+                                       href="{{url('/elections')}}"
+                                       class="nav-link" data-key="t-analytics">
+                                        Elections
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </li>

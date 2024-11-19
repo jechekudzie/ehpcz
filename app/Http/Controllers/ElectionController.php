@@ -58,6 +58,43 @@ class ElectionController extends Controller
         return redirect()->route('elections.index')->with('success', 'Election updated successfully.');
     }
 
+
+    public function updateStatus(Request $request, $id)
+    {
+        $election = Election::findOrFail($id);
+
+        // Validate the status value
+        $request->validate([
+            'status' => 'required|in:Pending,Ongoing,Completed'
+        ]);
+
+        // Update the election status
+        $election->status = $request->status;
+        $election->save();
+
+        // If the status is updated to "Ongoing"
+        if ($request->status === 'Ongoing') {
+            // Get all groups in the election
+            $groups = $election->electionGroups()->with('categories.candidates')->get();
+
+            foreach ($groups as $group) {
+                foreach ($group->categories as $category) {
+                    // Check if there is only one candidate in the category
+                    if ($category->candidates->count() === 1) {
+                        $candidate = $category->candidates->first();
+                        // Mark the candidate as "Duly Elected"
+                        $candidate->update(['status' => 'Duly Elected']);
+                    }
+                }
+            }
+        }
+
+        // Redirect back with a success message
+        return redirect()->route('elections.index')->with('success', 'Election status updated successfully.');
+    }
+
+
+
     // Delete an election
     public function destroy(Election $election)
     {

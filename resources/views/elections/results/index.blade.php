@@ -9,7 +9,7 @@
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
-            <h2>Results for {{ $election->name }}</h2>
+            <h2>Results for {{ $election->name }} @if($groups == null) {{ 'are pending until election is complete' }} @endif</h2>
             @foreach ($groups as $group)
                 <div class="card mt-4">
                     <div class="card-header bg-primary text-white">
