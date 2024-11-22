@@ -106,5 +106,12 @@ class ElectionVotingController extends Controller
         return view('elections.results.index', compact('election', 'groups'));
     }
 
+    //votersRoll
+    public function votersRoll()
+    {
+
+        return view('elections.voting.voters_roll');
+    }
+
 
 }

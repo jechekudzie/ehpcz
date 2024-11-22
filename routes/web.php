@@ -101,7 +101,8 @@ Route::get('/voting/dummy-votes', [\App\Http\Controllers\ElectionVotingControlle
 //voting results
 Route::get('/voting/results', [\App\Http\Controllers\ElectionVotingController::class, 'results'])->name('voting.results');
 
-
+//voters roll
+Route::get('/voting/voters-roll', [\App\Http\Controllers\ElectionVotingController::class, 'votersRoll'])->name('voting.voters-roll');
 
 Route::get('/datanow', function () {
 

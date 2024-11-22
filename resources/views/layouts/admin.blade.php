@@ -692,7 +692,7 @@
 
                                 <li class="nav-item">
                                     <a style="/*color:white;*/ font-size: 12px;"
-                                       href="{{url('/elections')}}"
+                                       href="{{url('/elections')}}" target="_blank"
                                        class="nav-link" data-key="t-analytics">
                                         Elections
                                     </a>

@@ -134,6 +134,14 @@
 
 
                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{route('voting.voters-roll')}}"
+                           {{--data-bs-toggle="collapse"--}} role="button" aria-expanded="false"
+                           aria-controls="sidebarLayouts">
+                            <i class="fa fa-users"></i> <span data-key="t-layouts">Voters Roll</span>
+                        </a>
+
+                    </li> <!-- end Dashboard Menu -->
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="{{url('/voting/results')}}"
                            {{--data-bs-toggle="collapse"--}} role="button" aria-expanded="false"
                            aria-controls="sidebarLayouts">
