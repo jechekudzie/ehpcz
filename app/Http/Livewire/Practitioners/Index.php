@@ -25,6 +25,43 @@ class Index extends Component
         $this->resetPage();  // Reset pagination to the first page
     }
 
+
+    public function deletePractitioner($practitionerId)
+    {
+        $practitioner = Practitioner::findOrFail($practitionerId);
+
+        // Deleting related records
+        if ($practitioner->practitionerIdentifications()->exists()) {
+            $practitioner->practitionerIdentifications()->delete();
+        }
+        if ($practitioner->contacts()->exists()) {
+            $practitioner->contacts()->delete();
+        }
+        if ($practitioner->addresses()->exists()) {
+            $practitioner->addresses()->delete();
+        }
+        if ($practitioner->employments()->exists()) {
+            $practitioner->employments()->delete();
+        }
+        if ($practitioner->practitionerProfessions()->exists()) {
+            $practitioner->practitionerProfessions()->delete();
+        }
+        if ($practitioner->renewals()->exists()) {
+            $practitioner->renewals()->delete();
+        }
+        if ($practitioner->payments()->exists()) {
+            $practitioner->payments()->delete();
+        }
+
+        // Finally delete practitioner
+        $practitioner->delete();
+
+        session()->flash('success', 'Practitioner deleted successfully.');
+    }
+
+
+
+
     public function render()
     {
         $query = Practitioner::query();

@@ -159,4 +159,48 @@ class PractitionerController extends Controller
         return redirect()->route('practitioners.show',$practitioner->slug)->with('success', 'Practitioner updated successfully.');
     }
 
+
+    //practitioner destroy method
+    public function destroy(Practitioner $practitioner)
+    {
+
+        dd($practitioner);
+        // Check and delete practitioner-related records
+        if ($practitioner->practitionerIdentifications()->exists()) {
+            $practitioner->practitionerIdentifications()->delete();
+        }
+
+        if ($practitioner->contacts()->exists()) {
+            $practitioner->contacts()->delete();
+        }
+
+        if ($practitioner->addresses()->exists()) {
+            $practitioner->addresses()->delete();
+        }
+
+        if ($practitioner->employments()->exists()) {
+            $practitioner->employments()->delete();
+        }
+
+        if ($practitioner->practitionerProfessions()->exists()) {
+            $practitioner->practitionerProfessions()->delete();
+        }
+
+        // Check and delete renewals
+        if ($practitioner->renewals()->exists()) {
+            $practitioner->renewals()->delete();
+        }
+
+        // Check and delete payments
+        if ($practitioner->payments()->exists()) {
+            $practitioner->payments()->delete();
+        }
+
+        // Finally, delete the practitioner
+        $practitioner->delete();
+
+        return redirect()->route('practitioners.index')->with('success', 'Practitioner deleted successfully.');
+    }
+
+
 }

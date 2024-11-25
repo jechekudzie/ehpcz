@@ -56,6 +56,13 @@
                                             </li>
                                             <li><a class="dropdown-item" href="javascript:void(0);">Certificates</a>
                                             </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item text-danger"
+                                                   wire:click="deletePractitioner({{ $practitioner->id }})"
+                                                   onclick="return confirm('Are you sure you want to delete this practitioner?')">
+                                                    Delete Practitioner
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -114,8 +121,14 @@
                                 <div class="text-end">
                                     <a href="{{route('practitioners.show',$practitioner->slug)}}"
                                        class="btn btn-light view-btn">View
-                                        Profile</a>
+                                        Profile
+                                    </a>
                                 </div>
+                            </div>
+
+                            <div class="col-lg-2 col">
+
+
                             </div>
                             <!--end col-->
                         </div>

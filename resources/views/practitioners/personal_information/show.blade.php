@@ -120,7 +120,11 @@
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Date of birth :</p>
                                                 <h6 class="text-truncate mb-0">
+                                                    @if($practitioner->dob == null)
+                                                        Not Available
+                                                    @else
                                                     {{ date('d F Y',strtotime($practitioner->dob)) }}
+                                                    @endif
                                                 </h6>
                                             </div>
                                         </div>
