@@ -20,8 +20,16 @@ class VotingLoginController extends Controller
     {
         $request->validate([
             'registration_number' => 'required',
+            'id_number' => 'required|string',
         ]);
 
+        try {
+            $formattedId = formatZimbabweanId($request->input('id_number'));
+        } catch (\InvalidArgumentException $e) {
+            return back()->withErrors(['id_number' => $e->getMessage()]);
+        }
+
+        dd($formattedId); // This should now show the formatted ID
         // Find the practitioner profession by registration number
         $practitionerProfession = PractitionerProfession::where('registration_number', $request->registration_number)->first();
 
@@ -30,8 +38,11 @@ class VotingLoginController extends Controller
             return redirect()->route('voting.login')->with('error', 'Registration number not found.');
         }
 
+
         // Get the practitioner from practitioner profession
         $practitioner = $practitionerProfession->practitioner;
+
+
 
         // Store practitioner ID in the session
         Session::put('practitioner_id', $practitioner->id);
@@ -39,5 +50,6 @@ class VotingLoginController extends Controller
         return redirect()->route('election-voting.index', ['election' => Session::get('current_election_id')])
             ->with('success', 'You are now logged in and can vote!');
     }
+
 
 }

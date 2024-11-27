@@ -82,8 +82,11 @@ class Index extends Component
                     $q->where('registration_number', 'like', $search);
                 });
         }
+        // Add sorting by first_name and last_name
+        $practitioners = $query->orderBy('first_name')
+            ->orderBy('last_name')
+            ->paginate(12);
 
-        $practitioners = $query->paginate(12);
 
         return view('livewire.practitioners.index', compact('practitioners'));
     }

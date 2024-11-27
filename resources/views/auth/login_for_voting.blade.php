@@ -69,7 +69,7 @@
 
                         <div class="mb-3">
                             <label for="idNumber" class="form-label">ID Number</label>
-                            <input type="text" name="identification_number" class="form-control" required>
+                            <input type="text" name="id_number" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
