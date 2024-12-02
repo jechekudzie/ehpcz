@@ -190,6 +190,22 @@
                         @endhasanyrole
                     @endif
 
+                    @if(Session::has('practitioner_id'))
+                        @php
+                            $practitionerName = \App\Models\Practitioner::find(Session::get('practitioner_id'))->first_name ?? 'Practitioner';
+                        @endphp
+                        <li class="nav-item">
+                            <span class="nav-link">Hello, {{ $practitionerName }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('practitioner.logout') }}"
+                               role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <i class="fa fa-sign-out"></i> <span data-key="t-layouts">Log Out</span>
+                            </a>
+                        </li>
+                    @endif
+
+
                 </ul>
             </div>
             <!-- Sidebar -->

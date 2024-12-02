@@ -314,8 +314,7 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <form method="post"
-                                              action="{{ route('practitioners.update', $practitioner->slug) }}"
+                                        <form method="post" action="{{ route('practitioners.update', $practitioner->slug) }}"
                                               enctype="multipart/form-data">
                                             @csrf
                                             @method('PATCH')

@@ -77,7 +77,7 @@ class PractitionerController extends Controller
         }
 
         // Redirect to a specific route (e.g., index page of practitioners)
-        return redirect()->route('practitioners.show',$practitioner->slug)->with('success', 'Practitioner added successfully.');
+        return redirect()->route('practitioners.show', $practitioner->slug)->with('success', 'Practitioner added successfully.');
     }
 
     //add show method
@@ -93,8 +93,8 @@ class PractitionerController extends Controller
         $identificationTypes = IdentificationType::all();
         $contactTypes = ContactType::all();
         $addressTypes = AddressType::all();
-        return view('practitioners.personal_information.show', compact('practitioner','countries',
-        'titles','genders','employmentStatuses','identificationTypes','contactTypes','addressTypes','identificationErrors'));
+        return view('practitioners.personal_information.show', compact('practitioner', 'countries',
+            'titles', 'genders', 'employmentStatuses', 'identificationTypes', 'contactTypes', 'addressTypes', 'identificationErrors'));
     }
 
     //add edit method
@@ -103,8 +103,8 @@ class PractitionerController extends Controller
         return view('practitioners.personal_information.edit', compact('practitioner'));
     }
 
-   // add an update method
-    public function update(Request $request,Practitioner $practitioner)
+    // add an update method
+    public function update(Request $request, Practitioner $practitioner)
     {
         // Validate the request data
         $validator = Validator::make($request->all(), [
@@ -116,7 +116,7 @@ class PractitionerController extends Controller
             'dob' => 'nullable|date',
             'country_id' => 'nullable|exists:countries,id',
             'employment_status_id' => 'nullable|exists:employment_statuses,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,svg',
         ]);
 
         if ($validator->fails()) {
@@ -127,36 +127,42 @@ class PractitionerController extends Controller
 
         $validatedData = $validator->validated();
 
-        // Create a new practitioner without the image
-        $validatedDataWithoutImage = Arr::except($validatedData, ['image']);
-
-
-        $practitioner->update($validatedDataWithoutImage);
-
-        // Initialize imageName variable
-        $imageName = null;
-        $path = null;
-
+        // Update practitioner data except the image
+        $practitioner->update(Arr::except($validatedData, ['image']));
+        $imagePath = '';
         // Handle the image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
+
+            // Generate a unique name for the image
             $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-            // Move the image to the desired directory within the public folder
+            // Define the directory path
             $directoryPath = public_path('images/practitioners/profiles');
+
+            // Ensure the directory exists
             if (!File::exists($directoryPath)) {
                 File::makeDirectory($directoryPath, 0755, true);
             }
-            $path = $image->move($directoryPath, $imageName);
 
-            // Update the image path in the practitioner record
-            $relativePath = 'images/practitioners/profiles/' . $imageName;
-            $practitioner->image = $relativePath;
-            $practitioner->save();
+            // Remove the old image if it exists
+            if ($practitioner->image && File::exists(public_path($practitioner->image))) {
+                File::delete(public_path($practitioner->image));
+            }
+
+            // Save the new image
+            $image->move($directoryPath, $imageName);
+
+            // Update the practitioner's image path
+            $imagePath = 'images/practitioners/profiles/' . $imageName;
+            $practitioner->update([
+                'image' => $imagePath
+            ]);
         }
 
-        // Redirect to a specific route (e.g., index page of practitioners)
-        return redirect()->route('practitioners.show',$practitioner->slug)->with('success', 'Practitioner updated successfully.');
+        // Redirect to a specific route (e.g., show page of the practitioner)
+        return redirect()->route('practitioners.show', $practitioner->slug)
+            ->with('success', 'Practitioner updated successfully.');
     }
 
 

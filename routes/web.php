@@ -93,7 +93,17 @@ Route::get('/voting', [\App\Http\Controllers\ElectionVotingController::class, 'i
 
 Route::get('/voting/login', [VotingLoginController::class, 'showLoginForm'])->name('voting.login');
 Route::post('/voting/authenticate', [VotingLoginController::class, 'authenticate'])->name('voting.authenticate');
+Route::get('/otp/verify/{practitioner_id}/{election_id}/{mobile_number}/{id_number}', [VotingLoginController::class, 'showOTPVerificationForm'])->name('otp.verify');
+Route::post('/otp/verify', [VotingLoginController::class, 'verifyOTP'])->name('otp.verify.submit');
+Route::get('/logout', [VotingLoginController::class, 'logout'])->name('practitioner.logout');
 
+Route::get('/elections/practitioners/{practitioner}/edit', [VotingLoginController::class, 'edit'])->name('practitioner.update');
+Route::post('/elections/practitioners/{practitioner}/update', [VotingLoginController::class, 'update'])->name('practitioner.update.submit');
+// Show OTP verification form
+Route::get('/elections/practitioners/{practitioner}/verify-otp', [VotingLoginController::class, 'showVerifyOtpForm'])->name('practitioner.verify.otp.form');
+
+// Handle OTP verification
+Route::post('/elections/practitioners/{practitioner}/verify-otp', [VotingLoginController::class, 'verifyOtpForPractitioner'])->name('practitioner.verify.otp');
 
 //Dummy votes route
 Route::get('/voting/dummy-votes', [\App\Http\Controllers\ElectionVotingController::class, 'simulateVotes'])->name('voting.dummy-votes');

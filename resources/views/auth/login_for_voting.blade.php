@@ -25,24 +25,6 @@
                 </div>
             </div>
 
-            <!-- Notifications -->
-            @if(session()->has('errors'))
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Errors!</strong> {{ $error }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endforeach
-                @endif
-            @endif
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Message!</strong> {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
             <!-- Table for Elections -->
             <div class="row">
                 <div class="col-xxl-8">
@@ -56,8 +38,17 @@
 
                     <h2>Login to Vote</h2>
 
-                    @if(session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+
+                @if ($errors->has('mobile_number'))
+                        <div class="alert alert-danger">
+                            {{ $errors->first('mobile_number') }}
+                        </div>
                     @endif
 
                     <form action="{{ route('voting.authenticate') }}" method="POST">
@@ -89,8 +80,6 @@
 
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 
 @endpush
 
