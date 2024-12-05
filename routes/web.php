@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActiveExchangeRateTypeController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Auth\VotingAuthController;
 use App\Http\Controllers\Auth\VotingLoginController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ElectionController;
@@ -41,7 +42,6 @@ use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\QualificationController;
-use App\Http\Controllers\PaymentCategoryController;
 use App\Http\Controllers\QualificationLevelController;
 use App\Http\Controllers\RequirementCategoryController;
 use App\Http\Controllers\AccreditedInstitutionController;
@@ -59,6 +59,16 @@ use App\Http\Controllers\ContactController;
 |
 */
 
+Route::post('/voting/check', [VotingAuthController::class, 'checkRegistration'])->name('voting.check');
+Route::get('/otp/verify', function () {
+    return view('auth.verify_otp'); // Verify OTP page
+})->name('otp.verify.page');
+
+Route::post('/voting/store-session', [VotingAuthController::class, 'storeSession'])->name('voting.storeSession');
+
+
+//budget sms routes
+Route::get('/send-otp', [\App\Http\Controllers\Auth\VotingAuthController::class, 'sendOtp'])->name('send-otp');
 
 
 Route::resource('elections', ElectionController::class);
@@ -113,6 +123,8 @@ Route::get('/voting/results', [\App\Http\Controllers\ElectionVotingController::c
 
 //voters roll
 Route::get('/voting/voters-roll', [\App\Http\Controllers\ElectionVotingController::class, 'votersRoll'])->name('voting.voters-roll');
+
+
 
 Route::get('/datanow', function () {
 
