@@ -101,7 +101,12 @@
                     return response.json();
                 })
                 .then(data => {
-                    if (data.mobile_number) {
+                    if (data.has_voted) {
+                        // Practitioner has already voted
+                        localStorage.setItem('practitionerId', data.practitioner_id);
+                        window.location.href = '{{ route('election-voting.index') }}'; // Redirect to voting index
+                    } else if (data.mobile_number) {
+                        // Practitioner has not voted; display the mobile form
                         document.getElementById('mobileNumber').value = data.mobile_number;
                         document.getElementById('mobileForm').style.display = 'block';
 

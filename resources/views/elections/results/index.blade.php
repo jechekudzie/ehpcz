@@ -9,7 +9,11 @@
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
-            <h2>Results for {{ $election->name }} @if($groups == null) {{ 'are pending until election is complete' }} @endif</h2>
+            <h2>Results for {{ $election->name }}
+                @if($groups == null)
+                    {{ 'are pending until election is complete' }}
+                @endif
+            </h2>
             @foreach ($groups as $group)
                 <div class="card mt-4">
                     <div class="card-header bg-primary text-white">
@@ -25,27 +29,38 @@
                             <script>
                                 document.addEventListener('DOMContentLoaded', function () {
                                     var ctx = document.getElementById('chart-{{ $group->id }}-{{ $category->id }}').getContext('2d');
+
+                                    // Prepare data for Chart.js
+                                    var labels = [];
+                                    var data = [];
+                                    var backgroundColors = [];
+                                    var borderColors = [];
+
+                                    @if ($category->candidates->count() === 1)
+                                    // Single candidate, mark as "Duly Elected"
+                                    labels.push('{{ $category->candidates->first()->practitioner->first_name }} {{ $category->candidates->first()->practitioner->last_name }}');
+                                    data.push(1); // Dummy value for display
+                                    backgroundColors.push('#28a745'); // Green for "Duly Elected"
+                                    borderColors.push('#218838');
+                                    @else
+                                    @foreach ($category->candidates as $candidate)
+                                    labels.push('{{ $candidate->practitioner->first_name }} {{ $candidate->practitioner->last_name }}');
+                                    data.push({{ $candidate->votes->count() }});
+                                    backgroundColors.push('#ff6384'); // Regular color
+                                    borderColors.push('#e55473');
+                                    @endforeach
+                                    @endif
+
+                                    // Create the chart
                                     new Chart(ctx, {
                                         type: 'bar',
                                         data: {
-                                            labels: [
-                                                @foreach ($category->candidates as $candidate)
-                                                    '{{ $candidate->practitioner->first_name }} {{ $candidate->practitioner->last_name }}',
-                                                @endforeach
-                                            ],
+                                            labels: labels,
                                             datasets: [{
                                                 label: 'Votes',
-                                                data: [
-                                                    @foreach ($category->candidates as $candidate)
-                                                        {{ $candidate->votes->count() }},
-                                                    @endforeach
-                                                ],
-                                                backgroundColor: [
-                                                    '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40'
-                                                ],
-                                                borderColor: [
-                                                    '#e55473', '#3097d8', '#e6b84d', '#3aa6a6', '#8a5fd9', '#e68b3c'
-                                                ],
+                                                data: data,
+                                                backgroundColor: backgroundColors,
+                                                borderColor: borderColors,
                                                 borderWidth: 1,
                                                 borderRadius: 8,
                                                 barThickness: 40,
@@ -94,7 +109,11 @@
                                                     cornerRadius: 4,
                                                     callbacks: {
                                                         label: function(context) {
-                                                            return `Votes: ${context.raw}`;
+                                                            // Return only the vote count for regular candidates
+                                                            if (labels[context.dataIndex] !== "Duly Elected") {
+                                                                return `Votes: ${context.raw}`;
+                                                            }
+                                                            return "Duly Elected";
                                                         }
                                                     }
                                                 },
@@ -107,7 +126,11 @@
                                                         size: 14
                                                     },
                                                     rotation: -90, // Rotate text to be vertical from bottom up
-                                                    formatter: function(value) {
+                                                    formatter: function(value, context) {
+                                                        // Show "Duly Elected" inside the bar for single candidates
+                                                        if (labels[context.dataIndex] === "{{ $category->candidates->first()->practitioner->first_name }} {{ $category->candidates->first()->practitioner->last_name }}" && {{ $category->candidates->count() }} === 1) {
+                                                            return "Duly Elected";
+                                                        }
                                                         return value;
                                                     }
                                                 }
@@ -123,6 +146,8 @@
                                     });
                                 });
                             </script>
+
+
                         @endforeach
                     </div>
                 </div>

@@ -71,32 +71,6 @@ Route::post('/voting/store-session', [VotingAuthController::class, 'storeSession
 Route::get('/send-otp', [\App\Http\Controllers\Auth\VotingAuthController::class, 'sendOtp'])->name('send-otp');
 
 
-Route::resource('elections', ElectionController::class);
-
-Route::patch('/elections/{election}/status-update', [ElectionController::class, 'updateStatus'])->name('elections.updateStatus');
-
-
-//election group routes where election group belong to an election
-// Use resource routing with shallow nesting for ElectionGroup under Election
-Route::resource('elections.groups', ElectionGroupController::class)->shallow();
-
-// Route to view and manage professions within an election group
-Route::get('elections/{election}/groups/{group}/professions', [ElectionGroupProfessionController::class, 'index'])->name('elections.groups.professions.index');
-Route::post('elections/{election}/groups/{group}/professions', [ElectionGroupProfessionController::class, 'store'])->name('elections.groups.professions.store');
-Route::delete('elections/{election}/groups/{group}/professions/{profession}', [ElectionGroupProfessionController::class, 'destroy'])->name('elections.groups.professions.destroy');
-
-// Category management routes for a group within an election
-Route::get('elections/{election}/groups/{group}/categories', [\App\Http\Controllers\ProfessionCategoryController::class, 'index'])->name('elections.groups.categories.index');
-Route::post('elections/{election}/groups/{group}/categories', [\App\Http\Controllers\ProfessionCategoryController::class, 'store'])->name('elections.groups.categories.store');
-Route::delete('elections/{election}/groups/{group}/categories/{category}', [\App\Http\Controllers\ProfessionCategoryController::class, 'destroy'])->name('elections.groups.categories.destroy');
-
-//Candidates
-Route::get('elections/{election}/categories/{category}/candidates', [\App\Http\Controllers\CandidateController::class, 'index'])->name('elections.categories.candidates.index');
-Route::post('elections/{election}/categories/{category}/candidates', [\App\Http\Controllers\CandidateController::class, 'store'])->name('elections.categories.candidates.store');
-Route::delete('elections/{election}/categories/{category}/candidates/{candidate}', [\App\Http\Controllers\CandidateController::class, 'destroy'])->name('elections.categories.candidates.destroy');
-
-Route::get('elections/{election}/categories/{category}/practitioners/search', [CandidateController::class, 'searchPractitioners'])->name('elections.categories.practitioners.search');
-
 //Elections /index
 Route::get('/voting', [\App\Http\Controllers\ElectionVotingController::class, 'index'])->name('election-voting.index');
 
@@ -125,7 +99,6 @@ Route::get('/voting/results', [\App\Http\Controllers\ElectionVotingController::c
 Route::get('/voting/voters-roll', [\App\Http\Controllers\ElectionVotingController::class, 'votersRoll'])->name('voting.voters-roll');
 
 
-
 Route::get('/datanow', function () {
 
     $professions = \App\Models\Profession::all();
@@ -133,7 +106,7 @@ Route::get('/datanow', function () {
 
     foreach ($professions as $profession) {
 
-        echo  $profession->name . '<br>';
+        echo $profession->name . '<br>';
     }
 
     echo '<br>';
@@ -142,7 +115,7 @@ Route::get('/datanow', function () {
 
     foreach ($qualifications as $qualification) {
 
-        echo  $qualification->name . '<br>';
+        echo $qualification->name . '<br>';
     }
 
 
@@ -168,7 +141,6 @@ Route::get('/practitioner/index', function () {
 });
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Administration Dashboard Utilities Routes
@@ -189,14 +161,13 @@ Route::get('admin/practitioner-data/index', [\App\Http\Controllers\PractitionerD
 Route::get('/paynow', [\App\Http\Controllers\AdminController::class, 'initiatePayment'])->name('paynow');
 
 Route::group(['middleware' => ['auth']], function () {
+
     Route::group(['middleware' => ['role:admin|super-admin|reception|accountant|accounts-clerk|procurement|registrar']], function () {
         // Define your routes here
-
 //create import route for PractitionersImportController
         Route::get('import/practitioners', [\App\Http\Controllers\PractitionersImportController::class, 'index'])->name('import.practitioners');
 //store import route for PractitionersImportController
         Route::post('import/practitioners', [\App\Http\Controllers\PractitionersImportController::class, 'store'])->name('import.practitioners.store');
-
 
 // Landing page
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
@@ -410,7 +381,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     });
 
-
     /*
     |--------------------------------------------------------------------------
     | Practitioners Dashboard Routes
@@ -428,7 +398,6 @@ Route::group(['middleware' => ['auth']], function () {
         'destroy' => 'practitioners.destroy',
     ]);
 
-
 // Practitioner Identification Routes
     Route::post('practitioner-identifications/store/{practitioner}', [PractitionerIdentificationController::class, 'store'])->name('practitioner-identifications.store');
     Route::get('practitioner-identifications/{practitionerIdentification}/edit', [PractitionerIdentificationController::class, 'edit'])->name('practitioner-identifications.edit');
@@ -442,7 +411,6 @@ Route::group(['middleware' => ['auth']], function () {
 // Practitioner Address Routes
     Route::get('practitioner-address', [AddressController::class, 'index'])->name('practitioner-address.index');
     Route::post('practitioner-address/{practitioner}/store', [AddressController::class, 'store'])->name('practitioner-address.store');
-
 
 //Practitioner Employment EmploymentController Routes
     Route::get('practitioner-employments/{practitioner}', [EmploymentController::class, 'index'])->name('practitioner-employments.index');
@@ -588,7 +556,43 @@ Route::group(['middleware' => ['auth']], function () {
 //checkForPaymentApproval
     Route::get('/qualifications/{payment}/check-for-payment-approval', [RegistrationApprovalController::class, 'checkForPaymentApproval'])->name('check-for-payment-approval');
 
+    /*
+   |--------------------------------------------------------------------------
+   | Practitioners Dashboard Routes
+   |--------------------------------------------------------------------------
+   */
+
+    Route::resource('elections', ElectionController::class);
+    Route::patch('/elections/{election}/status-update', [ElectionController::class, 'updateStatus'])->name('elections.updateStatus');
+
+//election group routes where election group belong to an election
+// Use resource routing with shallow nesting for ElectionGroup under Election
+    Route::resource('elections.groups', ElectionGroupController::class)->shallow();
+
+// Route to view and manage professions within an election group
+    Route::get('elections/{election}/groups/{group}/professions', [ElectionGroupProfessionController::class, 'index'])->name('elections.groups.professions.index');
+    Route::post('elections/{election}/groups/{group}/professions', [ElectionGroupProfessionController::class, 'store'])->name('elections.groups.professions.store');
+    Route::delete('elections/{election}/groups/{group}/professions/{profession}', [ElectionGroupProfessionController::class, 'destroy'])->name('elections.groups.professions.destroy');
+
+// Category management routes for a group within an election
+    Route::get('elections/{election}/groups/{group}/categories', [\App\Http\Controllers\ProfessionCategoryController::class, 'index'])->name('elections.groups.categories.index');
+    Route::post('elections/{election}/groups/{group}/categories', [\App\Http\Controllers\ProfessionCategoryController::class, 'store'])->name('elections.groups.categories.store');
+    Route::delete('elections/{election}/groups/{group}/categories/{category}', [\App\Http\Controllers\ProfessionCategoryController::class, 'destroy'])->name('elections.groups.categories.destroy');
+
+//Candidates
+    Route::get('elections/{election}/categories/{category}/candidates', [\App\Http\Controllers\CandidateController::class, 'index'])->name('elections.categories.candidates.index');
+    Route::post('elections/{election}/categories/{category}/candidates', [\App\Http\Controllers\CandidateController::class, 'store'])->name('elections.categories.candidates.store');
+    Route::delete('elections/{election}/categories/{category}/candidates/{candidate}', [\App\Http\Controllers\CandidateController::class, 'destroy'])->name('elections.categories.candidates.destroy');
+
+    Route::get('elections/{election}/categories/{category}/practitioners/search', [CandidateController::class, 'searchPractitioners'])->name('elections.categories.practitioners.search');
+
+// Add candidate bio form
+    Route::get('elections/{election}/categories/{category}/candidates/{candidate}/bio', [CandidateController::class, 'addBio'])->name('elections.categories.candidates.bio');
+// Save candidate bio
+    Route::post('elections/{election}/categories/{category}/candidates/{candidate}/bio', [CandidateController::class, 'storeBio'])->name('elections.categories.candidates.bio.store');
+
 });
+
 //portal
 // Route for the portal index page
 Route::get('/portal', [PortalController::class, 'index'])->name('portal.index');

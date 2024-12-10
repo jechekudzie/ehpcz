@@ -21,7 +21,56 @@ class ElectionVotingController extends Controller
         return view('elections.voting.index', compact('election'));
     }
 
+    public function results()
+    {
+        // Get the latest election
+        $election = Election::latest()->first();
 
+        // Initialize groups as an empty array
+        $groups = [];
+        if (auth()->check()) {
+            // Check if the logged-in user has the role 'admin', 'minister', or 'super-admin'
+            if (auth()->user()->hasAnyRole(['admin', 'minister', 'super-admin'])) {
+                // Admin, Minister, or Super-Admin can view results regardless of election status
+                $groups = $election->electionGroups()->with([
+                    'categories.candidates.votes',
+                    'categories.candidates.practitioner'
+                ])->get();
+            } else {
+                // Regular authenticated users can only view results if the election is completed
+                if ($election->status == 'Completed') {
+                    $groups = $election->electionGroups()->with([
+                        'categories.candidates.votes',
+                        'categories.candidates.practitioner'
+                    ])->get();
+                } else {
+                    // Prevent access if election is not completed
+                    $groups = null;
+                }
+            }
+        } else {
+            // For unauthenticated users, check election status
+            if ($election->status == 'Completed') {
+                $groups = $election->electionGroups()->with([
+                    'categories.candidates.votes',
+                    'categories.candidates.practitioner'
+                ])->get();
+            } else {
+                // If the election is not completed, prevent access
+                $groups = [];
+            }
+        }
+
+        // Return the results view with election and groups data
+        return view('elections.results.index', compact('election', 'groups'));
+    }
+
+    //votersRoll
+    public function votersRoll()
+    {
+
+        return view('elections.voting.voters_roll');
+    }
 
     public function simulateVotes()
     {
@@ -86,31 +135,6 @@ class ElectionVotingController extends Controller
                 }
             }
         }
-    }
-
-
-    public function results()
-    {
-        $election = Election::latest()->first();
-        // Load election groups and associated data for the specified election
-
-        $groups = [];
-
-        if ($election->status == 'Completed'){
-            $groups = $election->electionGroups()->with([
-                'categories.candidates.votes',
-                'categories.candidates.practitioner'
-            ])->get();
-        }
-
-        return view('elections.results.index', compact('election', 'groups'));
-    }
-
-    //votersRoll
-    public function votersRoll()
-    {
-
-        return view('elections.voting.voters_roll');
     }
 
 

@@ -151,41 +151,23 @@
                     </li> <!-- end Dashboard Menu -->
 
                     @if(auth()->check())
-                        @hasanyrole('admin|registrar|super-admin')
+                        @hasanyrole('admin|registrar|super-admin|minister')
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{url('/elections')}}"
                                {{--data-bs-toggle="collapse"--}} role="button" aria-expanded="false"
                                aria-controls="sidebarLayouts">
                                 <i class="fa fa-archive"></i> <span data-key="t-layouts">Manage Elections</span>
                             </a>
-
                         </li> <!-- end Dashboard Menu -->
-
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
-                               aria-expanded="false" aria-controls="sidebarLayouts">
-                                <i class="fa fa-user-plus"></i> <span data-key="t-layouts">Super Admin</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarLayouts">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="" target="_blank" class="nav-link" data-key="t-horizontal">System
-                                            Modules</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" target="_blank" class="nav-link" data-key="t-detached">Roles &
-                                            Permissions</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" target="_blank" class="nav-link" data-key="t-detached">System
-                                            Users</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" target="_blank" class="nav-link" data-key="t-detached">Signature
-                                            Configurations</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();
+                                                this.closest('form').submit();"><i
+                                        class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle" data-key="t-logout">Logout</span>
+                                </a>
+                            </form>
                         </li>
                         @endhasanyrole
                     @endif

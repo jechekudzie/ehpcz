@@ -44,6 +44,12 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
+        if (Auth::user()->hasRole('minister')) {
+            $user = Auth::user();
+            //redirect to elections
+            return redirect()->route('elections.index')->with('success', 'Logged in successfully.');
+        }
+
         return redirect('/practitioners');
     }
 

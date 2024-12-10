@@ -54,7 +54,6 @@ class CandidateController extends Controller
     }
 
 
-
     public function store(Request $request, Election $election, ProfessionCategory $category)
     {
         $request->validate([
@@ -89,5 +88,33 @@ class CandidateController extends Controller
 
         return redirect()->route('elections.categories.candidates.index', [$election->id, $category->id])
             ->with('success', 'Candidate removed successfully.');
+    }
+
+
+    public function addBio($election, $category, Candidate $candidate)
+    {
+        return view('elections.candidates.add-bio', compact('candidate', 'election', 'category'));
+    }
+
+    public function storeBio(Request $request, $election, $category, Candidate $candidate)
+    {
+
+        $bio = $request->validate([
+            'bio' => 'required',
+        ]);
+
+        // Save the bio for the candidate
+
+        $candidate = Candidate::find($candidate->id);
+        $candidate->update([
+            'bio' => $bio['bio'],
+        ]);
+
+        return redirect()->route('elections.categories.candidates.bio', [
+            'election' => $election,
+            'category' => $category,
+            'candidate' => $candidate->id,
+        ])->with('success', 'Bio added successfully for ' . $candidate->practitioner->first_name . ' ' . $candidate->practitioner->last_name);
+
     }
 }
