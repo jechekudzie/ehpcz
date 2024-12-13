@@ -36,8 +36,6 @@ class CandidateListing extends Component
     }
 
 
-
-
     public function loadPractitionerVotes()
     {
         $practitionerId = Session::get('practitioner_id');
@@ -98,31 +96,30 @@ class CandidateListing extends Component
             ->first();
 
         if ($existingVote) {
-            // Update the existing vote with the new candidate_id
-            $existingVote->update([
-                'candidate_id' => $candidateId
-            ]);
-            $this->successMessage = 'Your vote has been updated to the selected candidate!';
-
-            $this->emit('votingSuccess', $this->successMessage);
-        } else {
-            // If no previous vote, create a new one
-            $practitionerProfession = $candidate->practitioner->practitionerProfessions->first();
-            $registrationNumber = $practitionerProfession->registration_number ?? 'N/A';
-
-            \App\Models\Vote::create([
-                'practitioner_id' => $practitionerId,
-                'election_id' => $candidate->election_id,
-                'profession_category_id' => $professionCategory->id,
-                'candidate_id' => $candidateId,
-                'registration_number' => $registrationNumber
-            ]);
-            $this->successMessage = 'Your vote has been recorded for the selected candidate!';
-            $this->emit('votingSuccess', $this->successMessage);
+            // Practitioner has already voted; do not allow further updates
+            $this->errorMessage = 'You have already voted in this category. You cannot change your vote.';
+            $this->emit('error', $this->errorMessage);
+            return;
         }
+
+        // If no previous vote, create a new one
+        $practitionerProfession = $candidate->practitioner->practitionerProfessions->first();
+        $registrationNumber = $practitionerProfession->registration_number ?? 'N/A';
+
+        \App\Models\Vote::create([
+            'practitioner_id' => $practitionerId,
+            'election_id' => $candidate->election_id,
+            'profession_category_id' => $professionCategory->id,
+            'candidate_id' => $candidateId,
+            'registration_number' => $registrationNumber
+        ]);
+        $this->successMessage = 'Your vote has been recorded for the selected candidate!';
+        $this->emit('votingSuccess', $this->successMessage);
+
         // Refresh the practitioner's votes after voting
         $this->loadPractitionerVotes();
     }
+
 
     public function isVotingAllowed()
     {
@@ -135,7 +132,8 @@ class CandidateListing extends Component
         return view('livewire.candidate-listing', [
             'groups' => $this->groups,
             'practitionerVotes' => $this->practitionerVotes,
-            'isVotingAllowed' => $this->isVotingAllowed()
+            'isVotingAllowed' => $this->isVotingAllowed(),
         ]);
     }
+
 }

@@ -3,18 +3,13 @@
         @foreach ($groups as $group)
             <div class="card mb-4">
                 <div class="card-header bg-primary text-white">
-                    <h3 style="color: white">{{ $group->name }}</h3>
+                    <h3>{{ $group->name }}</h3>
                 </div>
                 <div class="card-body">
                     @foreach ($group->categories as $category)
                         <div class="mb-4">
                             <h5>{{ $category->name }}</h5>
                             <div class="row">
-
-                                <!-- Track if we've displayed the Duly Elected badge -->
-                                @php $dulyElectedShown = false; @endphp
-
-                                    <!-- Prioritize Duly Elected Candidates -->
                                 @foreach ($category->candidates->sortByDesc('status') as $candidate)
                                     @php
                                         $practitioner = $candidate->practitioner;
@@ -25,52 +20,51 @@
                                         $isDulyElected = $candidate->status === 'Duly Elected';
                                     @endphp
                                     <div class="col-md-4 col-lg-3 mb-4">
-                                        <div
-                                            class="card team-box shadow-sm {{ $isDulyElected ? 'border-success' : '' }}">
+                                        <div class="card team-box shadow-sm {{ $isDulyElected ? 'border-success' : '' }}">
                                             <div class="card-body text-center">
-                                                <div class="avatar-lg img-thumbnail rounded-circle mx-auto mb-3"
-                                                     style="width: 150px; height: 150px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                                                    @if($practitioner->image != null)
+                                                <!-- Avatar -->
+                                                <div class="avatar-lg img-thumbnail rounded-circle mx-auto mb-3">
+                                                    @if($practitioner->image)
                                                         <img src="{{ asset($practitioner->image) }}"
-                                                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"
-                                                             alt="user-profile-image">
+                                                             alt="Profile Image"
+                                                             class="rounded-circle img-fluid"
+                                                             style="object-fit: cover; width: 100%; height: 100%;">
                                                     @else
-                                                        <div class="avatar-title bg-soft-primary text-primary rounded-circle"
-                                                             style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: bold;">
+                                                        <div class="avatar-title bg-soft-primary text-primary rounded-circle">
                                                             {{ $initials }}
                                                         </div>
                                                     @endif
                                                 </div>
 
-                                                <br/>
-
+                                                <!-- Practitioner Details -->
                                                 <h5>{{ $practitioner->first_name }} {{ $practitioner->last_name }}</h5>
                                                 <p class="text-muted mb-1">{{ $profession }}</p>
                                                 <p class="text-muted">Reg No: {{ $registrationNumber }}</p>
 
-                                                <!-- Display "Duly Elected" badge or the Vote button -->
+                                                <!-- Badge or Vote Button -->
                                                 @if ($isDulyElected)
-                                                    @if (!$dulyElectedShown)
-                                                        <span class="badge bg-success mb-2">Duly Elected</span>
-                                                        @php $dulyElectedShown = true; @endphp
-                                                    @endif
+                                                    <span class="badge bg-success mb-2">Duly Elected</span>
                                                 @else
-                                                    @if ($isVotingAllowed)
-                                                        <button wire:click="vote({{ $candidate->id }})"
-                                                                class="btn {{ $hasVoted ? 'btn-danger' : 'btn-primary' }} mt-2"
-                                                            {{ $hasVoted ? 'disabled' : '' }}>
-                                                            {{ $hasVoted ? 'Voted' : 'Vote' }}
-                                                        </button>
+                                                    @if ($hasVoted)
+                                                        <!-- Show disabled "Voted" button if practitioner has already voted -->
+                                                        <button class="btn btn-danger mt-2" disabled>Voted</button>
                                                     @else
-                                                        <button class="btn btn-secondary mt-2" disabled>
-                                                            Voting Closed For Now
-                                                        </button>
+                                                        @if ($isVotingAllowed)
+                                                            <button
+                                                                wire:click="vote({{ $candidate->id }})"
+                                                                class="btn btn-primary mt-2">
+                                                                Vote
+                                                            </button>
+                                                        @else
+                                                            <button class="btn btn-secondary mt-2" disabled>
+                                                                Voting Closed
+                                                            </button>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
-
                                 @endforeach
                             </div>
                         </div>
