@@ -90,13 +90,23 @@ class VotingLoginController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'id_number' => 'required|string|unique:practitioner_identifications,identification_number,' . $practitioner->id . ',practitioner_id',
+            'id_number' => 'required|string',
             'mobile_number' => 'required|string',
         ]);
 
         $formattedMobileNumber = $this->formatToE164($request->mobile_number, '263');
 
-        // Check for duplicate mobile numbers
+        // Check if the practitioner already has a mobile number
+        $existingContact = $practitioner->contacts()->where('contact_type_id', 1)->first();
+
+        if ($existingContact) {
+            // Notify the practitioner that the contact cannot be updated
+            return back()->withErrors([
+                'mobile_number' => 'You already have an existing mobile number (' . $existingContact->contact . '). Updates can only be made via the EHPCZ admin.'
+            ]);
+        }
+
+        // Check for duplicate mobile numbers globally
         $duplicateContact = \App\Models\Contact::where(function ($query) use ($formattedMobileNumber, $request) {
             $query->where('contact', $formattedMobileNumber)
                 ->orWhere('contact', $request->mobile_number);
@@ -108,11 +118,22 @@ class VotingLoginController extends Controller
             return back()->withErrors(['mobile_number' => 'This mobile number is already in use by another practitioner.']);
         }
 
-        // Update practitioner details
-        $practitioner->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-        ]);
+        // Add the new mobile number
+        $practitioner->contacts()->updateOrCreate(
+            ['contact_type_id' => 1],
+            ['contact' => $formattedMobileNumber]
+        );
+
+        // Check if the practitioner already has an ID number
+        $existingIdentification = $practitioner->practitionerIdentifications()
+            ->where('identification_type_id', 1) // Assuming 1 is the ID type for national ID
+            ->first();
+
+        if ($existingIdentification) {
+            return back()->withErrors([
+                'id_number' => 'You already have an existing ID number (' . $existingIdentification->identification_number . '). Updates can only be made via the EHPCZ admin.'
+            ]);
+        }
 
         try {
             $formattedId = formatZimbabweanId($request->input('id_number'));
@@ -120,21 +141,23 @@ class VotingLoginController extends Controller
             return back()->withErrors(['id_number' => $e->getMessage()]);
         }
 
+        // Add the new ID number
         $practitioner->practitionerIdentifications()->updateOrCreate(
             ['identification_type_id' => 1], // Assuming 1 is the ID type for national ID
             ['identification_number' => $formattedId]
         );
 
-        $practitioner->contacts()->updateOrCreate(
-            ['contact_type_id' => 1],
-            ['contact' => $formattedMobileNumber]
-        );
+        // Update practitioner details
+        $practitioner->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+        ]);
 
         $latestElection = \App\Models\Election::latest()->first();
 
-        //return to voting page
-        return redirect()->route('election-voting.index', ['election' => $latestElection->id])->with('success', 'Practitioner details updated successfully.');
-
+        // Redirect to voting page
+        return redirect()->route('election-voting.index', ['election' => $latestElection->id])
+            ->with('success', 'Practitioner details updated successfully.');
     }
 
     private function formatToE164($number, $countryCode)

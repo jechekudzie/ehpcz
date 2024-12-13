@@ -98,7 +98,7 @@
                                         @if($contact->contactType->name === 'Email')
                                             {{ $contact->contact ?? 'Not Available' }}
                                         @else
-                                            {{$contact->country_code ?? ''}}{{$contact->contact ?? 'Not Available'}}
+                                           {{$contact->contact ?? 'Not Available'}}
                                         @endif
                                     @endif
                                 </td>
