@@ -98,28 +98,9 @@ Route::get('/voting/results', [\App\Http\Controllers\ElectionVotingController::c
 //voters roll
 Route::get('/voting/voters-roll', [\App\Http\Controllers\ElectionVotingController::class, 'votersRoll'])->name('voting.voters-roll');
 
+//voting statistics
+Route::get('/voting/statistics', [\App\Http\Controllers\ElectionVotingController::class, 'getStatistics'])->name('voting.statistics');
 
-Route::get('/datanow', function () {
-
-    $professions = \App\Models\Profession::all();
-    $qualifications = \App\Models\Qualification::all();
-
-    foreach ($professions as $profession) {
-
-        echo $profession->name . '<br>';
-    }
-
-    echo '<br>';
-    echo '<br>';
-    echo '<br>';
-
-    foreach ($qualifications as $qualification) {
-
-        echo $qualification->name . '<br>';
-    }
-
-
-});
 
 
 Route::get('/', function () {

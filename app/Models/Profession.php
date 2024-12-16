@@ -32,6 +32,25 @@ class Profession extends Model
         return $this->hasMany(Renewal::class);
     }
 
+  
+
+    public function electionGroups()
+    {
+        return $this->belongsToMany(ElectionGroup::class, 'election_group_professions', 'profession_id', 'group_id');
+    }
+
+    public function categories()
+    {
+        return $this->hasManyThrough(
+            ProfessionCategory::class,
+            ElectionGroupProfession::class,
+            'profession_id', // Foreign key on election_group_professions table
+            'group_id', // Foreign key on profession_categories table
+            'id', // Local key on professions table
+            'group_id' // Local key on election_group_professions table
+        );
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

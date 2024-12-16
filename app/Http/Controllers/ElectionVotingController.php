@@ -6,6 +6,8 @@ use App\Models\Election;
 use App\Models\ElectionGroup;
 use App\Models\Practitioner;
 use App\Models\Vote;
+use App\Models\PractitionerProfession;
+use App\Models\Contact;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -138,4 +140,49 @@ class ElectionVotingController extends Controller
     }
 
 
+    public function getStatistics()
+    {
+        $latestElection = \App\Models\Election::latest()->first();
+
+        if (!$latestElection) {
+            return back()->with('error', 'No active election found.');
+        }
+
+        $groups = ElectionGroup::with('categories')->where('election_id', $latestElection->id)->get();
+
+        $statistics = [];
+
+        foreach ($groups as $group) {
+            foreach ($group->categories as $category) {
+                $totalPractitioners = PractitionerProfession::whereHas('profession', function($query) use ($group) {
+                    $query->whereHas('electionGroups', function($q) use ($group) {
+                        $q->where('election_groups.id', $group->id);
+                    });
+                })->count();
+
+                $updatedPractitioners = Contact::where('contact_type_id', 1)
+                    ->whereHas('practitioner.practitionerProfessions', function ($query) use ($category) {
+                        $query->whereHas('profession', function($q) use ($category) {
+                            $q->whereHas('electionGroups', function($eq) use ($category) {
+                                $eq->where('election_groups.id', $category->group_id);
+                            });
+                        });
+                    })->distinct('practitioner_id')->count();
+
+                $votedPractitioners = Vote::where('election_id', $latestElection->id)
+                    ->where('profession_category_id', $category->id)
+                    ->distinct('practitioner_id')->count();
+
+                $statistics[] = [
+                    'group' => $group->name,
+                    'category' => $category->name,
+                    'total_practitioners' => $totalPractitioners,
+                    'updated_practitioners' => $updatedPractitioners,
+                    'voted_practitioners' => $votedPractitioners,
+                ];
+            }
+        }
+
+        return view('elections.voting.statistics', compact('statistics', 'latestElection'));
+    }
 }

@@ -150,6 +150,15 @@
 
                     </li> <!-- end Dashboard Menu -->
 
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{url('/voting/statistics')}}"
+                           {{--data-bs-toggle="collapse"--}} role="button" aria-expanded="false"
+                           aria-controls="sidebarLayouts">
+                            <i class="fa fa-pie-chart"></i> <span data-key="t-layouts">Statistics</span>
+                        </a>
+                    </li>
+
                     @if(auth()->check())
                         @hasanyrole('admin|registrar|super-admin|minister')
                         <li class="nav-item">

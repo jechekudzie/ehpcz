@@ -48,10 +48,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role(){
-        return $this->hasMany(Role::class);
-    }
-
     // Users this user is a practitioner for
     public function practitioners()
     {

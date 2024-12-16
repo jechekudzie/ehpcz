@@ -17,10 +17,7 @@ class ProfessionCategory extends Model
         return $this->belongsTo(ElectionGroup::class);
     }
 
-   /* public function candidates()
-    {
-        return $this->hasMany(Candidate::class);
-    }*/
+
 
     public function candidates()
     {
